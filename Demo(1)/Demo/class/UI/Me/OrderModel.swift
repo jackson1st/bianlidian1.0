@@ -22,7 +22,10 @@ class orderInfo: NSObject {
     //订单日期
     var payDate: String?
     //订单类型
+    /// 0 待付款   1 待发货   2 待评价   3 已取消
+    /// 4 已完成
     var orderStatu: String?
+    
     var lodat: Int!
     //收货人姓名
     var name: String?

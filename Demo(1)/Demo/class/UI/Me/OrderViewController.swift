@@ -39,15 +39,18 @@ class OrderViewController: UIViewController{
         })
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        pullRefreshData()
+    }
+    
     func pullRefreshData(){
         //重新加载所有数据
-       MBProgressHUD.showMessage("加载中....")
        loadDataModel("\(self.seg.selectedSegmentIndex - 1)",requestType: true)
     }
     
     func dropDownLoading(){
         //原有数据上增加
-        MBProgressHUD.showMessage("加载中....")
         loadDataModel("\(self.seg.selectedSegmentIndex - 1)", requestType: false)
     }
     
@@ -118,7 +121,7 @@ extension OrderViewController {
                                     self.orderArray.listorder.append(listorder)
                                 }
                                 else {
-                                    SVProgressHUD.showErrorWithStatus("没有更多了。。", maskType: SVProgressHUDMaskType.Black)
+                                    SVProgressHUD.showInfoWithStatus("没有更多了..", maskType: SVProgressHUDMaskType.Black)
                                 }
                             }
                             exp.listorder?.append(listorder)
@@ -131,18 +134,14 @@ extension OrderViewController {
                 }
             }
             self.tableView.reloadData()
-            MBProgressHUD.hideHUD()
             self.tableView.header.endRefreshing()
             self.tableView.footer.endRefreshing()
             }) { (error) -> Void in
-                MBProgressHUD.hideHUD()
                 print("发生了错误\(error)")
         }
     }
     
     func cancelOrderAction(cell: UITableViewCell){
-        
-        
         print(cell.layer)
     }
     
@@ -244,16 +243,8 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
         }
         else {
             let cell = tableView.dequeueReusableCellWithIdentifier("buttonCell1") as! ButtonTableViewCell
-            if(cellId == "buttonCell1") {
-                cell.delegate = self
-                cell.order = "1"
-                cell.statu = "配送中"
-            }
-            else {
-                cell.delegate = self
-                cell.order = "0"
-                cell.statu = "配送中"
-            }
+            cell.delegate = self
+            cell.order = self.orderArray.listorder[indexPath.section].orderStatu!
             return cell
         }
 
@@ -284,18 +275,23 @@ extension OrderViewController: ButtonCellDelegate {
             return
         }
         
-        let params: [String : String] = ["orderNo" : orderArray.listorder[indexPath.section].orderNo!]
-        HTTPManager.POST(ContentType.OrderCancel, params: params).responseJSON({ (json) -> Void in
-             SVProgressHUD.showSuccessWithStatus("取消成功")
-             self.tableView.reloadData()
-            }) { (error) -> Void in
-             SVProgressHUD.showErrorWithStatus("网络连接异常")
-        }
-        
+        let alert = UIAlertController(title: cell.cancelButton.titleLabel?.text, message: "确定" + (cell.cancelButton.titleLabel?.text)! + "?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "确定", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
+            let params: [String : String] = ["orderNo" : self.orderArray.listorder[indexPath.section].orderNo!]
+            HTTPManager.POST(ContentType.OrderCancel, params: params).responseJSON({ (json) -> Void in
+                SVProgressHUD.showSuccessWithStatus((cell.cancelButton.titleLabel?.text)! + "成功")
+                self.tableView.reloadData()
+                }) { (error) -> Void in
+                    SVProgressHUD.showErrorWithStatus("网络连接异常")
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     func spendOrder(cell: ButtonTableViewCell) {
         guard let indexPath = tableView.indexPathForCell(cell) else {
             return
         }
+        SVProgressHUD.showInfoWithStatus("建设中")
     }
 }

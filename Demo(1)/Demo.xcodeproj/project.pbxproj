@@ -45,6 +45,8 @@
 		047A5F751C170155004FA20F /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F741C170155004FA20F /* OrderModel.swift */; };
 		048B04C11C5AFD3600245246 /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048B04C01C5AFD3600245246 /* ButtonTableViewCell.xib */; };
 		048B04C31C5AFD9D00245246 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B04C21C5AFD9D00245246 /* ButtonTableViewCell.swift */; };
+		048B04CB1C5B56F100245246 /* makeUserNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B04CA1C5B56F100245246 /* makeUserNameController.swift */; };
+		048B04D91C5B5A8300245246 /* makePassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B04D81C5B5A8300245246 /* makePassController.swift */; };
 		048E21ED1C52522800E7096B /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 048E21EC1C52522800E7096B /* UINavigationBar+Awesome.m */; };
 		048E222B1C53189900E7096B /* UIScrollView+APParallaxHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 048E22291C53189900E7096B /* UIScrollView+APParallaxHeader.m */; };
 		048E22311C5318B100E7096B /* APParallaxHeader.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 048E222C1C5318B100E7096B /* APParallaxHeader.xcconfig */; };
@@ -440,6 +442,8 @@
 		047A5F741C170155004FA20F /* OrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
 		048B04C01C5AFD3600245246 /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
 		048B04C21C5AFD9D00245246 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
+		048B04CA1C5B56F100245246 /* makeUserNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = makeUserNameController.swift; sourceTree = "<group>"; };
+		048B04D81C5B5A8300245246 /* makePassController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = makePassController.swift; sourceTree = "<group>"; };
 		048E21EB1C52522800E7096B /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
 		048E21EC1C52522800E7096B /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
 		048E22291C53189900E7096B /* UIScrollView+APParallaxHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+APParallaxHeader.m"; path = "Demo/extension/APParallaxHeader/UIScrollView+APParallaxHeader.m"; sourceTree = SOURCE_ROOT; };
@@ -1038,6 +1042,8 @@
 				96BCBC5B1C5874220028CA42 /* LikeTableViewCell.xib */,
 				048B04C01C5AFD3600245246 /* ButtonTableViewCell.xib */,
 				048B04C21C5AFD9D00245246 /* ButtonTableViewCell.swift */,
+				048B04CA1C5B56F100245246 /* makeUserNameController.swift */,
+				048B04D81C5B5A8300245246 /* makePassController.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -2199,6 +2205,7 @@
 				04CF8ED71C144FDB00512979 /* MJRefreshBackGifFooter.m in Sources */,
 				04CF8DC81C144FB400512979 /* AboutWeViewController.swift in Sources */,
 				04CF8ECD1C144FDB00512979 /* HWWeakTimer.m in Sources */,
+				048B04CB1C5B56F100245246 /* makeUserNameController.swift in Sources */,
 				04CF8D581C144DAE00512979 /* AppDelegate.swift in Sources */,
 				964F47CE1C21158400C4435D /* Model.swift in Sources */,
 				04CF8EEE1C144FDB00512979 /* UIImage+MultiFormat.m in Sources */,
@@ -2223,6 +2230,7 @@
 				04CF8ED51C144FDB00512979 /* MJRefreshAutoNormalFooter.m in Sources */,
 				04CF8DCD1C144FB400512979 /* MyCenterViewController.swift in Sources */,
 				040F8CA91C25762C0027CDC1 /* HYBJPushHelper.swift in Sources */,
+				048B04D91C5B5A8300245246 /* makePassController.swift in Sources */,
 				04CF8EFD1C144FDB00512979 /* SourceLocation.swift in Sources */,
 				043B85C91C4DD7F5009EAB79 /* OrderInfoController.swift in Sources */,
 				96C83E841C1975CA0075A204 /* Helper.swift in Sources */,
