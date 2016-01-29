@@ -45,7 +45,7 @@ class PayViewController: UIViewController {
             print("取消了订单")
         }
         let okPayFromAddressAction = UIAlertAction(title: "确认", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
-            self.delegate?.returnOk("true")
+             self.delegate?.returnOk("true")
              self.dismissViewControllerAnimated(true, completion: nil)
         }
         let lookPayFromAddressAction = UIAlertAction(title: "查看订单", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in

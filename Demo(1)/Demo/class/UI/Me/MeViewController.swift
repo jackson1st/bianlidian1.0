@@ -164,6 +164,7 @@ extension MeViewController: IconViewDelegate {
             iconActionSheet.showInView(view)
         } else {
             let vc = LoginViewController()
+            vc.ispush = true
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -319,6 +320,7 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
                     navigationController!.pushViewController(myCenterVC, animated: true)
                 } else {
                     let vc = LoginViewController()
+                    vc.ispush = true
                     navigationController?.pushViewController(vc, animated: true)
                 }
                 
@@ -334,6 +336,7 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
                 } else {
                     
                     let vc = LoginViewController()
+                    vc.ispush = true
                     navigationController?.pushViewController(vc, animated: true)                }
             } else {                                                        // 应用推荐
                 let rmdVC = RecommendViewController()

@@ -21,7 +21,9 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
     var phoneTextField: UITextField!
     var psdTextField: UITextField!
     var loginButton: UIButton!
+    var resignButton: UIButton!
     var forgetButton: UIButton!
+    var ispush: Bool! = false
     let textCoclor: UIColor = UIColor.colorWith(50, green: 50, blue: 50, alpha: 1)
     let loginW: CGFloat = 250
     
@@ -31,7 +33,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         navigationItem.title = "登录"
         //添加scrollView
         addScrollView()
-        
+        addResignButton()
         addLoginButton()
         addForgetButton()
         // 添加手机文本框和密码文本框
@@ -62,12 +64,22 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func addForgetButton() {
-        forgetButton = UIButton(frame: CGRect(x: 30, y: 175, width: 65, height: 30))
+        forgetButton = UIButton(frame: CGRect(x: 30, y: 165, width: 65, height: 30))
         forgetButton.setTitle("忘记密码?", forState: UIControlState.Normal)
-        forgetButton.tintColor = UIColor.redColor()
+        forgetButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
         forgetButton.titleLabel?.font = UIFont.systemFontOfSize(14)
         forgetButton.addTarget(self, action: "forgetClick", forControlEvents: UIControlEvents.TouchUpInside)
         backScrollView.addSubview(forgetButton)
+    }
+    
+    func addResignButton(){
+        resignButton = UIButton(frame: CGRect(x: AppWidth - 60, y: 165, width: 40, height: 30))
+        resignButton.setTitle("注册", forState: UIControlState.Normal)
+        resignButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+        resignButton.titleLabel?.font = UIFont.systemFontOfSize(14)
+        resignButton.addTarget(self, action: "resignClick", forControlEvents: UIControlEvents.TouchUpInside)
+        backScrollView.addSubview(resignButton)
+
     }
     func addTextField() {
         let textH: CGFloat = 40
@@ -135,7 +147,11 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
     func forgetClick(){
         
     }
-
+    
+    func resignClick(){
+        let vc = ResignViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     func backScrollViewTap() {
         view.endEditing(true)
     }
@@ -157,11 +173,6 @@ extension  LoginViewController {
             
             let infomation = json as? NSDictionary
 
-            if(infomation!["status"] as? String == "error") {
-                 MBProgressHUD.hideHUD()
-                 SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
-                return
-            }
             if(infomation!["status"] as? String == "success") {
                 
                 let custNo = infomation!["userInfo"]!["custNo"] as? String
@@ -170,12 +181,21 @@ extension  LoginViewController {
                 let integral = infomation!["userInfo"]!["integral"] as? Int
                 UserAccountTool.setUserInfo(userName!, passWord: passWord, custNo: custNo!, userName: userName!, imageUrl: imageUrl!, integral: integral!)
                 MBProgressHUD.hideHUD()
+                if self.ispush == false {
                 self.dismissViewControllerAnimated(true, completion: nil)
+                }
+                else {
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
                 return
+            }
+            else {
+                MBProgressHUD.hideHUD()
+                SVProgressHUD.showErrorWithStatus(infomation!["status"] as? String)
             }
             
             }) { (error) -> Void in
-              SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
+              SVProgressHUD.showErrorWithStatus("登录失败，请检查网络")
                MBProgressHUD.hideHUD()
         }
     }
