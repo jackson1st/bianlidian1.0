@@ -29,14 +29,30 @@ class OrderInfoController: UIViewController {
     @IBOutlet var tableView: UITableView!
     var orderInformation: orderInfo?
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         removeButton.layer.borderWidth = 0.5
         removeButton.layer.cornerRadius = 5
+        setRemoveButtom()
+    }
+    
+    
+    //修改取消订单的按钮文字
+    func setRemoveButtom(){
+        let statue = orderInformation?.orderStatu
+        if(statue != "0"){
+            removeButton.setTitle("删除订单", forState: .Normal)
+            removeButton.addTarget(self, action: "removeOrder", forControlEvents: .TouchUpInside)
+        }else{
+            removeButton.addTarget(self, action: "cancelOrder", forControlEvents: .TouchUpInside)
+        }
     }
 }
+
 extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -44,7 +60,8 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0) {
-            return 6
+            let statue = orderInformation?.orderStatu
+            return  statue == "0" ? 6 : 5
         }
         if(section == 1) {
             return (orderInformation?.itemList!.count)!
@@ -152,7 +169,9 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
                 subsLabel?.text = "网上支付"
             }
             if(indexPath.row == 4) {
-                titleLabel?.text = "还需支付"
+                let statue = orderInformation?.orderStatu
+                
+                titleLabel?.text = statue == "0" ? "还需支付" : "已支付"
                 subsLabel?.textColor = UIColor.redColor()
                 subsLabel?.text = "¥\((orderInformation?.totalAmt)!)"
             }
@@ -214,5 +233,27 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
 extension OrderInfoController {
     func payForZhiFuBao(){
         
+    }
+    
+    
+    /**
+    *  removeButton的取消订单的方法
+    */
+    func cancelOrder(){
+        HTTPManager.POST(ContentType.OrderCancel, params: ["orderNo":(orderInformation?.orderNo)!]).responseJSON({ (json) -> Void in
+            print(json)
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
+        }
+    }
+    /**
+    *  removeButton的删除订单的方法
+    */
+    func removeOrder(){
+        HTTPManager.POST(ContentType.OrderDelete, params: ["orderNo":(orderInformation?.orderNo)!]).responseJSON({ (json) -> Void in
+            print(json)
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
+        }
     }
 }

@@ -66,6 +66,20 @@ class MyLikeViewController: UITableViewController {
         itemVC?.itemNo = Likes![indexPath.row].no
         self.navigationController?.pushViewController(itemVC!, animated: true)
     }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        CollectionModel.CollectionCenter.removeAtNo(Likes![indexPath.row].no) { () -> Void in
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Top)
+        }
+    }
+    
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.Delete
+    }
 }
 extension MyLikeViewController{
     
