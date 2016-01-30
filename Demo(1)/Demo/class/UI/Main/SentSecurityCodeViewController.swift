@@ -19,6 +19,7 @@ class SentSecurityCodeViewController: UIViewController,UIScrollViewDelegate {
     var timerLabel: UILabel!
     var codeNumber: String!
     var password: String!
+    var id: String!
     override func viewDidLoad() {
         addScrollView()
         addTextField()
@@ -100,8 +101,33 @@ class SentSecurityCodeViewController: UIViewController,UIScrollViewDelegate {
 extension SentSecurityCodeViewController : MZTimerLabelDelegate{
     func resignClick(){
         
-        HTTPManager.POST(ContentType.Register, params: ["tel" : phoneNumber,"password": password]).responseJSON({ (json) -> Void in
+        HTTPManager.POST(ContentType.Register, params: ["id" : id,"validateCode": codeTextField.text!]).responseJSON({ (json) -> Void in
             print("注册成功")
+            let parameters = ["username": self.phoneNumber,"password": self.password]
+            HTTPManager.POST(ContentType.LoginMobile, params: parameters).responseJSON({ (json) -> Void in
+                print(json)
+                
+                let infomation = json as? NSDictionary
+                
+                if(infomation!["status"] as? String == "success") {
+                    
+                    let custNo = infomation!["userInfo"]!["custNo"] as? String
+                    let userName = infomation!["userInfo"]!["username"] as? String
+                    let imageUrl = infomation!["userInfo"]!["imageUrl"] as? String
+                    let integral = infomation!["userInfo"]!["integral"] as? Int
+                    UserAccountTool.setUserInfo(userName!, passWord: self.password, custNo: custNo!, userName: userName!, imageUrl: imageUrl!, integral: integral!)
+                    MBProgressHUD.hideHUD()
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                }
+                else {
+                    MBProgressHUD.hideHUD()
+                    SVProgressHUD.showErrorWithStatus(infomation!["status"] as? String)
+                }
+                
+                }) { (error) -> Void in
+                    SVProgressHUD.showErrorWithStatus("登录失败，请检查网络")
+                    MBProgressHUD.hideHUD()
+            }
             }) { (error) -> Void in
                 print(error)
         }
@@ -112,7 +138,7 @@ extension SentSecurityCodeViewController : MZTimerLabelDelegate{
         timerLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80 , height: 30))
         timerButton.addSubview(timerLabel)
         var timer_cutDown = MZTimerLabel(label: timerLabel, andTimerType: MZTimerLabelTypeTimer)
-        timer_cutDown.setCountDownTime(60)
+        timer_cutDown.setCountDownTime(5)
         timer_cutDown.timeFormat = "倒计时 ss"
         timer_cutDown.timeLabel.textColor = UIColor.whiteColor()
         timer_cutDown.timeLabel.font = UIFont.systemFontOfSize(13)
@@ -124,8 +150,9 @@ extension SentSecurityCodeViewController : MZTimerLabelDelegate{
     //倒计时结束后的代理方法
     func timerLabel(timerLabel: MZTimerLabel!, finshedCountDownTimerWithTime countTime: NSTimeInterval) {
         timerButton.setTitle("发送验证码", forState: UIControlState.Normal)
-        timerButton.removeFromSuperview()
+        timerLabel.text = nil
         timerButton.userInteractionEnabled = true
+        timerButton.backgroundColor = UIColor.colorWith(245, green: 77, blue: 86, alpha: 1)
     }
 
 }

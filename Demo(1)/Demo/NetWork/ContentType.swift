@@ -103,7 +103,7 @@ public enum ContentType : String {
      *  注册相关
      */
     //手机注册
-    case Register = "/BSMD/registerMobile.do"
+    case Register = "/BSMD/register.do"
     //获取验证码
     //validateAndSend.do
     case ValidateAndSend = "/BSMD/validateAndSend.do"
