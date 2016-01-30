@@ -45,7 +45,7 @@ class PayViewController: UIViewController {
             print("取消了订单")
         }
         let okPayFromAddressAction = UIAlertAction(title: "确认", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
-            self.delegate?.returnOk("true")
+             self.delegate?.returnOk("true")
              self.dismissViewControllerAnimated(true, completion: nil)
         }
         let lookPayFromAddressAction = UIAlertAction(title: "查看订单", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
@@ -60,6 +60,8 @@ class PayViewController: UIViewController {
             self.sentOrderInformation()
             let titleInfo = "订单确认"
             let message = "订单已经成功生成，商家正在准备配送，3小时后自动确认收货"
+            let user = NSUserDefaults.standardUserDefaults()
+            user.setObject(nil, forKey: SD_OrderInfo_Note)
             let isOk = UIAlertController(title: titleInfo, message: message, preferredStyle: UIAlertControllerStyle.Alert)
             isOk.addAction(okPayFromAddressAction)
             isOk.addAction(lookPayFromAddressAction)
@@ -113,6 +115,13 @@ class PayViewController: UIViewController {
         super.viewWillAppear(animated)
     
     }
+    
+    deinit{
+        
+        let user = NSUserDefaults.standardUserDefaults()
+        user.setObject(nil, forKey: SD_OrderInfo_Note)
+
+    }
     // MARK: - 懒加载TabViewcellId
     private lazy var mineTitles: NSMutableArray = NSMutableArray(array: ["AddressCell", "TimeCell", "RemarksCell", "BillCell", "CouponCell","ShopCell","NoAddressCell"])
     lazy var backBtn: UIButton = {
@@ -145,7 +154,7 @@ extension PayViewController {
         receiveAddress.setObject(address[1], forKey: "tel")
         //封装orderinfo
         let orderInfo: NSMutableDictionary = NSMutableDictionary()
-        orderInfo.setObject(address[1], forKey: "custNo")
+        orderInfo.setObject(UserAccountTool.userAccount()!, forKey: "custNo")
         orderInfo.setObject(self.sumprice, forKey: "totalAmt")
         orderInfo.setObject(self.disprice, forKey: "freeAmt")
         orderInfo.setObject("202",forKey: "shopNo")
@@ -271,10 +280,9 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
                 cell?.detailTextLabel?.text = sendTime
             }
             if indexPath.row == 1 {
-                noteInfo = UserOrderInfo.orderInfoNote()
-                if noteInfo != "" {
-                cell?.detailTextLabel?.text = noteInfo
-                    print("noteinfo is \(noteInfo)")
+                if UserOrderInfo.isNote() {
+                cell?.detailTextLabel?.text = UserOrderInfo.orderInfoNote()
+                    
                 }
                 else {
                     cell?.detailTextLabel?.text = "点击添加备注"
@@ -319,6 +327,9 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
             if indexPath.row == 1 {
                 let vc = addstroy.instantiateViewControllerWithIdentifier("NoteView") as? NoteViewController
                 vc?.delegate = self
+                if UserOrderInfo.isNote() {
+                    vc?.noteString = UserOrderInfo.orderInfoNote()
+                }
                 self.navigationController?.pushViewController(vc!, animated: true)
             }
         }

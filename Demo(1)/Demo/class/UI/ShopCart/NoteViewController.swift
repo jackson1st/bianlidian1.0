@@ -13,10 +13,14 @@ class NoteViewController: UIViewController {
     @IBOutlet weak var placeHolderLabel: UILabel!
     @IBOutlet weak var numLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
+    var noteString: String?
     var delegate: OkDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.delegate = self
+        if noteString != nil {
+            textView.text = noteString
+        }
     }
 
 }
