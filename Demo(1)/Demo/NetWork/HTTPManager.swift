@@ -15,12 +15,24 @@ public class HTTPManager {
     var request: Request!
     static var HUDCount = 0
     public static func POST(contentType: ContentType,params: [String: AnyObject]?) -> HTTPManager {
+//        if(HUDCount == 0){
+//            if(mbpHUD == nil){
+//               mbpHUD = MBProgressHUD.showMessage("")
+//            mbpHUD?.hide(false)
+//            }
+//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                mbpHUD?.show(true)
+//            })
+//            
+//        }
+//        HUDCount++
+        
         if(HUDCount == 0){
             MBProgressHUD.showMessage("")
-            HUDCount = 1
-        }else{
-            HUDCount++
         }
+        HUDCount++
+        
+        
         let manager = HTTPManager()
         if(params != nil){
         manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue, parameters: params, encoding: .JSON)
@@ -44,16 +56,25 @@ public class HTTPManager {
                 success(json:(response.result.value)! as! [String : AnyObject])
                 
             }else{
+                //MBProgressHUD.showError("数据请求失败，请重试")
                 error(error: response.result.error)
             }
-            print(HTTPManager.HUDCount)
-            if(HTTPManager.HUDCount == 1){
-                
-                MBProgressHUD.hideHUD()
-                HTTPManager.HUDCount = 0
-            }else{
-                HTTPManager.HUDCount--
-            }
+            
+            
+//            if(HTTPManager.HUDCount == 1){
+//                HTTPManager.mbpHUD?.hide(true)
+//            }
+//            HTTPManager.HUDCount--
+            
+//            print(HTTPManager.HUDCount)
+//            if(HTTPManager.HUDCount == 1){
+//                dispatch_async(dispatch_queue_create("work", nil), { () -> Void in
+//                    MBProgressHUD.hideHUD()
+//                    HTTPManager.HUDCount = 0
+//                })
+//            }else{
+//                HTTPManager.HUDCount--
+//            }
         }
     }
     
