@@ -9,11 +9,18 @@
 import UIKit
 import Alamofire
 public class HTTPManager {
-    static let HTTPURL1 = "http://139.129.45.31:8080"
-    static let HTTPURL = "http://192.168.199.242:8080"
+    static let HTTPURL = "http://139.129.45.31:8080"
+    static let HTTPURL2 = "http://192.168.199.242:8080"
     static let HTTPURL3 = "http://192.168.199.134:8080"
     var request: Request!
+    static var HUDCount = 0
     public static func POST(contentType: ContentType,params: [String: AnyObject]?) -> HTTPManager {
+        if(HUDCount == 0){
+            MBProgressHUD.showMessage("")
+            HUDCount = 1
+        }else{
+            HUDCount++
+        }
         let manager = HTTPManager()
         if(params != nil){
         manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue, parameters: params, encoding: .JSON)
@@ -35,8 +42,17 @@ public class HTTPManager {
         request.responseJSON { (response) -> Void in
             if(response.result.isSuccess){
                 success(json:(response.result.value)! as! [String : AnyObject])
+                
             }else{
                 error(error: response.result.error)
+            }
+            print(HTTPManager.HUDCount)
+            if(HTTPManager.HUDCount == 1){
+                
+                MBProgressHUD.hideHUD()
+                HTTPManager.HUDCount = 0
+            }else{
+                HTTPManager.HUDCount--
             }
         }
     }

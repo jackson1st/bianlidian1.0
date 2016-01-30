@@ -35,6 +35,7 @@ class SearchkeyViewController: UITableViewController,UISearchResultsUpdating {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.registerNetObserve(64)
         let userDefault = NSUserDefaults()
         address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
         
@@ -47,6 +48,10 @@ class SearchkeyViewController: UITableViewController,UISearchResultsUpdating {
         tableView.bounces = false
     }
 
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         

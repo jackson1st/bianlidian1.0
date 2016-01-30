@@ -63,6 +63,7 @@ class PayViewController: UIViewController {
             let isOk = UIAlertController(title: titleInfo, message: message, preferredStyle: UIAlertControllerStyle.Alert)
             isOk.addAction(okPayFromAddressAction)
             isOk.addAction(lookPayFromAddressAction)
+            self.refreshShopCar()
             self.presentViewController(isOk, animated: true, completion: nil)
         }
         let payFromZhiFbaoAcction = UIAlertAction(title: payFromZhiFuBao, style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
@@ -74,6 +75,18 @@ class PayViewController: UIViewController {
         self.presentViewController(ispay, animated: true, completion: nil)
 
     }
+    
+    //删除已经提交订单的商品
+    func refreshShopCar(){
+        for var i = 0; i<Model.defaultModel.shopCart.count; i++ {
+            if(Model.defaultModel.shopCart[i].selected == true ) {
+                Model.defaultModel.removeAtIndex(i, success: { () -> Void in
+                    NSNotificationCenter.defaultCenter().postNotificationName("login", object: self)
+                })
+            }
+        }
+    }
+    
     internal var needPay: String!
     internal var discount: String!
     // MARK: - view生命周期

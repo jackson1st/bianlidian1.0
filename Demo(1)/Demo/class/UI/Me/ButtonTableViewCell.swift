@@ -23,20 +23,30 @@ class ButtonTableViewCell: UITableViewCell{
     var order: String = ""{
         didSet{
             if( order == "0"){
+                
                 cancelButton.setTitle("取消订单", forState: .Normal)
                 statu = "待付款"
+                cancelButton.hidden = false
+                buyButton.hidden = false
+                cancelButtonOffSet.constant = 108
             }else
             if( order == "4" || order == "3") {
+                cancelButton.hidden = false
+                buyButton.hidden = false
                 cancelButton.setTitle("删除订单", forState: .Normal)
+                cancelButtonOffSet.constant = 108
                 statu = "已完成"
                 if( order == "4"){
                     buyButton.setTitle("去评价", forState: .Normal)
                 }else{
+                    statu = "已取消"
                     buyButton.hidden = true
                     cancelButtonOffSet.constant = 20
                 }
             }else{
+                buyButton.hidden = false
                 cancelButton.hidden = true
+                cancelButtonOffSet.constant = 108
                 switch(order){
                     case "1": statu = "待发货"
                     case "2": statu = "待评价"

@@ -30,9 +30,12 @@ class JFShoppingCartViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.registerNetObserve(64)
+        
         self.showMySelect()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "login", name: "Login", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "signOut", name: "SignOut", object: nil)
+
         prepareUI()
         
         if(UserAccountTool.userIsLogin()) {
@@ -598,7 +601,7 @@ extension JFShoppingCartViewController: JFShoppingCartCellDelegate {
                     print("数量不能低于1")
                     return
                 }
-                starRefreshView()
+//                starRefreshView()
                 
                 // 减
                 Model.defaultModel.updataItemNum(indexPath.row - 1 , shopNo: shopNoByName(shopName), dis: -1, success: { () -> Void in
@@ -609,7 +612,7 @@ extension JFShoppingCartViewController: JFShoppingCartCellDelegate {
                 
             } else {
                 // 加
-                starRefreshView()
+//                starRefreshView()
                Model.defaultModel.updataItemNum(indexPath.row - 1 , shopNo: shopNoByName(shopName), dis: 1, success: { () -> Void in
                 countLabel.text = "\(model.num)"
                 }, callback: { () -> Void in

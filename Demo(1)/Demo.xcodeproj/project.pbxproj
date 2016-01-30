@@ -202,6 +202,8 @@
 		04CF8F281C14507A00512979 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8F251C14507A00512979 /* Home.storyboard */; };
 		04CF8F291C14507A00512979 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8F261C14507A00512979 /* Main.storyboard */; };
 		04CF8F2A1C14507A00512979 /* My.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8F271C14507A00512979 /* My.storyboard */; };
+		325A7CB91C5B9D3E00B24144 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 325A7CB81C5B9D3E00B24144 /* Reachability.m */; };
+		325A7CBB1C5B9E3D00B24144 /* ViewController+JS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325A7CBA1C5B9E3D00B24144 /* ViewController+JS.swift */; };
 		32D7AF221C2F16D100EF48D0 /* HRHDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D7AF1E1C2F16D100EF48D0 /* HRHDatePickerView.m */; };
 		32D7AF231C2F16D100EF48D0 /* HRHDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32D7AF1F1C2F16D100EF48D0 /* HRHDatePickerView.xib */; };
 		32D7AF241C2F16D100EF48D0 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D7AF211C2F16D100EF48D0 /* UIColor+HexString.m */; };
@@ -688,6 +690,9 @@
 		04CF8F251C14507A00512979 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		04CF8F261C14507A00512979 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		04CF8F271C14507A00512979 /* My.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = My.storyboard; sourceTree = "<group>"; };
+		325A7CB71C5B9D3E00B24144 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		325A7CB81C5B9D3E00B24144 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		325A7CBA1C5B9E3D00B24144 /* ViewController+JS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+JS.swift"; sourceTree = "<group>"; };
 		32D7AF1D1C2F16D100EF48D0 /* HRHDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRHDatePickerView.h; sourceTree = "<group>"; };
 		32D7AF1E1C2F16D100EF48D0 /* HRHDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRHDatePickerView.m; sourceTree = "<group>"; };
 		32D7AF1F1C2F16D100EF48D0 /* HRHDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HRHDatePickerView.xib; sourceTree = "<group>"; };
@@ -749,6 +754,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				040F8C901C2542F00027CDC1 /* SystemConfiguration.framework in Frameworks */,
 				040F8CA51C2549020027CDC1 /* libc++.tbd in Frameworks */,
 				040F8CA01C2543410027CDC1 /* libsqlite3.0.tbd in Frameworks */,
 				040F8C9E1C2543380027CDC1 /* CoreAudio.framework in Frameworks */,
@@ -758,7 +764,6 @@
 				040F8C961C25430B0027CDC1 /* UIKit.framework in Frameworks */,
 				040F8C941C2543050027CDC1 /* Foundation.framework in Frameworks */,
 				040F8C921C2542F90027CDC1 /* CoreGraphics.framework in Frameworks */,
-				040F8C901C2542F00027CDC1 /* SystemConfiguration.framework in Frameworks */,
 				040F8CA31C2548620027CDC1 /* JMessage.framework in Frameworks */,
 				9627A8521C4F38D800B7FEF8 /* Alamofire.framework in Frameworks */,
 				960512611C54B6660021BDE4 /* pop.framework in Frameworks */,
@@ -1074,6 +1079,8 @@
 		04CF8DE51C144FDB00512979 /* extension */ = {
 			isa = PBXGroup;
 			children = (
+				325A7CB71C5B9D3E00B24144 /* Reachability.h */,
+				325A7CB81C5B9D3E00B24144 /* Reachability.m */,
 				962647541C58EA77003CC7EE /* MBProgressHUD */,
 				048E22531C5648A200E7096B /* MZTimerLabel */,
 				960512491C54B6570021BDE4 /* pop.xcodeproj */,
@@ -1103,6 +1110,7 @@
 				04CF8E9C1C144FDB00512979 /* UMSocial_Sdk_4.2.3 */,
 				04CF8EB71C144FDB00512979 /* UMSocial_Sdk_Extra_Frameworks */,
 				960ED1A31C5A11B30042ED9D /* UIView+JS.swift */,
+				325A7CBA1C5B9E3D00B24144 /* ViewController+JS.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -2083,6 +2091,7 @@
 				047A5F4B1C145424004FA20F /* RootViewController.swift in Sources */,
 				04CF8ED41C144FDB00512979 /* MJRefreshAutoGifFooter.m in Sources */,
 				04CF8DDC1C144FB400512979 /* PayViewController.swift in Sources */,
+				325A7CBB1C5B9E3D00B24144 /* ViewController+JS.swift in Sources */,
 				96C83E881C1975CA0075A204 /* JSONND.swift in Sources */,
 				960ED1A41C5A11B30042ED9D /* UIView+JS.swift in Sources */,
 				96BCBC2B1C570E350028CA42 /* CollectionModel.swift in Sources */,
@@ -2112,6 +2121,7 @@
 				04CF8EFF1C144FDB00512979 /* ViewController+SnapKit.swift in Sources */,
 				047A5F481C145424004FA20F /* OtherViewController.swift in Sources */,
 				04CF8EC41C144FDB00512979 /* AFNetworkReachabilityManager.m in Sources */,
+				325A7CB91C5B9D3E00B24144 /* Reachability.m in Sources */,
 				04CF8EF31C144FDB00512979 /* Constraint.swift in Sources */,
 				04CF8EDF1C144FDB00512979 /* UIScrollView+MJExtension.m in Sources */,
 				04CF8EF71C144FDB00512979 /* ConstraintMaker.swift in Sources */,

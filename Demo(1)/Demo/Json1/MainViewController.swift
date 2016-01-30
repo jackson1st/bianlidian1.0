@@ -36,7 +36,18 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
     //拥有一个SearcherResultViewController
     
     override func viewDidLoad() {
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "viewDidLoad", name: "reloadMainView", object: nil)
+        
+        self.registerNetObserve(62)
+        
+        let reachability = Reachability.reachabilityForInternetConnection()
+        
+        //判断连接状态
+        if !reachability!.isReachable(){
+            NSNotificationCenter.defaultCenter().postNotificationName("netWorkbad", object: self)
+            return 
+        }
         
         if(userDefault.boolForKey("needSetLocation") == false){
             self.performSegueWithIdentifier("showLocation", sender: nil)
@@ -45,11 +56,16 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
         }
         
         super.viewDidLoad()
+//        let view = self.view.viewWithTag(120)
+//        self.view.bringSubviewToFront(view!)
     }
     
     deinit {
+        
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -19,6 +19,7 @@ class SortViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.registerNetObserve(64)
         navigationController!.navigationBar.barTintColor = UIColor.colorWith(242, green: 50, blue: 65, alpha: 1)
         address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
         initAll()
@@ -30,7 +31,10 @@ class SortViewController: UIViewController{
         vc.delegate = self
         return vc
     }()
-
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
     //响应搜索按钮的方法
     func pushSearchViewController(){

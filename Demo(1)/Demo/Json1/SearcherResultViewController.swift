@@ -33,6 +33,7 @@ class SearcherResultViewController: SearcherViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.registerNetObserve(64)
         initAll2()
         self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
         self.view.bringSubviewToFront(MainView)
@@ -40,6 +41,7 @@ class SearcherResultViewController: SearcherViewController {
     }
     
     deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         print("我要被销毁了")
     }
     
