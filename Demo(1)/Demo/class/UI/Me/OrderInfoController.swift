@@ -33,6 +33,9 @@ class OrderInfoController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.registerNetObserve(64)
+        
         tableView.dataSource = self
         tableView.delegate = self
         removeButton.layer.borderWidth = 0.5
@@ -40,6 +43,9 @@ class OrderInfoController: UIViewController {
         setRemoveButtom()
     }
     
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
     //修改取消订单的按钮文字
     func setRemoveButtom(){
@@ -151,10 +157,12 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
             if(indexPath.row == 0) {
                 titleLabel?.text = "订单编号"
                 subsLabel?.text = orderInformation?.orderNo
+                subsLabel?.textColor = UIColor.lightGrayColor()
             }
             if(indexPath.row == 1) {
                 titleLabel?.text = "下单时间"
                 subsLabel?.text = orderInformation?.payDate
+                subsLabel?.textColor = UIColor.lightGrayColor()
             }
             if(indexPath.row == 2) {
                 addressTitleLabel?.text = "收货地址"
@@ -162,6 +170,11 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
                 addressInfo?.text = orderInformation?.address
                 addressInfoDes?.text = orderInformation?.address
                 addressTele?.text = orderInformation?.tel
+                
+                userName?.textColor = UIColor.lightGrayColor()
+                addressInfo?.textColor = UIColor.lightGrayColor()
+                addressInfoDes?.textColor = UIColor.lightGrayColor()
+                addressTele?.textColor = UIColor.lightGrayColor()
             }
             if(indexPath.row == 3) {
                 titleLabel?.text = "支付方式"
@@ -171,7 +184,7 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
             if(indexPath.row == 4) {
                 let statue = orderInformation?.orderStatu
                 
-                titleLabel?.text = statue == "0" ? "还需支付" : "已支付"
+                titleLabel?.text = statue == "0" || statue == "3" ? "还需支付" : "已支付"
                 subsLabel?.textColor = UIColor.redColor()
                 subsLabel?.text = "¥\((orderInformation?.totalAmt)!)"
             }
@@ -207,6 +220,7 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
             if(indexPath.row == 2){
                 titleLabel?.text = "积分优惠"
                 subsLabel?.text = "-￥0.00"
+                subsLabel?.textColor = UIColor.lightGrayColor()
             }
             if(indexPath.row == 3){
                 titleLabel?.text = "应付金额"
@@ -219,10 +233,12 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
             if(indexPath.row == 0){
                 titleLabel?.text = "发票抬头"
                 subsLabel?.text = "发票索要中"
+                subsLabel?.textColor = UIColor.lightGrayColor()
             }
             if(indexPath.row == 1){
                 titleLabel?.text = "发票信息"
                 subsLabel?.text = "发票索要中"
+                subsLabel?.textColor = UIColor.lightGrayColor()
             }
         }
             cell!.selectionStyle = UITableViewCellSelectionStyle.None
@@ -232,7 +248,7 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
 
 extension OrderInfoController {
     func payForZhiFuBao(){
-        
+        SVProgressHUD.showInfoWithStatus("建设中")
     }
     
     
@@ -240,20 +256,32 @@ extension OrderInfoController {
     *  removeButton的取消订单的方法
     */
     func cancelOrder(){
-        HTTPManager.POST(ContentType.OrderCancel, params: ["orderNo":(orderInformation?.orderNo)!]).responseJSON({ (json) -> Void in
-            print(json)
-            }) { (error) -> Void in
-                print("发生了错误: " + (error?.localizedDescription)!)
-        }
+        let alert = UIAlertController(title: "取消订单", message: "确定取消", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "确定", style: .Default, handler: { (UIAlertAction) -> Void in
+            HTTPManager.POST(ContentType.OrderCancel, params: ["orderNo":(self.orderInformation?.orderNo)!]).responseJSON({ (json) -> Void in
+                print(json)
+                }) { (error) -> Void in
+                    print("发生了错误: " + (error?.localizedDescription)!)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     /**
     *  removeButton的删除订单的方法
     */
     func removeOrder(){
-        HTTPManager.POST(ContentType.OrderDelete, params: ["orderNo":(orderInformation?.orderNo)!]).responseJSON({ (json) -> Void in
-            print(json)
-            }) { (error) -> Void in
-                print("发生了错误: " + (error?.localizedDescription)!)
-        }
+        
+        let alert = UIAlertController(title: "删除订单", message: "确定删除", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "确定", style: .Default, handler: { (UIAlertAction) -> Void in
+            HTTPManager.POST(ContentType.OrderDelete, params: ["orderNo":(self.orderInformation?.orderNo)!]).responseJSON({ (json) -> Void in
+                print(json)
+                }) { (error) -> Void in
+                    print("发生了错误: " + (error?.localizedDescription)!)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+        
     }
 }

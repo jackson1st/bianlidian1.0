@@ -25,9 +25,7 @@ class EVAView: UIView {
         addSubview(LabelContent)
         LabelUser = UILabel()
         addSubview(LabelUser)
-        let view = UIView(frame: CGRect(x: 20, y: frame.height - 1, width: frame.width - 40, height: 1))
-        view.backgroundColor = UIColor.blackColor()
-        addSubview(view)
+        self.addBottomLine(0.5, offsetLeft: 0, offsetRight: 0)
         
         
         LabelDate.snp_makeConstraints { (make) -> Void in

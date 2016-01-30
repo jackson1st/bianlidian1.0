@@ -19,10 +19,16 @@ class OrderViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.registerNetObserve(64)
+        
         title = "我的订单"
         view.backgroundColor = theme.SDBackgroundColor
         pullRefreshData()
         setTableView()
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func setTableView(){
@@ -197,7 +203,7 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
             let dingDanHao = cell?.viewWithTag(10001) as! UILabel
             let dingDanZhuangtai = cell?.viewWithTag(10002) as! UILabel
             dingDanHao.text = self.orderArray.listorder[indexPath.section].orderNo
-            dingDanZhuangtai.text = "正在配送"
+            dingDanZhuangtai.text = self.orderArray.listorder[indexPath.section].payDate
             // cell取消选中效果
             cell!.selectionStyle = UITableViewCellSelectionStyle.None
         }

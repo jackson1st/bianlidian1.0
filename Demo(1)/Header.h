@@ -24,6 +24,7 @@
 #import "ParallaxHeaderView.h"
 #import "MZTimerLabel.h"
 #import "MBProgressHUD+MJ.h"
+#import "Reachability.h"
 //! Project version number for ViewPagerIndicator.
 FOUNDATION_EXPORT double ViewPagerIndicatorVersionNumber;
 

@@ -73,6 +73,7 @@ class SearcherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.registerNetObserve(64)
         //self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
         navVC = self.navigationController
         initAll()
@@ -90,6 +91,7 @@ class SearcherViewController: UIViewController {
     }
     
     deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         print("被销毁了")
     }
     

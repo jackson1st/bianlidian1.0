@@ -110,11 +110,12 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         if(item == nil){
             return
         }
+        self.registerNetObserve(44)
 
         changeButtonLikedState()
         changeButtonAddState()
-
         initAll()
+        
         self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
@@ -132,10 +133,8 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         super.viewWillAppear(animated)
         self.navigationController?.navigationBarHidden = true
         if(theme.isFirstLoad == true && UserAccountTool.userIsLogin()){
-            starRefreshView()
             Model.defaultModel.loadDataForNetWork(nil)
             CollectionModel.CollectionCenter.loadDataFromNet(1, count: 10, success: nil, callback: { () -> Void in
-                self.stopRefreshView()
                 theme.isFirstLoad = false
                 self.viewDidLoad()
             })
@@ -149,6 +148,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     }
     
     deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         print("被销毁")
     }
     
@@ -520,6 +520,8 @@ extension OtherViewController{
         }
         
         let buttonAddMoreEVA = UIButton(type: .Custom)
+        buttonAddMoreEVA.addTopLine(0.5, offsetLeft: 0, offsetRight: 0)
+        buttonAddMoreEVA.addBottomLine(0.5, offsetLeft: 0, offsetRight: 0)
         buttonAddMoreEVA.backgroundColor = UIColor.whiteColor()
         buttonAddMoreEVA.setTitle("查看商品详情", forState: .Normal)
         buttonAddMoreEVA.setTitleColor(UIColor.blackColor() , forState: .Normal)

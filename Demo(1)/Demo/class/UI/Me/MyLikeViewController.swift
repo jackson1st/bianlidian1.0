@@ -17,11 +17,18 @@ class MyLikeViewController: UITableViewController {
     var address: String!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.registerNetObserve(64)
+        
         let userDefault = NSUserDefaults.standardUserDefaults()
         address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
         initAll()
         tableView.backgroundColor = UIColor.colorWith(245, green: 245, blue: 245, alpha: 1)
         navigationItem.title = "我的收藏"
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewWillAppear(animated: Bool) {

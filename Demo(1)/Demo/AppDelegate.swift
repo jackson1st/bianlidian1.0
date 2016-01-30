@@ -14,11 +14,30 @@ let CHANNEL = ""
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var reach: Reachability?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         // Required - 初始化
+        
+        
+        self.reach = Reachability.reachabilityForInternetConnection()
+        
+        // Set the blocks
+        self.reach!.reachableBlock = {
+            (let reach: Reachability!) -> Void in
+            print("网络正常")
+        NSNotificationCenter.defaultCenter().postNotificationName("netWorkOk", object: self)
+        }
+        
+        self.reach!.unreachableBlock = {
+            (let reach: Reachability!) -> Void in
+            print("网络异常")
+        NSNotificationCenter.defaultCenter().postNotificationName("netWorkbad", object: self)
+        }
+        
+        self.reach!.startNotifier()
+        
         let bar = UINavigationBar.appearance()
         bar.barTintColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1)
         bar.tintColor = UIColor.whiteColor()
@@ -38,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //       registerJPushStatusNotification()
         return true
     }
+    
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
 //        deviceToken = String(format: "%s", arguments: deviceToken)
 //        let color: UIColor = UIColor(red: 0.0 / 255, green: 122.0 / 255, blue: 255.0 / 255, alpha: 1)

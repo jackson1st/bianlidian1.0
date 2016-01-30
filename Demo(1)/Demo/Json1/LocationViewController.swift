@@ -25,6 +25,7 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
     let httpManager = AFHTTPRequestOperationManager()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.registerNetObserve(64)
         textLable.text = "请选择您所在的地区"
         initArr()
         initView()
@@ -37,6 +38,9 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     //MARK: - 一些初始化操作
     
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
     func initArr(){
         //manager2.responseSerializer.acceptableContentTypes = NSSet(object: "appliaction/json") as Set<NSObject>
