@@ -100,7 +100,7 @@ extension SortViewController{
         tableViewLeft.snp_makeConstraints { (make) -> Void in
             make.width.equalTo(80)
             make.left.equalTo(view)
-            make.top.equalTo(view)
+            make.top.equalTo(view).offset(64)
             make.bottom.equalTo(view.snp_bottom)
         }
     }

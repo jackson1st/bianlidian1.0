@@ -47,6 +47,7 @@ class OrderViewController: UIViewController{
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
         pullRefreshData()
     }
     
@@ -70,7 +71,7 @@ extension OrderViewController {
     }
     //从服务器上载入数据并封装成对象
     func loadDataModel(orderStatu: String, requestType: Bool){
-        let custNo: String = UserAccountTool.userAccount()!
+        let custNo: String = UserAccountTool.getUserAccount()!
         var parameters: [String : AnyObject]
         if(requestType == true) {
             

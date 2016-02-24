@@ -14,7 +14,6 @@ class NoteViewController: UIViewController {
     @IBOutlet weak var numLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     var noteString: String?
-    var delegate: OkDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.delegate = self
@@ -44,7 +43,6 @@ extension NoteViewController: UITextViewDelegate{
     }
     @IBAction func addNoteButtonAction(sender: AnyObject) {
         NSUserDefaults.standardUserDefaults().setObject(textView.text, forKey: SD_OrderInfo_Note)
-        delegate?.returnOk("true")
         self.navigationController?.popViewControllerAnimated(true)
     }
 }

@@ -1,6 +1,8 @@
 //
 //  AboutWeViewController.swift
-//  SmallDay
+
+//  Created by 黄人煌 on 15/12/28.
+//  Copyright © 2015年 Fjnu. All rights reserved.
 
 //  关于我们
 

@@ -12,6 +12,32 @@ public let NavigationH: CGFloat = 64
 public let AppWidth: CGFloat = UIScreen.mainScreen().bounds.size.width
 public let AppHeight: CGFloat = UIScreen.mainScreen().bounds.size.height
 public let MainBounds: CGRect = UIScreen.mainScreen().bounds
+//存储用户个人信息
+public let SD_UserDefaults_Account = "SD_UserDefaults_Account"
+public let SD_UserDefaults_Password = "SD_UserDefaults_Password"
+public let SD_UserDefaults_CustNo = "SD_UserDefaults_CustNo"
+public let SD_UserDefaults_ImageUrl = "SD_UserDefaults_ImageUrl"
+public let SD_UserDefaults_Integral = "SD_UserDefaults_Integral"
+public let SD_UserDefaults_UserName = "SD_UserDefaults_UserName"
+//存储用户地址信息
+public let SD_UserDefaults_Name = "SD_UserDefaults_Name"
+public let SD_UserDefaults_Telephone = "SD_UserDefaults_Telephone"
+public let SD_UserDefaults_Address = "SD_UserDefaults_Address"
+public let SD_OrderInfo_Note = "SD_OrderInfo_Note"
+
+public let ShopCarRedDotAnimationDuration: NSTimeInterval = 0.2
+
+// StoryBoard
+public let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+public let myStoryBoard = UIStoryboard(name: "MyStoryBoard", bundle: nil)
+
+
+public let GuideViewControllerDidFinish = "GuideViewControllerDidFinish"
+
+// MARK: - 广告页通知
+public let ADImageLoadSecussed = "ADImageLoadSecussed"
+public let ADImageLoadFail = "ADImageLoadFail"
+
 
 struct theme {
     ///  APP导航条barButtonItem文字大小
@@ -33,13 +59,10 @@ struct theme {
     /// UIApplication.sharedApplication()
     static let appShare = UIApplication.sharedApplication()
     static let sinaURL = "http://weibo.com/u/5622363113/home?topnav=1&wvr=6"
-    /// 高德地图KEY 
-    static let GaoDeAPPKey = "2e6b9f0a88b4a79366a13ce1ee9688b8"
     /// 是否刷新标记
     static var refreshFlag = true
     //判断是否是第一次请求购物车数据
     static var isFirstLoad = true
     // 用户名
     static var userName: String?
-    
 }

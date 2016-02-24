@@ -7,14 +7,37 @@
 //
 
 import UIKit
-class RootViewController: UITabBarController {
-
+class RootViewController: UITabBarController,UITabBarControllerDelegate {
+    private var fristLoadMainTabBarController: Bool = true
+    
+    
+    private var adImageView: UIImageView?
+    var adImage: UIImage? {
+        didSet {
+            weak var tmpSelf = self
+            adImageView = UIImageView(frame: MainBounds)
+            adImageView!.image = adImage!
+            self.view.addSubview(adImageView!)
+            
+            UIImageView.animateWithDuration(2.0, animations: { () -> Void in
+                tmpSelf!.adImageView!.transform = CGAffineTransformMakeScale(1.2, 1.2)
+                tmpSelf!.adImageView!.alpha = 0
+                }) { (finsch) -> Void in
+                    tmpSelf!.adImageView!.removeFromSuperview()
+                    tmpSelf!.adImageView = nil
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.translucent = false
+        delegate = self
         changeCarNum()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "doSomething", name: "finishAOrder", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "changeCarNum", name: "CarNumChanged", object: nil)
+    }
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        
+        return UIStatusBarStyle.LightContent
     }
     
     func changeCarNum(){
@@ -26,15 +49,10 @@ class RootViewController: UITabBarController {
         }
     }
     
-    func doSomething(){
-        
-        selectedIndex = 3
-        let workingQueue = dispatch_queue_create("queue", nil)
-        dispatch_async(workingQueue) {
-            NSThread.sleepForTimeInterval(0.5)
-            dispatch_sync(dispatch_get_main_queue(), { () -> Void in
-                NSNotificationCenter.defaultCenter().postNotificationName("finishAOrder2", object: nil)
-            })
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if fristLoadMainTabBarController {
+            fristLoadMainTabBarController = false
         }
     }
     
@@ -48,13 +66,18 @@ class RootViewController: UITabBarController {
     }
     
     
-    override func viewWillAppear(animated: Bool) {
-    }
-    
-    class func showTabBar(show: Bool){
-        if(show){
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+        let childArr = tabBarController.childViewControllers as NSArray
+        let index = childArr.indexOfObject(viewController)
+        
+        if index == 2 {
+            
+            let vc = mainStoryBoard.instantiateViewControllerWithIdentifier("shoppingCart")
+            presentViewController(MainNavigationController(rootViewController: vc), animated: true, completion: nil)
+            return false
         }
+        
+        return true
     }
     
-
 }

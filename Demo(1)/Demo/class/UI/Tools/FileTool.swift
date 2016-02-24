@@ -1,10 +1,11 @@
 //
 //  FileTool.swift
-//  SmallDay
-//  项目GitHub地址:         https://github.com/ZhongTaoTian/SmallDay
-//  项目思路和架构讲解博客:    http://www.jianshu.com/p/bcc297e19a94
-//  Created by MacBook on 15/9/1.
-//  Copyright (c) 2015年 维尼的小熊. All rights reserved.
+//  Demo
+//
+//  Created by 黄人煌 on 15/12/28.
+//  Copyright © 2015年 Fjnu. All rights reserved.
+//
+//  管理用户账号工具
 //  管理沙盒文件的工具
 
 import UIKit

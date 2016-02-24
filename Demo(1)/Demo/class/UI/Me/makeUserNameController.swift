@@ -18,6 +18,7 @@ class makeUserNameController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "修改用户名"
         makeButton.layer.cornerRadius = 4
     }
 }

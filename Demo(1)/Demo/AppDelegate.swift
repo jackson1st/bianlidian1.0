@@ -1,3 +1,27 @@
+
+
+////////////////////////////////////////////////////////////////////
+//                          _ooOoo_                               //
+//                         o8888888o                              //
+//                         88" . "88                              //
+//                         (| ^_^ |)                              //
+//                         O\  =  /O                              //
+//                      ____/`---'\____                           //
+//                    .'  \\|     |//  `.                         //
+//                   /  \\|||  :  |||//  \                        //
+//                  /  _||||| -:- |||||-  \                       //
+//                  |   | \\\  -  /// |   |                       //
+//                  | \_|  ''\---/''  |   |                       //
+//                  \  .-\__  `-`  ___/-. /                       //
+//                ___`. .'  /--.--\  `. . ___                     //
+//              ."" '<  `.___\_<|>_/___.'  >'"".                  //
+//            | | :  `- \`.;`\ _ /`;.`/ - ` : | |                 //
+//            \  \ `-.   \_ __\ /__ _/   .-` /  /                 //
+//      ========`-.____`-.___\_____/___.-`____.-'========         //
+//                           `=---='                              //
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        //
+//         佛祖保佑            永无BUG              永不修改         //
+////////////////////////////////////////////////////////////////////
 //
 //  AppDelegate.swift
 //  Demo
@@ -15,13 +39,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var reach: Reachability?
-
+    var adViewController: ADViewController?
+    
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         // Required - 初始化
         
         
         self.reach = Reachability.reachabilityForInternetConnection()
+        
+        // 状态栏设置成白色
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
         
         // Set the blocks
         self.reach!.reachableBlock = {
@@ -42,22 +71,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         bar.barTintColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1)
         bar.tintColor = UIColor.whiteColor()
         let navigationTitleAttribute: NSMutableDictionary = NSMutableDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName)
-        navigationTitleAttribute.setObject(UIFont.systemFontOfSize(17), forKey: NSFontAttributeName)
+//        navigationTitleAttribute.setObject(UIFont.systemFontOfSize(17), forKey: NSFontAttributeName)
         bar.titleTextAttributes = navigationTitleAttribute as?[String: AnyObject]
-        if (UIApplication.sharedApplication().currentUserNotificationSettings()?.types != UIUserNotificationType.None) {
-//            self.addLocalNotification()
-        }
-        else {
-            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert, categories: nil))
-        }
-
-//        JMessage.setupJMessage(launchOptions, appKey: JMSSAGE_APPKEY, channel: CHANNEL, apsForProduction: false, category: nil)
-//         // Required - 注册 APNs 通知
-//        JPUSHService.registerForRemoteNotificationTypes(UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Alert.rawValue , categories: nil)
-//       registerJPushStatusNotification()
+        
+        addNotification()
+        buildKeyWindow()
+        
         return true
     }
-    
+    // MARK: - Public Method
+    private func buildKeyWindow() {
+        
+        window = UIWindow(frame: MainBounds)
+        window!.makeKeyAndVisible()
+        
+        let isFristOpen = NSUserDefaults.standardUserDefaults().objectForKey("isFristOpenApp")
+        
+        if isFristOpen == nil {
+            window?.rootViewController = GuideViewController()
+            NSUserDefaults.standardUserDefaults().setObject("isFristOpenApp", forKey: "isFristOpenApp")
+        } else {
+            loadADRootViewController()
+        }
+    }
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
 //        deviceToken = String(format: "%s", arguments: deviceToken)
 //        let color: UIColor = UIColor(red: 0.0 / 255, green: 122.0 / 255, blue: 255.0 / 255, alpha: 1)
@@ -67,47 +103,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         JPUSHService.handleRemoteNotification(userInfo)
     }
     
-    func registerJPushStatusNotification () {
-        
-    let defaultCenter = NSNotificationCenter.defaultCenter()
-    defaultCenter.addObserver(self, selector: "networkDidSetup:", name: kJPFNetworkDidSetupNotification, object: nil)
-    defaultCenter.addObserver(self, selector: "networkIsConnecting:", name: kJPFNetworkIsConnectingNotification, object: nil)
-    defaultCenter.addObserver(self, selector: "networkDidClose:", name: kJPFNetworkDidCloseNotification, object: nil)
-    defaultCenter.addObserver(self, selector: "networkDidRegister:", name: kJPFNetworkDidRegisterNotification, object: nil)
-    defaultCenter.addObserver(self, selector: "networkDidLogin:", name: kJPFNetworkDidLoginNotification, object: nil)
-    defaultCenter.addObserver(self, selector: "receivePushMessage:", name: kJPFNetworkDidReceiveMessageNotification, object: nil)
-    
-    }
-    // notification from JPush
-    func networkDidSetup(notification: NSNotification ){
-
-    }
-    
-    // notification from JPush
-    func networkIsConnecting(notification: NSNotification ){
-        
-    }
-    
-    // notification from JPush
-    func networkDidClose(notification: NSNotification ){
-        
-    }
-
-    // notification from JPush
-    func networkDidRegister(notification: NSNotification ){
-        
-    }
-    // notification from JPush
-    func networkDidLogin(notification: NSNotification ){
-        
-    }
-    // notification from JPush
-    func receivePushMessage(notification: NSNotification ){
-        let userInfo = notification.userInfo
-        let alert = UIAlertView(title: "收到推送消息", message: "\(userInfo!["aps"]!["alert"])", delegate: nil, cancelButtonTitle: "取消", otherButtonTitles: "确定")
-        alert.show()
-    }
-
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -196,6 +191,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    
+    func loadADRootViewController() {
+        adViewController = ADViewController()
+        
+        weak var tmpSelf = self
+        MainAD.loadADData { (data, error) -> Void in
+            if data?.data?.img_name != nil {
+                tmpSelf!.adViewController!.imageName = data!.data!.img_name
+                tmpSelf!.window?.rootViewController = self.adViewController
+            }
+        }
+    }
+    
+    func addNotification() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showMainTabbarControllerSucess:", name: ADImageLoadSecussed, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showMainTabbarControllerFale", name: ADImageLoadFail, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "shoMainTabBarController", name: GuideViewControllerDidFinish, object: nil)
+    }
+    
+    // MARK: - Action
+    func showMainTabbarControllerSucess(noti: NSNotification) {
+        let adImage = noti.object as! UIImage
+        
+        print("我执行了")
+        let mainTabBar = mainStoryBoard.instantiateViewControllerWithIdentifier("RootViewController") as! RootViewController
+        mainTabBar.adImage = adImage
+        window?.rootViewController = mainTabBar
+    }
+    
+    func showMainTabbarControllerFale() {
+         print("我执行了")
+        let mainTabBar = mainStoryBoard.instantiateViewControllerWithIdentifier("RootViewController") as! RootViewController
+        window?.rootViewController = mainTabBar
+    }
+    
+    func shoMainTabBarController() {
+         print("我执行了")
+        let mainTabBar = mainStoryBoard.instantiateViewControllerWithIdentifier("RootViewController") as! RootViewController
+        window?.rootViewController = mainTabBar
+    }
+    
 }
 

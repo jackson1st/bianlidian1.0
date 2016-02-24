@@ -14,7 +14,6 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     @IBOutlet weak var ViewFlag: UIView!
     @IBOutlet weak var ConstaintViewFlagLeading: NSLayoutConstraint!
     
-    private let refreshView:LoadAnimatImageView! = LoadAnimatImageView.sharedManager
     var pictureView: CyclePictureView?
     var detailView: ContentView!
     @IBOutlet weak var toolBar: UIView!
@@ -182,11 +181,10 @@ extension OtherViewController{
     
     //开始刷新
     func starRefreshView(){
-        refreshView.startLoadAnimatImageViewInView(view, center: view.center)
+      
     }
     //停止刷新
     func stopRefreshView(){
-        refreshView.stopLoadAnimatImageView()
     }
 
 }
@@ -259,11 +257,8 @@ extension OtherViewController{
         }
     }
     @IBAction func ButtonGoToShopCartClicked(sender: AnyObject) {
-        let story = UIStoryboard(name: "Main", bundle: nil)
-        let vc = story.instantiateViewControllerWithIdentifier("shoppingCart") as! JFShoppingCartViewController
-        vc.backButtonShow = true
-        self.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = mainStoryBoard.instantiateViewControllerWithIdentifier("shoppingCart") as! JFShoppingCartViewController
+        presentViewController(MainNavigationController(rootViewController: vc), animated: true, completion: nil)
         
     }
     

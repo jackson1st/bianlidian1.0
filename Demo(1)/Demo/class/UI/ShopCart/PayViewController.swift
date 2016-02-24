@@ -8,93 +8,23 @@
 
 import UIKit
 
-public let SD_UserDefaults_Name = "SD_UserDefaults_Name"
-public let SD_UserAddress_Notification = "SD_UserAddress_Notification"
-public let SD_UserDefaults_Telephone = "SD_UserDefaults_Telephone"
-public let SD_UserDefaults_Address = "SD_UserDefaults_Address"
-public let SD_OrderInfo_Note = "SD_OrderInfo_Note"
-public let SD_UserDefaults_SD_Credit = "SD_UserDefaulets_Credit"
-
-protocol payDelegate: NSObjectProtocol {
-    func returnOk(ok: String)
-}
 class PayViewController: UIViewController {
     
+    
+    // MARK: - 属性
     @IBOutlet var tableView: UITableView!
-    var delegate: payDelegate?
     var payModel: [JFGoodModel] = []
     var sumprice: String!
     var disprice: String!
     var sendTime: String = "尽快送达"
     var noteInfo: String?
+    var needPay: String!
+    var discount: String!
     @IBOutlet var sumPrice: UILabel!
     @IBOutlet var discountPrice: UILabel!
-    @IBAction func canBack(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func okSelect(sender: AnyObject) {
-        print("我点了确认下单")
-        let title = "选择付款方式"
-        let messge = ""
-        let payFromAddress = "货到付款"
-        let payFromZhiFuBao = "支付宝付款"
-        let backTitle = "返回"
-        let ispay = UIAlertController(title: title, message: messge, preferredStyle: UIAlertControllerStyle.ActionSheet)
-        let cancelAction = UIAlertAction(title: backTitle, style: UIAlertActionStyle.Cancel) { (UIAlertAction) -> Void in
-            print("取消了订单")
-        }
-        let okPayFromAddressAction = UIAlertAction(title: "确认", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
-             self.delegate?.returnOk("true")
-             self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        let lookPayFromAddressAction = UIAlertAction(title: "查看订单", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
-            self.delegate?.returnOk("true")
-            let OrederStoryBoard = UIStoryboard(name: "MyOrderStoryBoard", bundle: nil)
-            let orderVC = OrederStoryBoard.instantiateViewControllerWithIdentifier("OrderView") as? OrderViewController
-            self.navigationController!.pushViewController(orderVC!, animated: true)
-        }
-
-        let payFromAddressAction = UIAlertAction(title: payFromAddress, style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
-            print("使用了货到付款")
-            self.sentOrderInformation()
-            let titleInfo = "订单确认"
-            let message = "订单已经成功生成，商家正在准备配送，3小时后自动确认收货"
-            let user = NSUserDefaults.standardUserDefaults()
-            user.setObject(nil, forKey: SD_OrderInfo_Note)
-            let isOk = UIAlertController(title: titleInfo, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-            isOk.addAction(okPayFromAddressAction)
-            isOk.addAction(lookPayFromAddressAction)
-            self.refreshShopCar()
-            self.presentViewController(isOk, animated: true, completion: nil)
-        }
-        let payFromZhiFbaoAcction = UIAlertAction(title: payFromZhiFuBao, style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
-            print("使用了支付宝付款")
-        }
-        ispay.addAction(cancelAction)
-        ispay.addAction(payFromZhiFbaoAcction)
-        ispay.addAction(payFromAddressAction)
-        self.presentViewController(ispay, animated: true, completion: nil)
-
-    }
-    
-    //删除已经提交订单的商品
-    func refreshShopCar(){
-        for var i = 0; i<Model.defaultModel.shopCart.count; i++ {
-            if(Model.defaultModel.shopCart[i].selected == true ) {
-                Model.defaultModel.removeAtIndex(i, success: { () -> Void in
-                    NSNotificationCenter.defaultCenter().postNotificationName("login", object: self)
-                })
-            }
-        }
-    }
-    
-    internal var needPay: String!
-    internal var discount: String!
     // MARK: - view生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.tabBarController!.tabBar.hidden = true
         sumPrice.text = needPay
         discountPrice.text = discount
         tableView.delegate = self
@@ -105,15 +35,13 @@ class PayViewController: UIViewController {
         imageView.image = UIImage(named: "彩带")
         tableView.footerViewForSection(0)?.backgroundView = imageView
         self.navigationItem.title = "确认订单"
-//        backBtn.setImage(UIImage(named: "back_1"), forState: .Normal)
-//        backBtn.setImage(UIImage(named: "back_2"), forState: .Highlighted)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
     }
     
     override func viewWillAppear(animated: Bool){
 
         super.viewWillAppear(animated)
-    
+        tableView.reloadData()
+        
     }
     
     deinit{
@@ -124,37 +52,70 @@ class PayViewController: UIViewController {
     }
     // MARK: - 懒加载TabViewcellId
     private lazy var mineTitles: NSMutableArray = NSMutableArray(array: ["AddressCell", "TimeCell", "RemarksCell", "BillCell", "CouponCell","ShopCell","NoAddressCell"])
-    lazy var backBtn: UIButton = {
-        //设置返回按钮属性
-        let backBtn = UIButton(type: UIButtonType.Custom)
-        backBtn.titleLabel?.font = UIFont.systemFontOfSize(17)
-        backBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        backBtn.setTitleColor(UIColor.grayColor(), forState: .Highlighted)
-        backBtn.setImage(UIImage(named: "back_1"), forState: .Normal)
-        backBtn.setImage(UIImage(named: "back_2"), forState: .Highlighted)
-        backBtn.addTarget(self, action: "didTappedBackButton", forControlEvents: .TouchUpInside)
-        backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        backBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -25, 0, 0)
-        backBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
-        let btnW: CGFloat = AppWidth > 375.0 ? 50 : 44
-        backBtn.frame = CGRectMake(0, 0, btnW, 40)
-        return backBtn
-    }()
 }
 
+// MARK: - 按钮响应事件 以及逻辑方法
 extension PayViewController {
-    func didTappedBackButton() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    
+    @IBAction func okSelect(sender: AnyObject) {
+        print("我点了确认下单")
+        //逻辑检查: 是否已经填写好了收货地址信息
+        if UserAccountTool.judgeUserIsAddress() {
+            let title = "选择付款方式"
+            let messge = ""
+            let payFromAddress = "货到付款"
+            let payFromZhiFuBao = "支付宝付款"
+            let backTitle = "返回"
+            let ispay = UIAlertController(title: title, message: messge, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            let cancelAction = UIAlertAction(title: backTitle, style: UIAlertActionStyle.Cancel) { (UIAlertAction) -> Void in
+                print("取消了订单")
+            }
+            let okPayFromAddressAction = UIAlertAction(title: "确认", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+            let lookPayFromAddressAction = UIAlertAction(title: "查看订单", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
+                let OrederStoryBoard = UIStoryboard(name: "MyOrderStoryBoard", bundle: nil)
+                let orderVC = OrederStoryBoard.instantiateViewControllerWithIdentifier("OrderView") as? OrderViewController
+                self.navigationController!.pushViewController(orderVC!, animated: true)
+            }
+            
+            let payFromAddressAction = UIAlertAction(title: payFromAddress, style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
+                print("使用了货到付款")
+                self.sentOrderInformation()
+                let titleInfo = "订单确认"
+                let message = "订单已经成功生成，商家正在准备配送，3小时后自动确认收货"
+                let user = NSUserDefaults.standardUserDefaults()
+                user.setObject(nil, forKey: SD_OrderInfo_Note)
+                let isOk = UIAlertController(title: titleInfo, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                isOk.addAction(okPayFromAddressAction)
+                isOk.addAction(lookPayFromAddressAction)
+                self.removeShoppingCartGoods()
+                self.presentViewController(isOk, animated: true, completion: nil)
+            }
+            let payFromZhiFbaoAcction = UIAlertAction(title: payFromZhiFuBao, style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
+                print("使用了支付宝付款")
+            }
+            ispay.addAction(cancelAction)
+            ispay.addAction(payFromZhiFbaoAcction)
+            ispay.addAction(payFromAddressAction)
+            self.presentViewController(ispay, animated: true, completion: nil)
+            
+        }
+        else {
+            SVProgressHUD.showInfoWithStatus("请填写地址信息")
+        }
+ 
     }
+        
     func modelChangeDict() -> NSMutableDictionary{
         //地址信息封装成dictitionary
-        let address = UserAddress.userAccount()!
+        let address = UserAccountTool.getUserAddressInformation()!
         let receiveAddress: NSMutableDictionary = NSMutableDictionary()
         receiveAddress.setObject(address[2], forKey: "address")
         receiveAddress.setObject(address[1], forKey: "tel")
         //封装orderinfo
         let orderInfo: NSMutableDictionary = NSMutableDictionary()
-        orderInfo.setObject(UserAccountTool.userAccount()!, forKey: "custNo")
+        orderInfo.setObject(UserAccountTool.getUserCustNo()!, forKey: "custNo")
         orderInfo.setObject(self.sumprice, forKey: "totalAmt")
         orderInfo.setObject(self.disprice, forKey: "freeAmt")
         orderInfo.setObject("202",forKey: "shopNo")
@@ -199,6 +160,17 @@ extension PayViewController {
         }
         return true
     }
+    //删除已经提交订单的商品
+    func removeShoppingCartGoods(){
+        for var i = 0; i<Model.defaultModel.shopCart.count; i++ {
+            if(Model.defaultModel.shopCart[i].selected == true ) {
+                Model.defaultModel.removeAtIndex(i, success: { () -> Void in
+                    NSNotificationCenter.defaultCenter().postNotificationName("login", object: self)
+                })
+            }
+        }
+    }
+
 }
     // MARK: - tableview 的datasource 和 delegate
 
@@ -222,7 +194,7 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
     }
     internal func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if(indexPath.section == 0) {
-            if UserAddress.userIsAddress() == false {
+            if UserAccountTool.judgeUserIsAddress() == false {
                 return 52
             }
             else {
@@ -242,7 +214,7 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
     internal func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cellId = ""
         if(indexPath.section == 0){
-            if UserAddress.userIsAddress() == false {
+            if UserAccountTool.judgeUserIsAddress() == false {
                 cellId = "NoAddressCell"
             }
             else {
@@ -266,13 +238,10 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
            let name = cell?.viewWithTag(10011) as? UILabel
            let tele = cell?.viewWithTag(10012) as? UILabel
            let address = cell?.viewWithTag(10013) as? UILabel
-           let ad: [String] = UserAddress.userAccount()!
+           let ad: [String] = UserAccountTool.getUserAddressInformation()!
            name?.text = ad[0]
            tele?.text = ad[1]
            address?.text = ad[2]
-//           let viewLine = UIView(frame: CGRectMake(0, self.view.height - 1, self.view.frame.size.width, 1/((UIScreen.mainScreen()).scale)))
-//           viewLine.backgroundColor = UIColor.redColor()
-//           self.view.addSubview(viewLine)
            
         }
         else if indexPath.section == 1 {
@@ -307,7 +276,6 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
         let addstroy = UIStoryboard(name: "PayStoryboard", bundle: nil)
         if indexPath.section == 0 {
             let vc = addstroy.instantiateViewControllerWithIdentifier("AddVc") as! AddressController
-            vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         }
         if indexPath.section == 1 {
@@ -326,7 +294,6 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
             }
             if indexPath.row == 1 {
                 let vc = addstroy.instantiateViewControllerWithIdentifier("NoteView") as? NoteViewController
-                vc?.delegate = self
                 if UserOrderInfo.isNote() {
                     vc?.noteString = UserOrderInfo.orderInfoNote()
                 }
@@ -337,15 +304,6 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
 }
 
 // MARK: - 自定义delegate
-extension PayViewController: OkDelegate {
-    func returnOk(ok: String){
-        if(ok == "true"){
-            print("我接受了 true")
-            self.tableView.reloadData()
-        }
-    }
-}
-
 extension PayViewController: HRHDatePickerViewDelegate {
     func getSelectDate(date: String!, type: DateType) {
         switch (type) {
