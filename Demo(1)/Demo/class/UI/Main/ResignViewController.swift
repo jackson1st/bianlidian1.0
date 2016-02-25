@@ -17,11 +17,15 @@ class ResignViewController: UIViewController,UIScrollViewDelegate {
     var rePsdTextField: UITextField!
     var resignButton: UIButton!
     override func viewDidLoad() {
+        setNav()
         addScrollView()
         addTextField()
         addResignButton()
     }
     
+    func setNav(){
+        navigationItem.title = "注册"
+    }
     func addScrollView() {
         backScrollView = UIScrollView(frame: view.bounds)
         backScrollView.backgroundColor = UIColor.colorWith(245, green: 245, blue: 245, alpha: 1)
@@ -110,6 +114,7 @@ extension ResignViewController {
             return
         }
         
+        MBProgressHUD.showMessage("请稍等")
         let param: [String : AnyObject] = ["tel" : phoneTextField.text! , "password" : psdTextField.text! ]
         HTTPManager.POST(ContentType.ValidateAndSend, params: param).responseJSON({ (json) -> Void in
             print("注册界面发送验证码返回数据")
@@ -119,14 +124,12 @@ extension ResignViewController {
             vc.phoneNumber = self.phoneTextField.text
             vc.password = self.psdTextField.text
             vc.id = info!["id"] as? String
+            MBProgressHUD.hideHUD()
             self.navigationController?.pushViewController(vc, animated: true)
             }) { (error) -> Void in
-                SVProgressHUD.showErrorWithStatus("发送验证码失败,请点击重试", maskType: SVProgressHUDMaskType.Black)
+                MBProgressHUD.showError("发送验证码失败,请重试")
                 
         }
-    }
-    @IBAction func closeResign(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
     }
     
 }

@@ -1,9 +1,11 @@
 //
-//  MD5.Swift
-//  项目GitHub地址:         https://github.com/ZhongTaoTian/SmallDay
-//  项目思路和架构讲解博客:    http://www.jianshu.com/p/bcc297e19a94
-//  Created by apple on 15/8/17.
-//  Copyright (c) 2015年 维尼的小熊. All rights reserved.
+//  String+Hash.swift
+//  Demo
+//
+//  Created by 黄人煌 on 16/2/7.
+//  Copyright © 2015年 Fjnu. All rights reserved.
+//
+//  加密措施
 
 /// 注意：要使用本分类，需要在 bridge.h 中添加以下头文件导入
 /// #import <CommonCrypto/CommonCrypto.h>

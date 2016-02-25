@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="AI0-bQ-HKh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -8,7 +8,7 @@
         <!--Root View Controller-->
         <scene sceneID="XRh-ye-JGm">
             <objects>
-                <tabBarController id="AI0-bQ-HKh" customClass="RootViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="RootViewController" id="AI0-bQ-HKh" customClass="RootViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="8OC-eJ-Mux">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -30,7 +30,7 @@
         <scene sceneID="cMO-pO-4nq">
             <objects>
                 <navigationController id="PX0-c2-J67" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="102" title="购物车" image="classification_1" selectedImage="classification_2" id="iVB-im-BxC"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="购物车" image="shopCart" selectedImage="shopCart_r" id="iVB-im-BxC"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QAq-kE-tLM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -40,13 +40,10 @@
                         <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
-                    <connections>
-                        <segue destination="yWp-AZ-3IK" kind="relationship" relationship="rootViewController" id="Zcf-K1-Y8d"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6PI-K3-p0L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2077.5" y="-542.5"/>
+            <point key="canvasLocation" x="-2065.5" y="-593.5"/>
         </scene>
         <!--Item-->
         <scene sceneID="fgh-4z-rrQ">
@@ -65,7 +62,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="selectBrunchCell" rowHeight="50" id="ofx-s4-fHa">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ofx-s4-fHa" id="qiG-pF-ErQ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
@@ -101,7 +98,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e17-AW-Fxg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2941.5" y="-531.5"/>
+            <point key="canvasLocation" x="-2555.5" y="-593.5"/>
         </scene>
         <!--Home-->
         <scene sceneID="Cen-9v-PxK">
@@ -117,7 +114,7 @@
         <scene sceneID="NMJ-nu-rD7">
             <objects>
                 <viewControllerPlaceholder storyboardName="Sort" id="sed-nW-LOo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="7KU-lN-ALN"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="Item" id="7KU-lN-ALN"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Fq-v6-pFL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -135,7 +132,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="classification_1" width="27" height="27"/>
-        <image name="classification_2" width="27" height="27"/>
+        <image name="shopCart" width="27" height="27"/>
+        <image name="shopCart_r" width="27" height="27"/>
     </resources>
 </document>

@@ -2,9 +2,8 @@
 //  JFOldPriceLabel.swift
 //  shoppingCart
 //
-//  Created by jianfeng on 15/11/18.
-//  Copyright © 2015年 六阿哥. All rights reserved.
-//
+//  Created by 黄人煌 on 15/12/28.
+//  Copyright © 2015年 Fjnu. All rights reserved.
 
 import UIKit
 

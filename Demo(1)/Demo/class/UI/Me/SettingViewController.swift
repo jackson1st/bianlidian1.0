@@ -1,6 +1,9 @@
 //
 //  SettingViewController.swift
-//  SmallDay
+//
+//  Created by 黄人煌 on 15/12/28.
+//  Copyright © 2015年 Fjnu. All rights reserved.
+//
 //  设置控制器
 
 import UIKit
@@ -20,7 +23,7 @@ class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//         self.tabBarController!.tabBar.hidden = true
+        navigationController?.setNavigationBarHidden(false, animated: true)
         // 设置tableView
         setTableView()
     }
@@ -74,15 +77,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             let aboutVC = AboutWeViewController()
             navigationController!.pushViewController(aboutVC, animated: true)
             
-        } else if indexPath.row == SettingCellType.Recommend.hashValue {
-            let share = ShareView.shareViewFromXib()
-            share.shareVC = self
-            let shareModel = ShareModel(shareTitle: "Swift开源项目:小日子", shareURL: theme.JianShuURL, image: UIImage(named: "author"), shareDetail: "小熊新作,Swift开源项目小日子,OC程序员学习Swift良心作品")
-            share.shareModel = shareModel
-            view.addSubview(share)
-            share.showShareView(CGRectMake(0, AppHeight - theme.ShareViewHeight - NavigationH, AppWidth, theme.ShareViewHeight))
-            
-        } else if indexPath.row == SettingCellType.Clean.hashValue {
+        }  else if indexPath.row == SettingCellType.Clean.hashValue {
             weak var tmpSelf = self
             FileTool.cleanFolder(theme.cachesPath, complete: { () -> () in
                 tmpSelf!.tableView.reloadData()

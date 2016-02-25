@@ -8,9 +8,6 @@
 
 import UIKit
 
-protocol OkDelegate: NSObjectProtocol {
-    func returnOk(ok: String)
-}
 class AddressController: UITableViewController {
     @IBOutlet var name: UITextField!
     @IBOutlet var address: UITextField!
@@ -18,7 +15,6 @@ class AddressController: UITableViewController {
     @IBOutlet weak var piaddress: UITextField!
     var ad: [String] = []
     var piAddress: String?
-     var delegate: OkDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
@@ -26,7 +22,6 @@ class AddressController: UITableViewController {
     }
     func setNv() {
         navigationItem.title = "地址信息"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "确认", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedAddButton")
     }
     // MARK: - 准备UI
@@ -35,8 +30,8 @@ class AddressController: UITableViewController {
         let frame = CGRectMake(0, 0, 0, -0.000001)
         self.tableView.tableHeaderView = UIView.init(frame: frame)
         let userDefault = NSUserDefaults()
-        if (UserAddress.userIsAddress()) {
-        ad = UserAddress.userAccount()!
+        if (UserAccountTool.judgeUserIsAddress()) {
+        ad = UserAccountTool.getUserAddressInformation()!
             if(ad.count > 0) {
             var addressArray = ad[2].componentsSeparatedByString(" ")
             name.text = ad[0]
@@ -54,14 +49,27 @@ class AddressController: UITableViewController {
 
 // MARK: - 处理View上的响应事件
 extension AddressController {
-    func didTappedBackButton() {
-        self.navigationController?.popToRootViewControllerAnimated(true)
-    }
     func didTappedAddButton() {
+        
+        if name.text == "" {
+            MBProgressHUD.showError("请输入姓名")
+            return
+        }
+        
+        if ((tele.text?.validateMobile()) != true) {
+            MBProgressHUD.showError("请输入11位正确手机号码")
+            return
+        }
+        
+        if address.text == "" {
+            MBProgressHUD.showError("请填写具体地址")
+            return
+        }
+        
         NSUserDefaults.standardUserDefaults().setObject(name.text, forKey: SD_UserDefaults_Name)
         NSUserDefaults.standardUserDefaults().setObject(tele.text, forKey: SD_UserDefaults_Telephone)
         NSUserDefaults.standardUserDefaults().setObject("\(piaddress.text!) \(address.text!)", forKey: SD_UserDefaults_Address)
-        delegate?.returnOk("true")
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }

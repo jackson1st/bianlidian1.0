@@ -102,10 +102,8 @@ class Model: NSObject {
             }
         let address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
             HTTPManager.POST(ContentType.ShowCarDetail, params: ["cust":userID,"areaName":address]).responseJSON({ (json) -> Void in
-                print("json的内容:")
                 self.shopCart.removeAll()
                 self.dict.removeAll()
-                print(json)
                 if let showCar = json as? NSDictionary{
                     if let shopList = showCar["allShop"] as? NSArray{
                         for var x in shopList{
@@ -155,8 +153,6 @@ class Model: NSObject {
                     success!()
                 }
                 NSNotificationCenter.defaultCenter().postNotificationName("CarNumChanged", object: nil)
-                print(self.shopCart.count)
-                print("一个Model")
                 
                 }, error: { (error) -> Void in
                     print("发生了错误: " + (error?.localizedDescription)!)

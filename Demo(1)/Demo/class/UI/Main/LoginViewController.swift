@@ -1,18 +1,11 @@
 //
 //  LoginViewController.swift
-//  SmallDay
-
+//  Created by 黄人煌 on 15/12/28.
+//  Copyright © 2015年 Fjnu. All rights reserved.
 //  登陆控制器
 
 import UIKit
 
-public let SD_UserLogin_Notification = "SD_UserLogin_Notification"
-public let SD_UserDefaults_Account = "SD_UserDefaults_Account"
-public let SD_UserDefaults_Password = "SD_UserDefaults_Password"
-public let SD_UserDefaults_CustNo = "SD_UserDefaults_CustNo"
-public let SD_UserDefaults_ImageUrl = "SD_UserDefaults_ImageUrl"
-public let SD_UserDefaults_Integral = "SD_UserDefaults_Integral"
-public let SD_UserDefaults_UserName = "SD_UserDefaults_UserName"
 
 class LoginViewController: UIViewController, UIScrollViewDelegate {
     
@@ -23,7 +16,6 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
     var loginButton: UIButton!
     var resignButton: UIButton!
     var forgetButton: UIButton!
-    var ispush: Bool! = false
     let textCoclor: UIColor = UIColor.colorWith(50, green: 50, blue: 50, alpha: 1)
     let loginW: CGFloat = 250
     
@@ -31,6 +23,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         navigationItem.title = "登录"
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         //添加scrollView
         addScrollView()
         addResignButton()
@@ -40,9 +33,6 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         addTextField()
     }
     
-    func setNavigation() {
-
-    }
     func addScrollView() {
         backScrollView = UIScrollView(frame: view.bounds)
         backScrollView.backgroundColor = UIColor.colorWith(245, green: 245, blue: 245, alpha: 1)
@@ -139,11 +129,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         let psdMD5 = psdTextField.text
         lgoin(account!,passWord: psdMD5!)
     }
-    
-    @IBAction func closeLogin(sender: AnyObject) {
-        
-        dismissViewControllerAnimated(true, completion: nil)
-    }
+
     func forgetClick(){
         
     }
@@ -157,11 +143,6 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
     }
 }
 extension  LoginViewController {
-    @IBAction func resignClick(sender: AnyObject) {
-        
-        let vc = ResignViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
     
     func lgoin(userName: String,passWord: String) {
         
@@ -181,12 +162,9 @@ extension  LoginViewController {
                 let integral = infomation!["userInfo"]!["integral"] as? Int
                 UserAccountTool.setUserInfo(userName!, passWord: passWord, custNo: custNo!, userName: userName!, imageUrl: imageUrl!, integral: integral!)
                 MBProgressHUD.hideHUD()
-                if self.ispush == false {
-                self.dismissViewControllerAnimated(true, completion: nil)
-                }
-                else {
+                Model.defaultModel.loadDataForNetWork({ () -> Void in
                     self.navigationController?.popViewControllerAnimated(true)
-                }
+                })
                 return
             }
             else {

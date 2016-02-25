@@ -1,18 +1,13 @@
 //
 //  MeViewController.swift
-//  SmallDay
-//  项目GitHub地址:         https://github.com/ZhongTaoTian/SmallDay
-//  项目思路和架构讲解博客:    http://www.jianshu.com/p/bcc297e19a94
-//  Created by MacBook on 15/8/14.
-//  Copyright (c) 2015年 维尼的小熊. All rights reserved.
+//
+//  Created by 黄人煌 on 15/12/28.
+//  Copyright © 2015年 Fjnu. All rights reserved.
 //  这种cell最好用stroyboard的静态单元格来描述
 
 import UIKit
 import Alamofire
-public let myStoryBoard = UIStoryboard(name: "MyOrderStoryBoard", bundle: nil)
 public let SD_UserIconData_Path = theme.cachesPath + "/iconImage.data"
-public let navigationColor = UIColor.colorWith(245, green: 77, blue: 86, alpha: 1)
-
 enum SDMineCellType: Int {
     /// 个人中心
     case MyCenter = 0
@@ -46,29 +41,11 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // 初始化导航条上的内容
-        setNav()
+        self.navigationController?.navigationBarHidden = true
         // 设置tableView
         setTableView()
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(true)
-        self.tabBarController!.tabBar.hidden = false
-        navigationController?.navigationBar.lt_setBackgroundColor(navigationColor)
-        navigationController?.navigationBar.shadowImage = UIImage()
-    }
-    
-    
-    private func setNav() {
-        navigationItem.title = ""
-        navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor())
-        navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationController?.navigationBar.hidden = true
-        navigationItem.leftBarButtonItem = nil
-        navigationItem.rightBarButtonItem = nil
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(imageName: "settinghhhh", highlImageName: "settingh", targer: self, action: "settingClick")
-    }
     
     private func setTableView() {
         self.automaticallyAdjustsScrollViewInsets = false
@@ -141,7 +118,8 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        setNav()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
         loginLabel.hidden = UserAccountTool.userIsLogin()
         if UserAccountTool.userIsLogin() {
             if let data = NSData(contentsOfFile: SD_UserIconData_Path) {
@@ -164,7 +142,6 @@ extension MeViewController: IconViewDelegate {
             iconActionSheet.showInView(view)
         } else {
             let vc = LoginViewController()
-            vc.ispush = true
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -185,14 +162,6 @@ extension MeViewController: UIActionSheetDelegate {
         }
     }
     
-}
-
-/// MARK: APParallaxViewDelegate
-
-extension MeViewController: APParallaxViewDelegate {
-    func parallaxView(view: APParallaxView!, willChangeFrame frame: CGRect) {
-        
-    }
 }
 /// MARK: 摄像机和相册的操作和代理方法
 extension MeViewController: UIImagePickerControllerDelegate {
@@ -236,7 +205,7 @@ extension MeViewController: UIImagePickerControllerDelegate {
                         }
                         NSFileManager.defaultManager().createFileAtPath(SD_UserIconData_Path, contents: data, attributes: nil)
                         
-                        HTTPManager.UPload(ContentType.UserHeadPicSubmit, params: ["custno" : UserAccountTool.userCustNo()!], multipartFormData: { (MultipartFormData) -> Void in
+                        HTTPManager.UPload(ContentType.UserHeadPicSubmit, params: ["custno" : UserAccountTool.getUserCustNo()!], multipartFormData: { (MultipartFormData) -> Void in
                             MultipartFormData.appendBodyPart(data: data!, name: "head", fileName: "head.jpg", mimeType: "image/jpg")
                             }, encodingMemoryThreshold: { (MultipartFormDataEncodingResult) -> Void in
                                 switch (MultipartFormDataEncodingResult){
@@ -315,17 +284,22 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
             } else if indexPath.row == SDMineCellType.MyCenter.hashValue {  // 个人中心
                 if UserAccountTool.userIsLogin() {
                     
-                    let myCenterVC = myStoryBoard.instantiateViewControllerWithIdentifier("MyCenterController") 
+                    let myCenterVC = myStoryBoard.instantiateViewControllerWithIdentifier("MyCenterController")
  
                     navigationController!.pushViewController(myCenterVC, animated: true)
                 } else {
                     let vc = LoginViewController()
-                    vc.ispush = true
                     navigationController?.pushViewController(vc, animated: true)
                 }
                 
             } else if indexPath.row == SDMineCellType.MyCollect.hashValue { // 我的收藏
-                self.navigationController?.pushViewController(MyLikeViewController(), animated: true)
+                if UserAccountTool.userIsLogin() {
+                  self.navigationController?.pushViewController(MyLikeViewController(), animated: true)
+                    
+                }
+                else {
+                    navigationController?.pushViewController(LoginViewController(), animated: true)
+                }
                 
             } else if indexPath.row == SDMineCellType.MyOrder.hashValue {   // 我的订单
                 if UserAccountTool.userIsLogin() {
@@ -336,7 +310,6 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
                 } else {
                     
                     let vc = LoginViewController()
-                    vc.ispush = true
                     navigationController?.pushViewController(vc, animated: true)                }
             } else {                                                        // 应用推荐
                 let rmdVC = RecommendViewController()
@@ -344,8 +317,7 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
         } else {
-//            let shakeVC = ShakeViewController()
-//            navigationController?.pushViewController(shakeVC, animated: true)
+
         }
     }
     

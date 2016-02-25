@@ -1,8 +1,8 @@
 //
 //  SettingCell.swift
-//  SmallDa
-//  Copyright (c) 2015年 维尼的小熊. All rights reserved.
-//
+//  Created by 黄人煌 on 15/12/28.
+//  Copyright © 2015年 Fjnu. All rights reserved.
+
 
 import UIKit
 

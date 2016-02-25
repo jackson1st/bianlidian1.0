@@ -19,7 +19,7 @@ class CollectionModel: NSObject {
     
     ///检查是否存在
     func find(no: String,success: (flag: String)->Void) {
-        HTTPManager.POST(ContentType.CollectionExisted, params: ["custno":UserAccountTool.userCustNo()!,"itemNo":no]).responseJSON({ (json) -> Void in
+        HTTPManager.POST(ContentType.CollectionExisted, params: ["custno":UserAccountTool.getUserCustNo()!,"itemNo":no]).responseJSON({ (json) -> Void in
             success(flag: json["statue"] as! String)
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
@@ -33,7 +33,7 @@ class CollectionModel: NSObject {
     
     /// 加入收藏
     func addLiked(model: GoodDetail,success: (()->Void)?){
-        HTTPManager.POST(ContentType.CollectionAdd, params: ["custno": UserAccountTool.userCustNo()!,"itemNo":model.itemNo]).responseJSON({ (json) -> Void in
+        HTTPManager.POST(ContentType.CollectionAdd, params: ["custno": UserAccountTool.getUserCustNo()!,"itemNo":model.itemNo]).responseJSON({ (json) -> Void in
             print(json)
             //执行回调,待斟酌
             self.dict[model.itemNo] = self.Likes.count
@@ -52,7 +52,7 @@ class CollectionModel: NSObject {
     func removeAtNo(no: String,success: (()->Void)?){
         let index = findOfIndex(no)
         let model = Likes[index]
-        HTTPManager.POST(ContentType.CollectionDelete, params: ["custno": UserAccountTool.userCustNo()!,"itemNo":model.no]).responseJSON({ (json) -> Void in
+        HTTPManager.POST(ContentType.CollectionDelete, params: ["custno": UserAccountTool.getUserCustNo()!,"itemNo":model.no]).responseJSON({ (json) -> Void in
             print(json)
             //执行回调
             
@@ -75,7 +75,7 @@ class CollectionModel: NSObject {
     
     func loadDataFromNet(index: Int,count: Int,success: ((data:[LikedModel]) -> Void)?,callback:(()->Void)?){
         if(UserAccountTool.userIsLogin()){
-            HTTPManager.POST(ContentType.CollectionGet, params: ["custno": UserAccountTool.userCustNo()!,"pageindex":"\(index)","pagecount":"\(count)"]).responseJSON({ (var json) -> Void in
+            HTTPManager.POST(ContentType.CollectionGet, params: ["custno": UserAccountTool.getUserCustNo()!,"pageindex":"\(index)","pagecount":"\(count)"]).responseJSON({ (var json) -> Void in
                 print(json)
                 json = json["list"] as! [String: AnyObject]
                 let size = json["pageSize"] as! Int
@@ -113,12 +113,6 @@ class CollectionModel: NSObject {
     
 }
 
-//item_sale_price,
-//item_name,
-//url,
-//item_unit_no,
-//item_pack,
-//item_size
 class LikedModel: NSObject {
     var no: String!
     var price: String!

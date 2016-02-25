@@ -5,7 +5,7 @@
 //  Created by 黄人煌 on 15/12/28.
 //  Copyright © 2015年 Fjnu. All rights reserved.
 //
-//  管理用户账号工具
+//  管理用户信息工具
 
 import UIKit
 
@@ -35,7 +35,7 @@ class UserAccountTool: NSObject {
     }
     
     /// 如果用户登录了,返回用户的账号(电话号)
-    class func userAccount() -> String? {
+    class func getUserAccount() -> String? {
         if !userIsLogin() {
             return nil
         }
@@ -44,7 +44,7 @@ class UserAccountTool: NSObject {
         let account = user.objectForKey(SD_UserDefaults_Account) as? String
         return account!
     }
-    class func userCustNo() -> String? {
+    class func getUserCustNo() -> String? {
         if !userIsLogin() {
             return nil
         }
@@ -53,7 +53,7 @@ class UserAccountTool: NSObject {
         let account = user.objectForKey(SD_UserDefaults_CustNo) as? String
         return account!
     }
-    class func userName() -> String? {
+    class func getUserName() -> String? {
         if !userIsLogin() {
             return nil
         }
@@ -62,7 +62,7 @@ class UserAccountTool: NSObject {
         let account = user.objectForKey(SD_UserDefaults_UserName) as? String
         return account!
     }
-    class func userIntegral() -> Int? {
+    class func getUserIntegral() -> Int? {
         if !userIsLogin() {
             return nil
         }
@@ -71,7 +71,7 @@ class UserAccountTool: NSObject {
         let account = user.objectForKey(SD_UserDefaults_Integral) as? Int
         return account!
     }
-    class func userImageUrl() -> String? {
+    class func getUserImageUrl() -> String? {
         if !userIsLogin() {
             return nil
         }
@@ -80,11 +80,7 @@ class UserAccountTool: NSObject {
         let account = user.objectForKey(SD_UserDefaults_ImageUrl) as? String
         return account!
     }
-    
-}
-
-class UserAddress: NSObject {
-    class func userIsAddress() -> Bool {
+    class func judgeUserIsAddress() -> Bool {
         let user = NSUserDefaults.standardUserDefaults()
         let telephone = user.objectForKey(SD_UserDefaults_Telephone) as? String
         let address = user.objectForKey(SD_UserDefaults_Address) as? String
@@ -96,8 +92,8 @@ class UserAddress: NSObject {
         }
         return false
     }
-    class func userAccount() -> [String]? {
-        if !userIsAddress() {
+    class func getUserAddressInformation() -> [String]? {
+        if !judgeUserIsAddress() {
             return nil
         }
         var information: [String] = []
@@ -110,6 +106,7 @@ class UserAddress: NSObject {
         information.append(address!)
         return information
     }
+
 }
 
 class UserOrderInfo: NSObject {

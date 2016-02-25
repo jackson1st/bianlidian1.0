@@ -73,22 +73,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Demo/NetWork/HTTPManager.swift"
-            timestampString = "475833254.243377"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "responseJSON(_:error:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Demo/extension/ViewController+JS.swift"
             timestampString = "475819009.066099"
             startingColumnNumber = "9223372036854775807"
@@ -201,13 +185,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Demo/extension/MBProgressHUD/MBProgressHUD.m"
-            timestampString = "475831099.196846"
+            filePath = "Demo/extension/MBProgressHUD/MBProgressHUD+MJ.m"
+            timestampString = "477990632.764899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "-hide:"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "+showMessage:toView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -217,13 +201,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Demo/NetWork/HTTPManager.swift"
-            timestampString = "475833240.421127"
+            filePath = "Demo/extension/MBProgressHUD/MBProgressHUD.m"
+            timestampString = "478107798.373517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "POST(_:params:)"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "+hideHUDForView:animated:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

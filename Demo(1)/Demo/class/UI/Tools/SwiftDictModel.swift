@@ -1,10 +1,10 @@
 //
 //  SwiftDictModel.swift
-//  项目GitHub地址:         https://github.com/ZhongTaoTian/SmallDay
-//  项目思路和架构讲解博客:    http://www.jianshu.com/p/bcc297e19a94
-//  Copyright (c) 2015年 维尼的小熊. All rights reserved.
-//  字典转模型
-
+//  Demo
+//
+//  Created by 黄人煌 on 16/2/22.
+//  Copyright © 2016年 Fjnu. All rights reserved.
+//
 
 import Foundation
 
@@ -27,24 +27,33 @@ public class DictModelManager {
     ///
     ///  - returns: 模型对象
     public func objectWithDictionary(dict: NSDictionary, cls: AnyClass) -> AnyObject? {
-
+        
         // 动态获取命名空间
         let ns = NSBundle.mainBundle().infoDictionary!["CFBundleExecutable"] as! String
         
         // 模型信息
         let infoDict = fullModelInfo(cls)
-
+        
         let obj: AnyObject = (cls as! NSObject.Type).init()
-
+        
         autoreleasepool {
             // 3. 遍历模型字典
             for (k, v) in infoDict {
-                
+                if k == "desc" {
+                    let newValue = dict["description"] as? String
+                    obj.setValue(newValue, forKey: "desc")
+                }
                 if let value: AnyObject = dict[k] {
-        
+                    
                     if v.isEmpty {
                         if !(value === NSNull()) {
-                            obj.setValue(value, forKey: k)
+                            if k == "number" && AppWidth < 375 {
+                                if let vav: String = value as? String {
+                                    obj.setValue(Int(vav)!, forKey: k)
+                                }
+                            } else {
+                                obj.setValue(value, forKey: k)
+                            }
                         }
                         
                     } else {
@@ -57,7 +66,7 @@ public class DictModelManager {
                             }
                             
                         } else if type == "NSArray" {
-
+                            
                             if let subObj: AnyObject = objectsWithArray(value as! NSArray, cls: NSClassFromString(ns + "." + v)!) {
                                 obj.setValue(subObj, forKey: k)
                             }
@@ -83,7 +92,7 @@ public class DictModelManager {
         autoreleasepool { () -> () in
             for value in array {
                 let type = "\(value.classForCoder)"
-
+                
                 if type == "NSDictionary" {
                     if let subObj: AnyObject = objectWithDictionary(value as! NSDictionary, cls: cls) {
                         list.append(subObj)
@@ -256,3 +265,4 @@ extension Dictionary {
         }
     }
 }
+
