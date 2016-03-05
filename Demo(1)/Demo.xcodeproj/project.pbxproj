@@ -63,7 +63,7 @@
 		04CF8DC21C144FB400512979 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D941C144FB400512979 /* MainNavigationController.swift */; };
 		04CF8DC81C144FB400512979 /* AboutWeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D9B1C144FB400512979 /* AboutWeViewController.swift */; };
 		04CF8DC91C144FB400512979 /* AboutWeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8D9C1C144FB400512979 /* AboutWeViewController.xib */; };
-		04CF8DCA1C144FB400512979 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D9D1C144FB400512979 /* FeedbackViewController.swift */; };
+		04CF8DCA1C144FB400512979 /* IdeaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D9D1C144FB400512979 /* IdeaViewController.swift */; };
 		04CF8DCB1C144FB400512979 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D9E1C144FB400512979 /* IconView.swift */; };
 		04CF8DCC1C144FB400512979 /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D9F1C144FB400512979 /* MeViewController.swift */; };
 		04CF8DCF1C144FB400512979 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DA21C144FB400512979 /* OrderViewController.swift */; };
@@ -181,6 +181,21 @@
 		04CF8F281C14507A00512979 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8F251C14507A00512979 /* Home.storyboard */; };
 		04CF8F291C14507A00512979 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8F261C14507A00512979 /* Main.storyboard */; };
 		04CF8F2A1C14507A00512979 /* My.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8F271C14507A00512979 /* My.storyboard */; };
+		320953AF1C85B20500FD136F /* MeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953AE1C85B20500FD136F /* MeCell.swift */; };
+		320953BD1C85B38000FD136F /* MinePlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 320953BC1C85B38000FD136F /* MinePlist.plist */; };
+		320953BF1C85C6D800FD136F /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953BE1C85C6D800FD136F /* UIBarButtonItem+Extension.swift */; };
+		320953C11C85C71B00FD136F /* UpImageDownTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953C01C85C71B00FD136F /* UpImageDownTextButton.swift */; };
+		320953C31C85C7C700FD136F /* PlaceHolderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953C21C85C7C700FD136F /* PlaceHolderTextView.swift */; };
+		320953C51C85D63B00FD136F /* MineTableHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953C41C85D63B00FD136F /* MineTableHeadView.swift */; };
+		320953C71C85D81700FD136F /* HRHTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953C61C85D81700FD136F /* HRHTableView.swift */; };
+		320953C91C86A00400FD136F /* MineHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953C81C86A00400FD136F /* MineHeadView.swift */; };
+		320953CB1C885F5800FD136F /* CouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953CA1C885F5800FD136F /* CouponViewController.swift */; };
+		320953CD1C885FDD00FD136F /* CouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953CC1C885FDD00FD136F /* CouponCell.swift */; };
+		320953CF1C8861AF00FD136F /* CouponModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953CE1C8861AF00FD136F /* CouponModel.swift */; };
+		320953D11C8861D700FD136F /* MyCoupon in Resources */ = {isa = PBXBuildFile; fileRef = 320953D01C8861D700FD136F /* MyCoupon */; };
+		320953D31C88622D00FD136F /* BindingCouponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953D21C88622D00FD136F /* BindingCouponView.swift */; };
+		320953D51C88627D00FD136F /* CoupinRuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953D41C88627D00FD136F /* CoupinRuleViewController.swift */; };
+		320953D71C8862BD00FD136F /* LoadProgressAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953D61C8862BD00FD136F /* LoadProgressAnimationView.swift */; };
 		3254C5571C678CE100D16906 /* ResignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3254C5551C678CE100D16906 /* ResignViewController.swift */; };
 		3254C5581C678CE100D16906 /* SentSecurityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3254C5561C678CE100D16906 /* SentSecurityCodeViewController.swift */; };
 		325A7CB91C5B9D3E00B24144 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 325A7CB81C5B9D3E00B24144 /* Reachability.m */; };
@@ -463,7 +478,7 @@
 		04CF8D941C144FB400512979 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		04CF8D9B1C144FB400512979 /* AboutWeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutWeViewController.swift; sourceTree = "<group>"; };
 		04CF8D9C1C144FB400512979 /* AboutWeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutWeViewController.xib; sourceTree = "<group>"; };
-		04CF8D9D1C144FB400512979 /* FeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		04CF8D9D1C144FB400512979 /* IdeaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdeaViewController.swift; sourceTree = "<group>"; };
 		04CF8D9E1C144FB400512979 /* IconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		04CF8D9F1C144FB400512979 /* MeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		04CF8DA21C144FB400512979 /* OrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
@@ -658,6 +673,21 @@
 		04CF8F251C14507A00512979 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		04CF8F261C14507A00512979 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		04CF8F271C14507A00512979 /* My.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = My.storyboard; sourceTree = "<group>"; };
+		320953AE1C85B20500FD136F /* MeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeCell.swift; sourceTree = "<group>"; };
+		320953BC1C85B38000FD136F /* MinePlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MinePlist.plist; sourceTree = "<group>"; };
+		320953BE1C85C6D800FD136F /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
+		320953C01C85C71B00FD136F /* UpImageDownTextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpImageDownTextButton.swift; sourceTree = "<group>"; };
+		320953C21C85C7C700FD136F /* PlaceHolderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceHolderTextView.swift; sourceTree = "<group>"; };
+		320953C41C85D63B00FD136F /* MineTableHeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineTableHeadView.swift; sourceTree = "<group>"; };
+		320953C61C85D81700FD136F /* HRHTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRHTableView.swift; sourceTree = "<group>"; };
+		320953C81C86A00400FD136F /* MineHeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineHeadView.swift; sourceTree = "<group>"; };
+		320953CA1C885F5800FD136F /* CouponViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponViewController.swift; sourceTree = "<group>"; };
+		320953CC1C885FDD00FD136F /* CouponCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponCell.swift; sourceTree = "<group>"; };
+		320953CE1C8861AF00FD136F /* CouponModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponModel.swift; sourceTree = "<group>"; };
+		320953D01C8861D700FD136F /* MyCoupon */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MyCoupon; sourceTree = "<group>"; };
+		320953D21C88622D00FD136F /* BindingCouponView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingCouponView.swift; sourceTree = "<group>"; };
+		320953D41C88627D00FD136F /* CoupinRuleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoupinRuleViewController.swift; sourceTree = "<group>"; };
+		320953D61C8862BD00FD136F /* LoadProgressAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadProgressAnimationView.swift; sourceTree = "<group>"; };
 		3254C5551C678CE100D16906 /* ResignViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResignViewController.swift; sourceTree = "<group>"; };
 		3254C5561C678CE100D16906 /* SentSecurityCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentSecurityCodeViewController.swift; sourceTree = "<group>"; };
 		325A7CB71C5B9D3E00B24144 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -955,6 +985,7 @@
 			children = (
 				04CF8F221C14502B00512979 /* D3Model.swift */,
 				32935BE21C7AE9CC00F60D05 /* MainAD.swift */,
+				320953CE1C8861AF00FD136F /* CouponModel.swift */,
 			);
 			path = BusinessModel;
 			sourceTree = "<group>";
@@ -982,6 +1013,8 @@
 				32B47AE61C7AE60B0036D131 /* ADViewController.swift */,
 				32935BEA1C7AEB4C00F60D05 /* GuideViewController.swift */,
 				32935BEC1C7AEBD700F60D05 /* GuideCell.swift */,
+				320953C21C85C7C700FD136F /* PlaceHolderTextView.swift */,
+				320953D61C8862BD00FD136F /* LoadProgressAnimationView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -993,7 +1026,7 @@
 				047A5F741C170155004FA20F /* OrderModel.swift */,
 				04CF8D9B1C144FB400512979 /* AboutWeViewController.swift */,
 				04CF8D9C1C144FB400512979 /* AboutWeViewController.xib */,
-				04CF8D9D1C144FB400512979 /* FeedbackViewController.swift */,
+				04CF8D9D1C144FB400512979 /* IdeaViewController.swift */,
 				04CF8D9E1C144FB400512979 /* IconView.swift */,
 				04CF8D9F1C144FB400512979 /* MeViewController.swift */,
 				04CF8DA21C144FB400512979 /* OrderViewController.swift */,
@@ -1011,6 +1044,14 @@
 				048B04C21C5AFD9D00245246 /* ButtonTableViewCell.swift */,
 				048B04CA1C5B56F100245246 /* makeUserNameController.swift */,
 				048B04D81C5B5A8300245246 /* makePassController.swift */,
+				320953AE1C85B20500FD136F /* MeCell.swift */,
+				320953C41C85D63B00FD136F /* MineTableHeadView.swift */,
+				320953C61C85D81700FD136F /* HRHTableView.swift */,
+				320953C81C86A00400FD136F /* MineHeadView.swift */,
+				320953CA1C885F5800FD136F /* CouponViewController.swift */,
+				320953CC1C885FDD00FD136F /* CouponCell.swift */,
+				320953D21C88622D00FD136F /* BindingCouponView.swift */,
+				320953D41C88627D00FD136F /* CoupinRuleViewController.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -1039,6 +1080,8 @@
 				04CF8DB91C144FB400512979 /* UserAccountTool.swift */,
 				32935BD41C7AE6AA00F60D05 /* UIDevice + Extension.swift */,
 				32935BE41C7AEA2800F60D05 /* SwiftDictModel.swift */,
+				320953BE1C85C6D800FD136F /* UIBarButtonItem+Extension.swift */,
+				320953C01C85C71B00FD136F /* UpImageDownTextButton.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1609,6 +1652,8 @@
 		32935BE71C7AEA9C00F60D05 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				320953D01C8861D700FD136F /* MyCoupon */,
+				320953BC1C85B38000FD136F /* MinePlist.plist */,
 				32935BE81C7AEA9C00F60D05 /* AD */,
 			);
 			name = Resource;
@@ -1998,6 +2043,7 @@
 				96E829FE1C15683800247660 /* ItemContentView.xib in Resources */,
 				04CF8D651C144DAE00512979 /* LaunchScreen.storyboard in Resources */,
 				04CF8F171C144FDB00512979 /* UMSCommentInputControlleriPad.xib in Resources */,
+				320953BD1C85B38000FD136F /* MinePlist.plist in Resources */,
 				04CF8F161C144FDB00512979 /* UMSCommentInputController.xib in Resources */,
 				04CF8F1B1C144FDB00512979 /* UMSnsAccountViewController.xib in Resources */,
 				04CF8F041C144FDB00512979 /* SVProgressHUD.bundle in Resources */,
@@ -2015,6 +2061,7 @@
 				32D7AF261C2F871C00EF48D0 /* PayStoryboard.storyboard in Resources */,
 				32935BE91C7AEA9C00F60D05 /* AD in Resources */,
 				047A5F451C145424004FA20F /* Main2.storyboard in Resources */,
+				320953D11C8861D700FD136F /* MyCoupon in Resources */,
 				96E82A0A1C17053500247660 /* MyStoryBoard.storyboard in Resources */,
 				96BCBC5D1C5874220028CA42 /* LikeTableViewCell.xib in Resources */,
 				043B85CF1C4E30DF009EAB79 /* Info.plist in Resources */,
@@ -2058,6 +2105,7 @@
 				04CF8F081C144FDB00512979 /* UIImage+wnxImage.swift in Sources */,
 				9678C8D71C19044D008C814A /* SearcherViewController.swift in Sources */,
 				961B169B1C242AAB0034C463 /* SortModel.swift in Sources */,
+				320953BF1C85C6D800FD136F /* UIBarButtonItem+Extension.swift in Sources */,
 				960929711C4CDC84006BE59E /* HTTPManager.swift in Sources */,
 				04CF8F0A1C144FDB00512979 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				04CF8ED31C144FDB00512979 /* MJRefreshHeader.m in Sources */,
@@ -2068,6 +2116,7 @@
 				04CF8DDC1C144FB400512979 /* PayViewController.swift in Sources */,
 				325A7CBB1C5B9E3D00B24144 /* ViewController+JS.swift in Sources */,
 				96C83E881C1975CA0075A204 /* JSONND.swift in Sources */,
+				320953D31C88622D00FD136F /* BindingCouponView.swift in Sources */,
 				3254C5571C678CE100D16906 /* ResignViewController.swift in Sources */,
 				960ED1A41C5A11B30042ED9D /* UIView+JS.swift in Sources */,
 				96BCBC2B1C570E350028CA42 /* CollectionModel.swift in Sources */,
@@ -2079,13 +2128,14 @@
 				04CF8EE91C144FDB00512979 /* SDWebImageDownloaderOperation.m in Sources */,
 				047A5F751C170155004FA20F /* OrderModel.swift in Sources */,
 				96C83E891C1975CA0075A204 /* JSONNDModel.swift in Sources */,
-				04CF8DCA1C144FB400512979 /* FeedbackViewController.swift in Sources */,
+				04CF8DCA1C144FB400512979 /* IdeaViewController.swift in Sources */,
 				04CF8ED61C144FDB00512979 /* MJRefreshAutoStateFooter.m in Sources */,
 				04CF8EDB1C144FDB00512979 /* MJRefreshNormalHeader.m in Sources */,
 				04CF8F021C144FDB00512979 /* README.md in Sources */,
 				04CF8DD91C144FB400512979 /* JFShoppingCartCell.swift in Sources */,
 				04CF8EF81C144FDB00512979 /* ConstraintRelation.swift in Sources */,
 				04CF8F061C144FDB00512979 /* UIBarButtonItem+wxnBarButtonItem.swift in Sources */,
+				320953C51C85D63B00FD136F /* MineTableHeadView.swift in Sources */,
 				04CF8F031C144FDB00512979 /* SVIndefiniteAnimatedView.m in Sources */,
 				04CF8EFF1C144FDB00512979 /* ViewController+SnapKit.swift in Sources */,
 				047A5F481C145424004FA20F /* OtherViewController.swift in Sources */,
@@ -2093,6 +2143,7 @@
 				325A7CB91C5B9D3E00B24144 /* Reachability.m in Sources */,
 				04CF8EF31C144FDB00512979 /* Constraint.swift in Sources */,
 				04CF8EDF1C144FDB00512979 /* UIScrollView+MJExtension.m in Sources */,
+				320953D51C88627D00FD136F /* CoupinRuleViewController.swift in Sources */,
 				04CF8EF71C144FDB00512979 /* ConstraintMaker.swift in Sources */,
 				04CF8EC51C144FDB00512979 /* AFSecurityPolicy.m in Sources */,
 				048E22321C5318B100E7096B /* APParallaxHeader-dummy.m in Sources */,
@@ -2105,6 +2156,7 @@
 				040F8C801C242FAE0027CDC1 /* CenterController.swift in Sources */,
 				04CF8F0F1C144FDB00512979 /* UIProgressView+AFNetworking.m in Sources */,
 				32D7AF281C30617C00EF48D0 /* NoteViewController.swift in Sources */,
+				320953CF1C8861AF00FD136F /* CouponModel.swift in Sources */,
 				04CF8DE11C144FB400512979 /* String+Hash.swift in Sources */,
 				047A5F421C145424004FA20F /* HomeNavViewController.swift in Sources */,
 				04CF8ED81C144FDB00512979 /* MJRefreshBackNormalFooter.m in Sources */,
@@ -2134,7 +2186,9 @@
 				04CF8EEB1C144FDB00512979 /* SDWebImagePrefetcher.m in Sources */,
 				04CF8EE71C144FDB00512979 /* SDWebImageDecoder.m in Sources */,
 				04CF8F0D1C144FDB00512979 /* UIButton+AFNetworking.m in Sources */,
+				320953C11C85C71B00FD136F /* UpImageDownTextButton.swift in Sources */,
 				96C83E8A1C1975CA0075A204 /* Pitaya.swift in Sources */,
+				320953CB1C885F5800FD136F /* CouponViewController.swift in Sources */,
 				04CF8F001C144FDB00512979 /* String+wnxString.swift in Sources */,
 				32935BED1C7AEBD700F60D05 /* GuideCell.swift in Sources */,
 				96C83E8B1C1975CA0075A204 /* PitayaManager+NSURLSessionDelegate.swift in Sources */,
@@ -2165,6 +2219,8 @@
 				04CF8EE81C144FDB00512979 /* SDWebImageDownloader.m in Sources */,
 				04CF8EEF1C144FDB00512979 /* UIImage+WebP.m in Sources */,
 				960FC0F51C14943900F0580D /* GoodDetail.swift in Sources */,
+				320953C71C85D81700FD136F /* HRHTableView.swift in Sources */,
+				320953AF1C85B20500FD136F /* MeCell.swift in Sources */,
 				04CF8EE11C144FDB00512979 /* UIView+MJExtension.m in Sources */,
 				96090E541C202457004FB3DC /* GoodSizeViewController.swift in Sources */,
 				32B47AE71C7AE60B0036D131 /* ADViewController.swift in Sources */,
@@ -2179,11 +2235,13 @@
 				04CF8EEE1C144FDB00512979 /* UIImage+MultiFormat.m in Sources */,
 				3254C5581C678CE100D16906 /* SentSecurityCodeViewController.swift in Sources */,
 				32D7AF241C2F16D100EF48D0 /* UIColor+HexString.m in Sources */,
+				320953D71C8862BD00FD136F /* LoadProgressAnimationView.swift in Sources */,
 				047A5F4D1C145424004FA20F /* SortViewController.swift in Sources */,
 				04CF8EE41C144FDB00512979 /* NSData+ImageContentType.m in Sources */,
 				047A5F441C145424004FA20F /* LocationViewController.swift in Sources */,
 				04CF8DCF1C144FB400512979 /* OrderViewController.swift in Sources */,
 				96C83EAE1C199FF80075A204 /* SearchItemResult.swift in Sources */,
+				320953C31C85C7C700FD136F /* PlaceHolderTextView.swift in Sources */,
 				047A5F4E1C145424004FA20F /* TestSeague.swift in Sources */,
 				9678C8F81C192C6D008C814A /* SearcherResultViewController.swift in Sources */,
 				96C83E8E1C1975CA0075A204 /* String+Base64.swift in Sources */,
@@ -2195,6 +2253,7 @@
 				04CF8EF11C144FDB00512979 /* UIImageView+WebCache.m in Sources */,
 				04CF8EC31C144FDB00512979 /* AFHTTPSessionManager.m in Sources */,
 				04CF8EE61C144FDB00512979 /* SDWebImageCompat.m in Sources */,
+				320953C91C86A00400FD136F /* MineHeadView.swift in Sources */,
 				04CF8DDA1C144FB400512979 /* JFShoppingCartViewController.swift in Sources */,
 				048E22381C531BAE00E7096B /* ParallaxHeaderView.m in Sources */,
 				04CF8ED51C144FDB00512979 /* MJRefreshAutoNormalFooter.m in Sources */,
@@ -2202,6 +2261,7 @@
 				048B04D91C5B5A8300245246 /* makePassController.swift in Sources */,
 				04CF8EFD1C144FDB00512979 /* SourceLocation.swift in Sources */,
 				043B85C91C4DD7F5009EAB79 /* OrderInfoController.swift in Sources */,
+				320953CD1C885FDD00FD136F /* CouponCell.swift in Sources */,
 				96C83E841C1975CA0075A204 /* Helper.swift in Sources */,
 				04CF8ED01C144FDB00512979 /* MJRefreshBackFooter.m in Sources */,
 				04CF8EF41C144FDB00512979 /* ConstraintAttributes.swift in Sources */,

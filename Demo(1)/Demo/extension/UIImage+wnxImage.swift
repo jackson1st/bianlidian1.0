@@ -56,4 +56,15 @@ extension UIImage {
         return image
     }
     
+    class func createImageFromView(view: UIView) -> UIImage {
+        UIGraphicsBeginImageContext(view.bounds.size);
+        
+        view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        UIGraphicsEndImageContext();
+        
+        return image
+    }
 }

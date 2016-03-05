@@ -127,11 +127,20 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         }
         let account = phoneTextField.text
         let psdMD5 = psdTextField.text
-        lgoin(account!,passWord: psdMD5!)
+        login(account!, passWord: psdMD5!) { () -> Void in
+            //登录成功后执行操作
+            CollectionModel.CollectionCenter.loadDataFromNet(0, count: 100, success: nil, callback: { () -> Void in
+                let collectNum = CollectionModel.CollectionCenter.Likes.count
+                UserAccountTool.setUserCollectNum(collectNum)
+            })
+            Model.defaultModel.loadDataForNetWork({ () -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+            })
+        }
     }
 
     func forgetClick(){
-        
+
     }
     
     func resignClick(){
@@ -143,8 +152,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
     }
 }
 extension  LoginViewController {
-    
-    func lgoin(userName: String,passWord: String) {
+    func login(userName: String,passWord: String, success: (() -> Void)?) {
         
         let parameters = ["username":userName,
             "password":passWord]
@@ -161,10 +169,8 @@ extension  LoginViewController {
                 let imageUrl = infomation!["userInfo"]!["imageUrl"] as? String
                 let integral = infomation!["userInfo"]!["integral"] as? Int
                 UserAccountTool.setUserInfo(userName!, passWord: passWord, custNo: custNo!, userName: userName!, imageUrl: imageUrl!, integral: integral!)
+                success!()
                 MBProgressHUD.hideHUD()
-                Model.defaultModel.loadDataForNetWork({ () -> Void in
-                    self.navigationController?.popViewControllerAnimated(true)
-                })
                 return
             }
             else {

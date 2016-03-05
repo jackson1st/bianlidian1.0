@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.reach!.startNotifier()
         
         let bar = UINavigationBar.appearance()
-        bar.barTintColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1)
+        bar.barTintColor = theme.NavigationColor
         bar.tintColor = UIColor.whiteColor()
         let navigationTitleAttribute: NSMutableDictionary = NSMutableDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName)
 //        navigationTitleAttribute.setObject(UIFont.systemFontOfSize(17), forKey: NSFontAttributeName)

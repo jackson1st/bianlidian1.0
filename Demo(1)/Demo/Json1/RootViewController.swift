@@ -74,6 +74,7 @@ class RootViewController: UITabBarController,UITabBarControllerDelegate {
             
             let vc = mainStoryBoard.instantiateViewControllerWithIdentifier("shoppingCart")
             presentViewController(MainNavigationController(rootViewController: vc), animated: true, completion: nil)
+            
             return false
         }
         

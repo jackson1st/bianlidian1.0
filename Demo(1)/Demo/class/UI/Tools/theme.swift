@@ -19,6 +19,7 @@ public let SD_UserDefaults_CustNo = "SD_UserDefaults_CustNo"
 public let SD_UserDefaults_ImageUrl = "SD_UserDefaults_ImageUrl"
 public let SD_UserDefaults_Integral = "SD_UserDefaults_Integral"
 public let SD_UserDefaults_UserName = "SD_UserDefaults_UserName"
+public let SD_UserDefaults_Collect = "SD_UserDefaults_Collect"
 //存储用户地址信息
 public let SD_UserDefaults_Name = "SD_UserDefaults_Name"
 public let SD_UserDefaults_Telephone = "SD_UserDefaults_Telephone"
@@ -33,21 +34,24 @@ public let myStoryBoard = UIStoryboard(name: "MyStoryBoard", bundle: nil)
 
 
 public let GuideViewControllerDidFinish = "GuideViewControllerDidFinish"
-
+// MARK: - Mine属性
+public let CouponViewControllerMargin: CGFloat = 10
 // MARK: - 广告页通知
 public let ADImageLoadSecussed = "ADImageLoadSecussed"
 public let ADImageLoadFail = "ADImageLoadFail"
-
-
+///优惠劵使用规则
+public let CouponUserRuleURLString = "http://m.beequick.cn/show/webview/p/coupon?zchtauth=e33f2ac7BD%252BaUBDzk6f5D9NDsFsoCcna6k%252BQCEmbmFkTbwnA&__v=ios4.7&__d=d14ryS0MFUAhfrQ6rPJ9Gziisg%2F9Cf8CxgkzZw5AkPMbPcbv%2BpM4HpLLlnwAZPd5UyoFAl1XqBjngiP6VNOEbRj226vMzr3D3x9iqPGujDGB5YW%2BZ1jOqs3ZqRF8x1keKl4%3D"
+public let LFBNavigationYellowColor = UIColor.colorWithCustom(253, g: 212, b: 49)
 struct theme {
     ///  APP导航条barButtonItem文字大小
     static let SDNavItemFont: UIFont = UIFont.systemFontOfSize(16)
     ///  APP导航条titleFont文字大小
     static let SDNavTitleFont: UIFont = UIFont.systemFontOfSize(18)
     /// ViewController的背景颜色
-    static let SDBackgroundColor: UIColor = UIColor.colorWith(255, green: 255, blue: 255, alpha: 1)
+    static let SDBackgroundColor: UIColor = UIColor.colorWith(239, green: 239, blue: 239, alpha: 1)
     /// webView的背景颜色
     static let SDWebViewBacagroundColor: UIColor = UIColor.colorWith(245, green: 245, blue: 245, alpha: 1)
+    static let NavigationColor: UIColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1)
     /// 友盟分享的APP key
     static let UMSharedAPPKey: String = "55e2f45b67e58ed4460012db"
     /// 自定义分享view的高度

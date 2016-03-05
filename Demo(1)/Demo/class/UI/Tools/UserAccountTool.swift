@@ -106,6 +106,19 @@ class UserAccountTool: NSObject {
         information.append(address!)
         return information
     }
+    class func getUserCollectNum() -> Int?{
+        
+        if !userIsLogin() {
+            return nil
+        }
+        
+        let user = NSUserDefaults.standardUserDefaults()
+        let collectNum = user.objectForKey(SD_UserDefaults_Collect) as? Int
+        return collectNum
+    }
+    class func setUserCollectNum(collect: Int){
+        NSUserDefaults.standardUserDefaults().setObject(collect, forKey: SD_UserDefaults_Collect)
+    }
 
 }
 

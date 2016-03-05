@@ -12,8 +12,6 @@ class MyCenterController: UITableViewController {
     
     @IBOutlet var userName: UILabel!
     @IBOutlet var phoneNumber: UILabel!
-    @IBOutlet var integral: UILabel!
-    @IBOutlet var iconView: IconView!
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -22,19 +20,16 @@ class MyCenterController: UITableViewController {
         
         // 添加iconImageView
         navigationController?.setNavigationBarHidden(false, animated: true)
-        if let data = NSData(contentsOfFile: SD_UserIconData_Path) {
-            iconView.iconButton.setImage(UIImage(data: data)!.imageClipOvalImage(), forState: .Normal)
-        } else {
-            iconView.iconButton.setImage(UIImage(named: "my"), forState: .Normal)
-        }
-        
+//        if let data = NSData(contentsOfFile: SD_UserIconData_Path) {
+//            iconView.iconButton.setImage(UIImage(data: data)!.imageClipOvalImage(), forState: .Normal)
+//        } else {
+//            iconView.iconButton.setImage(UIImage(named: "my"), forState: .Normal)
+//        }
+//        
         userName.text = UserAccountTool.getUserName()
         
         phoneNumber.frame = CGRect(x: AppWidth - 213, y: 12, width: 180, height: 20)
         phoneNumber.text = UserAccountTool.getUserAccount()
-        
-        integral.frame = CGRect(x: AppWidth - 213, y: 12, width: 180, height: 20)
-        integral.text = "\((UserAccountTool.getUserIntegral()!))"
         
     }
     

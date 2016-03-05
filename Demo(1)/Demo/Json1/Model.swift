@@ -152,7 +152,7 @@ class Model: NSObject {
                 if success != nil{
                     success!()
                 }
-                NSNotificationCenter.defaultCenter().postNotificationName("CarNumChanged", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName("CarNumChanged", object: nil)
                 
                 }, error: { (error) -> Void in
                     print("发生了错误: " + (error?.localizedDescription)!)
