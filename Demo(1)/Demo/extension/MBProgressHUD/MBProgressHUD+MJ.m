@@ -44,7 +44,11 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
    
     //不要字
+<<<<<<< HEAD
+    if(![message  isEqual: @""]){
+=======
     if(message != @""){
+>>>>>>> origin/master
         hud.labelText = message;
     }
     // 隐藏时候从父控件中移除

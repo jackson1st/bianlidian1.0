@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var reach: Reachability?
     var adViewController: ADViewController?
     
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         // Required - 初始化

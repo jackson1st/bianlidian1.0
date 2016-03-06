@@ -113,12 +113,6 @@ class CollectionModel: NSObject {
     
 }
 
-//item_sale_price,
-//item_name,
-//url,
-//item_unit_no,
-//item_pack,
-//item_size
 class LikedModel: NSObject {
     var no: String!
     var price: String!
