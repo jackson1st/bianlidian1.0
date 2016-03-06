@@ -12,6 +12,7 @@ import WebKit
 class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDelegate,UINavigationControllerDelegate,WKScriptMessageHandler,UITextFieldDelegate,UIScrollViewDelegate{
     //一些变量的定义
     @IBOutlet weak var navItem: UINavigationItem!
+    @IBOutlet weak var ButtonGift: JSButton!
     var webView: WKWebView?
     var nextURLRequest: NSURLRequest?
     var rightBarButton:UIBarButtonItem?
@@ -34,6 +35,10 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
     //商品model
     var itemno: String!
     //拥有一个SearcherResultViewController
+    
+    //礼券Model
+    var giftModels = [GiftModel]()
+    
     
     override func viewDidLoad() {
         
@@ -123,7 +128,17 @@ extension MainViewController{
     func initAll(){
         initWebView()
         initViewSearch()
-        
+        initGiftModel()
+    }
+    
+    func initGiftModel(){
+        self.ButtonGift.button.setTitle("券", forState: .Normal)
+        GiftModel.getAllGiftList { (result, list) -> Void in
+            if(result == 0){
+                self.giftModels = list!
+                self.ButtonGift.edge = "\(list!.count)"
+            }
+        }
     }
     
     func initViewSearch(){

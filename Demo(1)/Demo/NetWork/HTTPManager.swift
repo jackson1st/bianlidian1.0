@@ -9,11 +9,10 @@
 import UIKit
 import Alamofire
 public class HTTPManager {
-    static let HTTPURL = "http://139.129.45.31:8080"
-    static let HTTPURL2 = "http://192.168.199.242:8080"
+    static let HTTPURL1 = "http://139.129.45.31:8080"
+    static let HTTPURL = "http://192.168.113.14:8080"
     static let HTTPURL3 = "http://192.168.199.134:8080"
     var request: Request!
-
     static var mbp:MBProgressHUD?
     
     static var HUDCount = 0
@@ -24,13 +23,7 @@ public class HTTPManager {
         }else{
             HUDCount++
         }
-//    static var mbp:MBProgressHUD?
-
-
         
-//        mbp = MBProgressHUD.showMessage("")
-        
-        HUDCount++
         
 //        mbp = MBProgressHUD.showMessage("")
         
@@ -43,8 +36,10 @@ public class HTTPManager {
             manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue)
         }
         return manager
+        
 //        Alamofire.upload(.POST, HTTPURL + contentType.rawValue, headers: params as! [String: String], data: NSData(contentsOfURL: NSURL(string: SD_UserIconData_Path)!)!).responseJSON { (response) -> Void in
 //            print(response)
+//        }
     }
     
     public static func UPload(contentType: ContentType,params: [String: String]?,multipartFormData: (MultipartFormData)->Void,encodingMemoryThreshold: (Manager.MultipartFormDataEncodingResult -> Void)?){
@@ -64,7 +59,6 @@ public class HTTPManager {
 //            HTTPManager.mbp?.hide(true)
 //            HTTPManager.mbp?.hidden = true
 //            print("MBProgressHUD是不是隐藏了呢?\(HTTPManager.mbp?.hidden)")
-
             if(HTTPManager.HUDCount == 1){
                 
                 HTTPManager.mbp?.hide(true)
@@ -73,19 +67,9 @@ public class HTTPManager {
             }else{
                 HTTPManager.HUDCount--
             }
-
-//            if(HTTPManager.HUDCount == 1){
-//                
-////                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-////                    MBProgressHUD.hideHUD()
-////                })
-//                HTTPManager.mbp?.hide(true)
-//                HTTPManager.HUDCount = 0
-//            }else{
-//                HTTPManager.HUDCount--
-//            }
         }
     }
+    
 }
 
 //let manager = AFHTTPRequestOperationManager()

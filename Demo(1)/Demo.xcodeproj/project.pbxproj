@@ -54,6 +54,8 @@
 		048E223A1C532C4700E7096B /* MyCenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E22391C532C4700E7096B /* MyCenterController.swift */; };
 		048E22501C560DBB00E7096B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E224F1C560DBB00E7096B /* LoginViewController.swift */; };
 		048E22561C5648A200E7096B /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048E22551C5648A200E7096B /* MZTimerLabel.m */; };
+		04CBC5AE1C8C14950027D9AF /* GiftModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBC5AB1C8C14950027D9AF /* GiftModel.swift */; };
+		04CBC5AF1C8C14950027D9AF /* JSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBC5AD1C8C14950027D9AF /* JSButton.swift */; };
 		04CF8D581C144DAE00512979 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D571C144DAE00512979 /* AppDelegate.swift */; };
 		04CF8D601C144DAE00512979 /* Demo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D5E1C144DAE00512979 /* Demo.xcdatamodeld */; };
 		04CF8D621C144DAE00512979 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8D611C144DAE00512979 /* Assets.xcassets */; };
@@ -463,6 +465,8 @@
 		048E224F1C560DBB00E7096B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		048E22541C5648A200E7096B /* MZTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZTimerLabel.h; sourceTree = "<group>"; };
 		048E22551C5648A200E7096B /* MZTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZTimerLabel.m; sourceTree = "<group>"; };
+		04CBC5AB1C8C14950027D9AF /* GiftModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftModel.swift; sourceTree = "<group>"; };
+		04CBC5AD1C8C14950027D9AF /* JSButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSButton.swift; sourceTree = "<group>"; };
 		04CF8D541C144DAE00512979 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04CF8D571C144DAE00512979 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04CF8D5F1C144DAE00512979 /* Demo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Demo.xcdatamodel; sourceTree = "<group>"; };
@@ -913,6 +917,22 @@
 			path = MZTimerLabel;
 			sourceTree = "<group>";
 		};
+		04CBC5AA1C8C14950027D9AF /* Gift */ = {
+			isa = PBXGroup;
+			children = (
+				04CBC5AB1C8C14950027D9AF /* GiftModel.swift */,
+			);
+			path = Gift;
+			sourceTree = "<group>";
+		};
+		04CBC5AC1C8C14950027D9AF /* MyCustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				04CBC5AD1C8C14950027D9AF /* JSButton.swift */,
+			);
+			path = MyCustomUI;
+			sourceTree = "<group>";
+		};
 		04CF8D4B1C144DAE00512979 = {
 			isa = PBXGroup;
 			children = (
@@ -936,6 +956,8 @@
 		04CF8D561C144DAE00512979 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				04CBC5AA1C8C14950027D9AF /* Gift */,
+				04CBC5AC1C8C14950027D9AF /* MyCustomUI */,
 				9609296F1C4CDC3C006BE59E /* NetWork */,
 				040F8CA11C25434A0027CDC1 /* FrameWork */,
 				04CF8F241C14507A00512979 /* storyBoard */,
@@ -2118,6 +2140,7 @@
 				96C83E881C1975CA0075A204 /* JSONND.swift in Sources */,
 				320953D31C88622D00FD136F /* BindingCouponView.swift in Sources */,
 				3254C5571C678CE100D16906 /* ResignViewController.swift in Sources */,
+				04CBC5AF1C8C14950027D9AF /* JSButton.swift in Sources */,
 				960ED1A41C5A11B30042ED9D /* UIView+JS.swift in Sources */,
 				96BCBC2B1C570E350028CA42 /* CollectionModel.swift in Sources */,
 				32935BEB1C7AEB4C00F60D05 /* GuideViewController.swift in Sources */,
@@ -2226,6 +2249,7 @@
 				32B47AE71C7AE60B0036D131 /* ADViewController.swift in Sources */,
 				04CF8EEA1C144FDB00512979 /* SDWebImageManager.m in Sources */,
 				04CF8DCB1C144FB400512979 /* IconView.swift in Sources */,
+				04CBC5AE1C8C14950027D9AF /* GiftModel.swift in Sources */,
 				04CF8ED71C144FDB00512979 /* MJRefreshBackGifFooter.m in Sources */,
 				04CF8DC81C144FB400512979 /* AboutWeViewController.swift in Sources */,
 				04CF8ECD1C144FDB00512979 /* HWWeakTimer.m in Sources */,

@@ -152,7 +152,9 @@ public enum ContentType : String {
     *  礼卷相关
     */
     //获取用户礼卷
-    case StampGet = "/BSMD/getUserPosStamp.do"
+    case StampList = "/BSMD/getStamps.do"
+    case UserStamp = "/BSMD/user/getStamps.do"
+    case GetStamp = "/BSMD/user/addStamp.do"
     //
     
     /**

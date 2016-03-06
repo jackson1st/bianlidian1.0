@@ -97,7 +97,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     var countForSizeChoose = 0
     var sumCountForSizeChoose = 0
     
-    
+    var lastConstaint:ConstraintItem!
     /**
      页面开始加载
      */
@@ -115,7 +115,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         changeButtonAddState()
         initAll()
         
-        self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
+        self.view.backgroundColor = UIColor.colorWith(235, green: 235, blue: 235, alpha: 1)
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
@@ -348,6 +348,7 @@ extension OtherViewController{
         initPhotoScan()
         initDetailView()
         initSizeView()
+//        initButtonAddDetail()
         initNot()
         initViewAddNum()
     }
@@ -460,6 +461,7 @@ extension OtherViewController{
         pictureView?.timeInterval = 3
         firstScrollView.addSubview(pictureView!)
         firstScrollView.contentSize.height += (pictureView?.height)!
+        lastConstaint = pictureView?.snp_bottom
     }
     
     
@@ -471,10 +473,11 @@ extension OtherViewController{
         firstScrollView.addSubview(detailView)
         detailView.snp_makeConstraints { (make) -> Void in
             make.left.equalTo((pictureView?.snp_left)!).offset(0)
-            make.top.equalTo((pictureView?.snp_bottom)!).offset(10)
+            make.top.equalTo(lastConstaint).offset(10)
             make.width.equalTo((pictureView?.snp_width)!).offset(0)
         }
         firstScrollView.contentSize.height += detailView.height
+        lastConstaint = detailView.snp_bottom
     }
     
     //初始化评论视图
@@ -514,15 +517,15 @@ extension OtherViewController{
             make.height.equalTo(height)
         }
         
-        let buttonAddMoreEVA = UIButton(type: .Custom)
-        buttonAddMoreEVA.addTopLine(0.5, offsetLeft: 0, offsetRight: 0)
-        buttonAddMoreEVA.addBottomLine(0.5, offsetLeft: 0, offsetRight: 0)
-        buttonAddMoreEVA.backgroundColor = UIColor.whiteColor()
-        buttonAddMoreEVA.setTitle("查看商品详情", forState: .Normal)
-        buttonAddMoreEVA.setTitleColor(UIColor.blackColor() , forState: .Normal)
-        buttonAddMoreEVA.addTarget(self, action: "addMoreEVA", forControlEvents: .TouchUpInside)
-        firstScrollView.addSubview(buttonAddMoreEVA)
-        buttonAddMoreEVA.snp_makeConstraints { (make) -> Void in
+        let buttonAddDetail = UIButton(type: .Custom)
+//        buttonAddDetail.addTopLine(0.3, offsetLeft: 0, offsetRight: 0)
+        buttonAddDetail.addBottomLine(0.3, offsetLeft: 0, offsetRight: 0)
+        buttonAddDetail.backgroundColor = UIColor.whiteColor()
+        buttonAddDetail.setTitle("查看商品详情", forState: .Normal)
+        buttonAddDetail.setTitleColor(UIColor.blackColor() , forState: .Normal)
+        buttonAddDetail.addTarget(self, action: "addMoreEVA", forControlEvents: .TouchUpInside)
+        firstScrollView.addSubview(buttonAddDetail)
+        buttonAddDetail.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(contentViewForEVAView.snp_bottom).offset(10)
             make.left.equalTo(contentViewForEVAView.snp_left).offset(0)
             make.width.equalTo(self.view.frame.width)
@@ -530,6 +533,25 @@ extension OtherViewController{
         firstScrollView.contentSize.height += height + 200
         print(firstScrollView.contentSize)
         // EVAVC?.view.frame.origin = CGPoint(x: 0, y: (sizeVC?.tableView.frame.origin.y)!  + (sizeVC?.tableViewHeight)! + 10)
+    }
+    
+    func initButtonAddDetail(){
+//        ContentViewForGoodSizeView.layoutIfNeeded()
+//        ContentViewForGoodSizeView.updateConstraintsIfNeeded()
+        let buttonAddDetail = UIButton(type: .Custom)
+        //        buttonAddDetail.addTopLine(0.3, offsetLeft: 0, offsetRight: 0)
+        buttonAddDetail.addBottomLine(0.3, offsetLeft: 0, offsetRight: 0)
+        buttonAddDetail.backgroundColor = UIColor.whiteColor()
+        buttonAddDetail.setTitle("查看商品详情", forState: .Normal)
+        buttonAddDetail.setTitleColor(UIColor.blackColor() , forState: .Normal)
+        buttonAddDetail.addTarget(self, action: "addMoreEVA", forControlEvents: .TouchUpInside)
+        firstScrollView.addSubview(buttonAddDetail)
+        buttonAddDetail.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(lastConstaint).offset(10)
+            make.left.equalTo(pictureView!).offset(0)
+            make.width.equalTo(self.view.frame.width)
+        }
+        lastConstaint = buttonAddDetail.snp_bottom
     }
     
     //加载更多的评价
@@ -543,24 +565,25 @@ extension OtherViewController{
     
     //初始化规格视图
     func initSizeView(){
-        goodSizeView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50), style: .Plain)
+        goodSizeView = UITableView()
         goodSizeView.restorationIdentifier = "GoodSizeView"
         ContentViewForGoodSizeView = UIView()
-        firstScrollView.addSubview(ContentViewForGoodSizeView)
-        ContentViewForGoodSizeView.addSubview(goodSizeView)
-        ContentViewForGoodSizeView.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(detailView.snp_bottom).offset(10)
+        firstScrollView.addSubview(goodSizeView)
+//        ContentViewForGoodSizeView.addSubview(goodSizeView)
+        goodSizeView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(lastConstaint).offset(10)
             make.width.equalTo(detailView.snp_width).offset(0)
             make.left.equalTo(detailView.snp_left).offset(0)
+            make.height.equalTo(80)
+            make.bottom.equalTo(firstScrollView).offset(-5)
         }
         goodSizeView.delegate = self
         goodSizeView.dataSource = self
-        goodSizeView.translatesAutoresizingMaskIntoConstraints = false
         goodSizeView.scrollEnabled = false
-        goodSizeView.estimatedRowHeight = 80
-        goodSizeView.rowHeight = UITableViewAutomaticDimension
         let nib = UINib(nibName: "GoodSizeTableCell", bundle: nil)
         goodSizeView.registerNib(nib, forCellReuseIdentifier: "GoodSizeCell")
+        lastConstaint = goodSizeView.snp_bottom
+        goodSizeView.sizeToFit()
     }
     
     //初始化第二个页面
@@ -633,7 +656,7 @@ extension OtherViewController: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 30
+        return 35
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -641,24 +664,8 @@ extension OtherViewController: UITableViewDelegate,UITableViewDataSource{
         return viewAddNum
     }
     
-    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        print("重绘了\(indexPath.row)的高度")
-        if(viewDidApper){
-            print("yes")
-            if(indexPath.row == data.count-1){
-                firstScrollView.contentSize.height += tableView.height
-                print(firstScrollView.contentSize)
-                initEVAView()
-                ContentViewForGoodSizeView.snp_makeConstraints(closure: { (make) -> Void in
-                    make.height.equalTo(tableView.contentSize.height)
-                    contentViewForEVAView.layoutIfNeeded()
-                })
-            }
-            tableView.frame.size.height = tableView.contentSize.height
-            return (prototypeCell?.contentView.frame.height)! + 1
-        }
-        return 10
+        return 40
     }
     
 }
