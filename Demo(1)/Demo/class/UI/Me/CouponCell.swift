@@ -84,9 +84,7 @@ class CouponCell: UITableViewCell,Reusable {
         contentView.addSubview(unUseImageView!)
         
         getButton = UIButton()
-        getButton?.setTitle("领取", forState: UIControlState.Normal)
-        getButton?.titleLabel?.font = UIFont.boldSystemFontOfSize(17)
-        getButton?.addTarget(self, action: "getCouponAction", forControlEvents: UIControlEvents.TouchUpInside)
+        contentView.addSubview(getButton!)
         
         priceLabel = UILabel()
         priceLabel?.font = UIFont.boldSystemFontOfSize(40)
@@ -207,6 +205,10 @@ class CouponCell: UITableViewCell,Reusable {
         dashImageView?.image = UIImage(named: imageName3)
         let imageName4 = imageArray[statu]
         unUseImageView?.image = UIImage(named: imageName4)
+        getButton?.setTitle("领取", forState: UIControlState.Normal)
+        getButton?.titleLabel?.font = UIFont.boldSystemFontOfSize(17)
+        getButton?.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        getButton?.addTarget(self, action: "getCouponAction", forControlEvents: UIControlEvents.TouchUpInside)
     }
     
     private func getCouponAction(){
