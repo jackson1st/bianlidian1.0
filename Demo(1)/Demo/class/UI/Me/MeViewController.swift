@@ -177,7 +177,7 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
                     tmpSelf!.navigationController?.pushViewController(collectVc, animated: true)
                     break
                 case .Coupon:
-                    let couponVC = CouponViewController()
+                    let couponVC = GiftViewController()
                     tmpSelf!.navigationController!.pushViewController(couponVC, animated: true)
                     break
                 case .Integral:

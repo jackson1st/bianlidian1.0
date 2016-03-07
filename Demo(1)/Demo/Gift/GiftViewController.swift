@@ -28,6 +28,7 @@ class GiftViewController: UITableViewController {
         }
     }
     //标示页面，0：主页调用，1：订单调用，2：个人中心调用
+    
     var selectedCallback:((GiftModel)->Void)?
     
     override func viewDidLoad() {
@@ -54,6 +55,10 @@ class GiftViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(indexPath: indexPath) as CouponCell
         cell.coupon = gifts[indexPath.row]
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 120
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

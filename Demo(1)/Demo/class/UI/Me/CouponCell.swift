@@ -149,12 +149,9 @@ class CouponCell: UITableViewCell,Reusable {
         
     }
     
-<<<<<<< HEAD
-    var coupon: GiftModel?
-=======
-    var coupon: Coupon? {
+    var coupon: GiftModel! {
         didSet {
-            switch coupon!.status {
+            switch coupon.status {
             case 0:
                 setCouponColor(true, statu: 0)
             case 1:
@@ -174,7 +171,7 @@ class CouponCell: UITableViewCell,Reusable {
                 break
             }
             
-            let price = String(format: "%2.1f", ((coupon!.value?.cleanDecimalPointZear() as? NSString)?.doubleValue)!)
+            let price = String(coupon.amt)
             let AttributedStr = NSMutableAttributedString(string: price)
             
             AttributedStr.setAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(23)], range: NSMakeRange(AttributedStr.length - 1, 1))
@@ -183,11 +180,10 @@ class CouponCell: UITableViewCell,Reusable {
             memoryLabel?.text = "· 一次订单最多使用一张优惠券"
             priceLabel?.attributedText = AttributedStr
             titleLabel?.text = " " + (coupon?.name)! + "  "
-            dateLabel?.text = "· 有效期:  " + coupon!.start_time! + "至" + coupon!.end_time!
-            descLabel?.text = "· 商品满39元使用"
+            dateLabel?.text = "· 有效期:  " + coupon!.start + "至" + coupon!.end
+            descLabel?.text = "· 商品满\(coupon!.minMoney)元使用"
         }
     }
->>>>>>> origin/master
     
     private func setCouponColor(isUse: Bool,statu: Int) {
         

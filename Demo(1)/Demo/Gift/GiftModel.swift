@@ -14,11 +14,11 @@ class GiftModel: NSObject {
     var type:String!//礼券的类别
     var shopName:String?//商店名称
     var shopNo:String?//商店编号
-    var amt:Double!//礼券面额
-    var minMoney:Double!//礼券最少使用金额
+    var amt:Int!//礼券面额
+    var minMoney:Int!//礼券最少使用金额
     var start:String!//开始时间
     var end:String!//结束时间
-    var state:Int?//使用状态 0、未领取 1、可使用  2、已使用 3 已过期
+    var status:Int!//使用状态 0、未领取 1、可使用  2、已使用 3 已过期
     
     static var formatter:NSDateFormatter = {
         let format = NSDateFormatter()
@@ -34,7 +34,7 @@ class GiftModel: NSObject {
     }
     
     
-    convenience init(name:String,no:String,type:String,shopName:String? = nil,shopNo:String? = nil,amt:Double,minMoney:Double,start:String,end:String,state:Int?){
+    convenience init(name:String,no:String,type:String,shopName:String? = nil,shopNo:String? = nil,amt:Int,minMoney:Int,start:String,end:String,status:Int!){
         self.init()
         self.name = name
         self.no = no
@@ -45,7 +45,7 @@ class GiftModel: NSObject {
         self.minMoney = minMoney
         self.start = start
         self.end = end
-        self.state = state
+        self.status = status
     }
     
     convenience init(dict:[String:AnyObject]){
@@ -55,11 +55,11 @@ class GiftModel: NSObject {
         self.shopName = dict["shopName"] as? String
         self.shopNo = dict["shopNo"] as? String
         self.type = dict["stampTypeNo"] as! String
-        self.amt = dict["stampAmt"] as! Double
-        self.minMoney = dict["minOrderAmt"] as! Double
+        self.amt = dict["stampAmt"] as! Int
+        self.minMoney = dict["minOrderAmt"] as! Int
         self.start = dict["startValidDate_String"] as! String
         self.end = dict["endValidDate_String"] as! String
-        self.state = dict["status"] as? Int
+        self.status = Int((dict["status"] as! String))
     }
     
     /**
