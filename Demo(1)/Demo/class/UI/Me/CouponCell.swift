@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CouponCell: UITableViewCell {
+class CouponCell: UITableViewCell,Reusable {
     
     static private let cellIdentifier = "cuoponCell"
     
@@ -140,33 +140,7 @@ class CouponCell: UITableViewCell {
         
     }
     
-    var coupon: Coupon? {
-        didSet {
-            switch coupon!.status {
-            case 0:
-                setCouponColor(true)
-                break
-            case 1:
-                setCouponColor(false)
-                break
-            default:
-                setCouponColor(false)
-                break
-            }
-            
-            let price = String(format: "%2.1f", ((coupon!.value?.cleanDecimalPointZear() as? NSString)?.doubleValue)!)
-            let AttributedStr = NSMutableAttributedString(string: price)
-            
-            AttributedStr.setAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(23)], range: NSMakeRange(AttributedStr.length - 1, 1))
-            
-            
-            memoryLabel?.text = "· 一次订单最多使用一张优惠券"
-            priceLabel?.attributedText = AttributedStr
-            titleLabel?.text = " " + (coupon?.name)! + "  "
-            dateLabel?.text = "· 有效期:  " + coupon!.start_time! + "至" + coupon!.end_time!
-            descLabel?.text = "· 商品满39元使用"
-        }
-    }
+    var coupon: GiftModel?
     
     private func setCouponColor(isUse: Bool) {
         

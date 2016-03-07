@@ -111,7 +111,7 @@ class GiftModel: NSObject {
     
 //    class func usedGift(
     
-    class func getGift(stampNo:String,callback:(result:String) -> Void){
+    func getGift(stampNo:String,callback:(result:String) -> Void){
         let userNo = UserAccountTool.getUserCustNo()!
         HTTPManager.POST(.GetStamp, params: ["custNo":userNo,"stampNo":stampNo]).responseJSON({ (json) -> Void in
             callback(result: json["message"] as! String)
