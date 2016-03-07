@@ -12,6 +12,8 @@ class CouponCell: UITableViewCell {
     
     static private let cellIdentifier = "cuoponCell"
     
+    
+    private let imageArray = ["","geted","avaliable","used","pasted"]
     let useColor = UIColor.redColor()
     let unUseColor = UIColor.colorWithCustom(158, g: 158, b: 158)
     
@@ -29,6 +31,7 @@ class CouponCell: UITableViewCell {
     var upImageView: UIImageView?
     var flagImageView: UIImageView?
     var unUseImageView: UIImageView?
+    var getButton: UIButton?
     
     private let circleWidth: CGFloat = AppWidth * 0.16
     
@@ -77,8 +80,13 @@ class CouponCell: UITableViewCell {
         flagImageView = UIImageView()
         contentView.addSubview(flagImageView!)
         
-        unUseImageView = UIImageView(image: UIImage(named: "used"))
+        unUseImageView = UIImageView()
         contentView.addSubview(unUseImageView!)
+        
+        getButton = UIButton()
+        getButton?.setTitle("领取", forState: UIControlState.Normal)
+        getButton?.titleLabel?.font = UIFont.boldSystemFontOfSize(17)
+        getButton?.addTarget(self, action: "getCouponAction", forControlEvents: UIControlEvents.TouchUpInside)
         
         priceLabel = UILabel()
         priceLabel?.font = UIFont.boldSystemFontOfSize(40)
@@ -125,6 +133,7 @@ class CouponCell: UITableViewCell {
         
         dashImageView?.frame = CGRectMake(CGRectGetMaxX((priceLabel?.frame)!) + 10, 25, 15, CGRectGetMaxY((backImageView?.frame)!) - 40)
         unUseImageView?.frame = CGRectMake(CGRectGetMaxX((backImageView?.frame)!) - 75, 10, 68, 68)
+        getButton?.frame = CGRectMake(CGRectGetMaxX((backImageView?.frame)!) - 75, 10, 68, 68)
         
         titleLabel?.sizeToFit()
         titleLabel?.frame = CGRectMake(CGRectGetMaxX((dashImageView?.frame)!) + 10, 20, titleLabel!.width, titleLabel!.height)
@@ -144,13 +153,21 @@ class CouponCell: UITableViewCell {
         didSet {
             switch coupon!.status {
             case 0:
-                setCouponColor(true)
-                break
+                setCouponColor(true, statu: 0)
             case 1:
-                setCouponColor(false)
+                setCouponColor(false,statu: 1)
+                break
+            case 2:
+                setCouponColor(true,statu: 2)
+                break
+            case 3:
+                setCouponColor(false,statu: 3)
+                break
+            case 4:
+                setCouponColor(false,statu: 4)
                 break
             default:
-                setCouponColor(false)
+                setCouponColor(false,statu: 4)
                 break
             }
             
@@ -168,25 +185,33 @@ class CouponCell: UITableViewCell {
         }
     }
     
-    private func setCouponColor(isUse: Bool) {
+    private func setCouponColor(isUse: Bool,statu: Int) {
         
-        titleLabel?.textColor = isUse ? useColor : unUseColor
+        titleLabel?.textColor = unUseColor
         memoryLabel?.textColor = titleLabel?.textColor
         dateLabel?.textColor = titleLabel?.textColor
         descLabel?.textColor = titleLabel?.textColor
-        priceLabel?.textColor = titleLabel?.textColor
-        unUseImageView?.hidden = isUse
+        priceLabel?.textColor = isUse ? useColor : unUseColor
+        getButton?.hidden = true
+        if 0 == statu {
+            unUseImageView?.hidden = isUse
+            getButton?.hidden = false
+        }
         let imageName = isUse ? "red_bg_left" : "red_disable_bg_left"
         let image = UIImage(named: imageName)
         let resizeImage = image?.resizableImageWithCapInsets(UIEdgeInsetsZero)
         upImageView?.image = resizeImage
         let imageName2 = isUse ? "red_icon_yuan" : "red_icon_disable_yuan"
         flagImageView?.image = UIImage(named: imageName2)
-        let imageName3 = isUse ? "dash_image" : "dash_image_gray"
+        let imageName3 = "dash_image_gray"
         dashImageView?.image = UIImage(named: imageName3)
+        let imageName4 = imageArray[statu]
+        unUseImageView?.image = UIImage(named: imageName4)
     }
     
+    private func getCouponAction(){
 
+    }
     
 }
 
