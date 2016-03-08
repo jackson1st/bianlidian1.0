@@ -36,7 +36,6 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
     
     private lazy var iconActionSheet: UIActionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照", "从手机相册选择")
     
-    private lazy var mineTitles: NSMutableArray = NSMutableArray(array: ["个人中心", "我的订单", "我的收藏", "留言反馈", "应用推荐"])
     private var iconView: IconView?
     
     override func viewDidLoad() {
@@ -116,6 +115,7 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         buildUI()
+        getData()
 //        self.navigationController?.setNavigationBarHidden(true, animated: true)
         
 //        loginLabel.hidden = UserAccountTool.userIsLogin()
@@ -178,6 +178,7 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
                     break
                 case .Coupon:
                     let couponVC = GiftViewController()
+                    couponVC.mode = 2
                     tmpSelf!.navigationController!.pushViewController(couponVC, animated: true)
                     break
                 case .Integral:
@@ -197,6 +198,11 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
             }
         }
         tableView.tableHeaderView = tableHeadView
+    }
+    func getData(){
+        DataCenter.shareDataCenter.updateAllCoupons(nil) { (couponCount) -> Void in
+            DataCenter.shareDataCenter.user.coupon = couponCount
+        }
     }
 }
 

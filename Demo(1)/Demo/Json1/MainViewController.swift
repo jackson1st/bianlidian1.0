@@ -106,6 +106,9 @@ extension MainViewController{
 // MARK: - 临时解决点击搜索栏后，搜索栏会下移一个搜索栏高的距离
         webView?.scrollView.contentOffset.y = -40
         super.viewWillAppear(animated)
+        DataCenter.shareDataCenter.updateCanGetCoupons { (couponCount) -> Void in
+            self.ButtonGift.edge = String(couponCount)
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -138,6 +141,7 @@ extension MainViewController{
             if(self.giftVC == nil){
                 self.giftVC = GiftViewController()
                 self.giftVC?.mode = 0
+<<<<<<< HEAD
                 self.giftVC?.gifts = self.giftModels
             }
             self.pushViewController(self.giftVC!, animated: true, completion: nil)
@@ -146,9 +150,12 @@ extension MainViewController{
             if(result == 0){
                 self.giftModels = list!
                 self.ButtonGift.edge = "\(list!.count)"
+=======
+>>>>>>> origin/master
             }
+            self.pushViewController(self.giftVC!, animated: true, completion: nil)
         }
-    }
+}
     
     func initViewSearch(){
         
