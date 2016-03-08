@@ -140,7 +140,7 @@ extension MainViewController{
                 self.giftVC?.mode = 0
                 self.giftVC?.gifts = self.giftModels
             }
-            self.presentViewController(self.giftVC!, animated: true, completion: nil)
+            self.pushViewController(self.giftVC!, animated: true, completion: nil)
         }
         GiftModel.getAllGiftList { (result, list) -> Void in
             if(result == 0){

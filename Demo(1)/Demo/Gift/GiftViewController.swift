@@ -34,6 +34,8 @@ class GiftViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerReusableCell(CouponCell.self)
+        tableView.backgroundColor =  UIColor.colorWithCustom(242, g: 242, b: 242)
+        self.tableView.separatorStyle = .None
     }
     
 
@@ -58,7 +60,7 @@ class GiftViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 120
+        return 130
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

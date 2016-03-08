@@ -9,8 +9,8 @@
 import UIKit
 import Alamofire
 public class HTTPManager {
-    static let HTTPURL1 = "http://139.129.45.31:8080"
-    static let HTTPURL = "http://192.168.113.14:8080"
+    static let HTTPURL = "http://139.129.45.31:8080"
+    static let HTTPURL2 = "http://192.168.113.14:8080"
     static let HTTPURL3 = "http://192.168.199.134:8080"
     var request: Request!
     static var mbp:MBProgressHUD?

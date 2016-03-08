@@ -96,6 +96,8 @@ extension SortViewController{
         tableViewLeft.delegate = self
         tableViewLeft.dataSource = self
         tableViewLeft.rowHeight = 40
+        tableViewLeft.separatorStyle = .None
+        tableViewLeft.backgroundColor = UIColor.colorWithCustom(239, g: 239, b: 239)
         self.view.addSubview(tableViewLeft)
         tableViewLeft.snp_makeConstraints { (make) -> Void in
             make.width.equalTo(80)
@@ -151,6 +153,12 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
         }
         cell?.textLabel?.text = bigClass[indexPath.row]
         cell?.textLabel?.textAlignment = .Center
+        let view1 = UIView()
+        view1.backgroundColor = UIColor.colorWithCustom(239, g: 239, b: 239)
+        let view2 = UIView()
+        view2.backgroundColor = UIColor.whiteColor()
+        cell?.backgroundView = view1
+        cell?.selectedBackgroundView = view2
         return cell!
     }
     
@@ -161,12 +169,14 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         smallCalsses.removeAll()
         
+        weak var tempSelf = self
         HTTPManager.POST(ContentType.ItemSmallClass, params: ["name": bigClass[indexPath.row]]).responseJSON({ (json) -> Void in
             let properties = json["property"] as! [NSDictionary]
-            for var y in properties{
+            for  y in properties{
                 self.smallCalsses.append(smallClass(name: y["propertyName"] as? String, url: y["url"] as? String,id: y["propertyId"] as? String))
             }
-            self.collectionViewRight.reloadData()
+            tempSelf!.collectionViewRight.reloadData()
+            tempSelf!.tableViewLeft.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .Middle)
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
         }
