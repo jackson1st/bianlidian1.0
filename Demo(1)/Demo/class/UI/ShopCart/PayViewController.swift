@@ -20,6 +20,7 @@ class PayViewController: UIViewController {
     var noteInfo: String?
     var needPay: String!
     var discount: String!
+    var shopNo: String!
     @IBOutlet var sumPrice: UILabel!
     @IBOutlet var discountPrice: UILabel!
     // MARK: - view生命周期
@@ -40,6 +41,9 @@ class PayViewController: UIViewController {
     override func viewWillAppear(animated: Bool){
 
         super.viewWillAppear(animated)
+        DataCenter.shareDataCenter.updateAllCoupons(shopNo) { (couponCount) -> Void in
+            
+        }
         tableView.reloadData()
         
     }

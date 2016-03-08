@@ -197,6 +197,8 @@
 		320953D31C88622D00FD136F /* BindingCouponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953D21C88622D00FD136F /* BindingCouponView.swift */; };
 		320953D51C88627D00FD136F /* CoupinRuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953D41C88627D00FD136F /* CoupinRuleViewController.swift */; };
 		320953D71C8862BD00FD136F /* LoadProgressAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953D61C8862BD00FD136F /* LoadProgressAnimationView.swift */; };
+		320953F91C8F17EE00FD136F /* DataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953F81C8F17EE00FD136F /* DataCenter.swift */; };
+		320954071C8F233600FD136F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320954061C8F233600FD136F /* User.swift */; };
 		3254C5571C678CE100D16906 /* ResignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3254C5551C678CE100D16906 /* ResignViewController.swift */; };
 		3254C5581C678CE100D16906 /* SentSecurityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3254C5561C678CE100D16906 /* SentSecurityCodeViewController.swift */; };
 		325A7CB91C5B9D3E00B24144 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 325A7CB81C5B9D3E00B24144 /* Reachability.m */; };
@@ -690,6 +692,8 @@
 		320953D21C88622D00FD136F /* BindingCouponView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingCouponView.swift; sourceTree = "<group>"; };
 		320953D41C88627D00FD136F /* CoupinRuleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoupinRuleViewController.swift; sourceTree = "<group>"; };
 		320953D61C8862BD00FD136F /* LoadProgressAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadProgressAnimationView.swift; sourceTree = "<group>"; };
+		320953F81C8F17EE00FD136F /* DataCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCenter.swift; sourceTree = "<group>"; };
+		320954061C8F233600FD136F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3254C5551C678CE100D16906 /* ResignViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResignViewController.swift; sourceTree = "<group>"; };
 		3254C5561C678CE100D16906 /* SentSecurityCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentSecurityCodeViewController.swift; sourceTree = "<group>"; };
 		325A7CB71C5B9D3E00B24144 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -1007,6 +1011,7 @@
 				04CF8F221C14502B00512979 /* D3Model.swift */,
 				32935BE21C7AE9CC00F60D05 /* MainAD.swift */,
 				320953CE1C8861AF00FD136F /* CouponModel.swift */,
+				320954061C8F233600FD136F /* User.swift */,
 			);
 			path = BusinessModel;
 			sourceTree = "<group>";
@@ -1712,6 +1717,7 @@
 				960929701C4CDC84006BE59E /* HTTPManager.swift */,
 				960929721C4CDCFA006BE59E /* ContentType.swift */,
 				960929741C4CDD68006BE59E /* something'.swift */,
+				320953F81C8F17EE00FD136F /* DataCenter.swift */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -2126,6 +2132,7 @@
 				961B169B1C242AAB0034C463 /* SortModel.swift in Sources */,
 				320953BF1C85C6D800FD136F /* UIBarButtonItem+Extension.swift in Sources */,
 				960929711C4CDC84006BE59E /* HTTPManager.swift in Sources */,
+				320954071C8F233600FD136F /* User.swift in Sources */,
 				04CF8F0A1C144FDB00512979 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				04CF8ED31C144FDB00512979 /* MJRefreshHeader.m in Sources */,
 				04CF8F121C144FDB00512979 /* UIView+wnxView.swift in Sources */,
@@ -2216,6 +2223,7 @@
 				04CF8F111C144FDB00512979 /* UIWebView+AFNetworking.m in Sources */,
 				04CF8EE21C144FDB00512979 /* RegExCategories.m in Sources */,
 				04CF8ECB1C144FDB00512979 /* CyclePictureCell.swift in Sources */,
+				320953F91C8F17EE00FD136F /* DataCenter.swift in Sources */,
 				048E22501C560DBB00E7096B /* LoginViewController.swift in Sources */,
 				96C83E831C1975CA0075A204 /* File.swift in Sources */,
 				04CF8DD41C144FB400512979 /* SettingViewController.swift in Sources */,

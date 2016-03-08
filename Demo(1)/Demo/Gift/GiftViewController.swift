@@ -27,6 +27,22 @@ class GiftViewController: UITableViewController {
             
         }
     }
+    
+    func prepareData() {
+        switch mode {
+        case 0:
+            gifts = DataCenter.shareDataCenter.canGetCoupons
+        case 1:
+            gifts = DataCenter.shareDataCenter.allCoupons.filter({ (GiftModel) -> Bool in
+                GiftModel.status == 4
+            })
+        case 2:
+            gifts = DataCenter.shareDataCenter.allCoupons
+        default:
+            gifts = []
+        }
+        tableView.reloadData()
+    }
     //标示页面，0：主页调用，1：订单调用，2：个人中心调用
     
     var selectedCallback:((GiftModel)->Void)?
@@ -34,6 +50,7 @@ class GiftViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerReusableCell(CouponCell.self)
+        prepareData()
     }
     
 

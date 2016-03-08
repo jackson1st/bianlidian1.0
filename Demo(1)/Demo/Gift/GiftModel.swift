@@ -97,7 +97,8 @@ class GiftModel: NSObject {
         if(userNo == nil){
             callback(result: 1,list:nil)
         }
-        HTTPManager.POST(.StampList, params: ["custNo":userNo!,"shopNo":shopNo == nil ? "" : shopNo!]).responseJSON({ (json) -> Void in
+        else {
+        HTTPManager.POST(.UserStamp, params: ["custNo":userNo!,"shopNo":shopNo == nil ? "" : shopNo!]).responseJSON({ (json) -> Void in
             if(json["message"] as! String == "success"){
                 let array = json["stamps"] as! NSArray
                 var objects = [GiftModel]()
@@ -111,6 +112,7 @@ class GiftModel: NSObject {
             }) { (error) -> Void in
                 callback(result: 2, list: nil)
         }
+        } 
     }
     
 //    class func usedGift(

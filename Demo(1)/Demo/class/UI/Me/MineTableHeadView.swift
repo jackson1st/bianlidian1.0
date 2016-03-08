@@ -156,7 +156,7 @@ class MineCouponView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         if UserAccountTool.userIsLogin() {
-            btn = MineUpLabelDownText(frame: CGRectZero, title: "优惠券", context: "\(UserAccountTool.getUserIntegral()!)", unit: "个",color: UIColor.colorWithCustom(235 , g: 79, b: 56))
+            btn = MineUpLabelDownText(frame: CGRectZero, title: "优惠券", context: "\(DataCenter.shareDataCenter.user.coupon!)", unit: "个",color: UIColor.colorWithCustom(235 , g: 79, b: 56))
         }
         else {
             btn = MineUpImageDownText(frame: CGRectZero, title: "优惠劵", imageName: "icon_money")
