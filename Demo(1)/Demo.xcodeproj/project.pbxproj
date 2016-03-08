@@ -191,7 +191,6 @@
 		320953C51C85D63B00FD136F /* MineTableHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953C41C85D63B00FD136F /* MineTableHeadView.swift */; };
 		320953C71C85D81700FD136F /* HRHTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953C61C85D81700FD136F /* HRHTableView.swift */; };
 		320953C91C86A00400FD136F /* MineHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953C81C86A00400FD136F /* MineHeadView.swift */; };
-		320953CB1C885F5800FD136F /* CouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953CA1C885F5800FD136F /* CouponViewController.swift */; };
 		320953CD1C885FDD00FD136F /* CouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953CC1C885FDD00FD136F /* CouponCell.swift */; };
 		320953CF1C8861AF00FD136F /* CouponModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953CE1C8861AF00FD136F /* CouponModel.swift */; };
 		320953D11C8861D700FD136F /* MyCoupon in Resources */ = {isa = PBXBuildFile; fileRef = 320953D01C8861D700FD136F /* MyCoupon */; };
@@ -201,7 +200,6 @@
 		3254C5571C678CE100D16906 /* ResignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3254C5551C678CE100D16906 /* ResignViewController.swift */; };
 		3254C5581C678CE100D16906 /* SentSecurityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3254C5561C678CE100D16906 /* SentSecurityCodeViewController.swift */; };
 		325A7CB91C5B9D3E00B24144 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 325A7CB81C5B9D3E00B24144 /* Reachability.m */; };
-		325A7CBB1C5B9E3D00B24144 /* ViewController+JS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325A7CBA1C5B9E3D00B24144 /* ViewController+JS.swift */; };
 		32935BD51C7AE6AA00F60D05 /* UIDevice + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32935BD41C7AE6AA00F60D05 /* UIDevice + Extension.swift */; };
 		32935BE31C7AE9CC00F60D05 /* MainAD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32935BE21C7AE9CC00F60D05 /* MainAD.swift */; };
 		32935BE51C7AEA2800F60D05 /* SwiftDictModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32935BE41C7AEA2800F60D05 /* SwiftDictModel.swift */; };
@@ -223,7 +221,6 @@
 		960929711C4CDC84006BE59E /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929701C4CDC84006BE59E /* HTTPManager.swift */; };
 		960929731C4CDCFA006BE59E /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929721C4CDCFA006BE59E /* ContentType.swift */; };
 		960929751C4CDD68006BE59E /* something'.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929741C4CDD68006BE59E /* something'.swift */; };
-		960ED1A41C5A11B30042ED9D /* UIView+JS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960ED1A31C5A11B30042ED9D /* UIView+JS.swift */; };
 		960FC0F51C14943900F0580D /* GoodDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0F21C14943900F0580D /* GoodDetail.swift */; };
 		960FC0FD1C1560E100F0580D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0FC1C1560E100F0580D /* ContentView.swift */; };
 		960FC1001C15D12800F0580D /* EVAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0FF1C15D12800F0580D /* EVAViewController.swift */; };
@@ -262,6 +259,8 @@
 		96E82A021C15AF6500247660 /* EVAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E82A011C15AF6500247660 /* EVAView.swift */; };
 		96E82A081C17043900247660 /* ViewPagerIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E82A071C17043900247660 /* ViewPagerIndicator.swift */; };
 		96E82A0A1C17053500247660 /* MyStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96E82A091C17053500247660 /* MyStoryBoard.storyboard */; };
+		96FF9C461C8DA06000C1071F /* GiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FF9C451C8DA06000C1071F /* GiftViewController.swift */; };
+		96FF9C481C8DA0A900C1071F /* JSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FF9C471C8DA0A900C1071F /* JSExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -685,7 +684,6 @@
 		320953C41C85D63B00FD136F /* MineTableHeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineTableHeadView.swift; sourceTree = "<group>"; };
 		320953C61C85D81700FD136F /* HRHTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRHTableView.swift; sourceTree = "<group>"; };
 		320953C81C86A00400FD136F /* MineHeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineHeadView.swift; sourceTree = "<group>"; };
-		320953CA1C885F5800FD136F /* CouponViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponViewController.swift; sourceTree = "<group>"; };
 		320953CC1C885FDD00FD136F /* CouponCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponCell.swift; sourceTree = "<group>"; };
 		320953CE1C8861AF00FD136F /* CouponModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponModel.swift; sourceTree = "<group>"; };
 		320953D01C8861D700FD136F /* MyCoupon */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MyCoupon; sourceTree = "<group>"; };
@@ -696,7 +694,6 @@
 		3254C5561C678CE100D16906 /* SentSecurityCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentSecurityCodeViewController.swift; sourceTree = "<group>"; };
 		325A7CB71C5B9D3E00B24144 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		325A7CB81C5B9D3E00B24144 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		325A7CBA1C5B9E3D00B24144 /* ViewController+JS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+JS.swift"; sourceTree = "<group>"; };
 		32935BD41C7AE6AA00F60D05 /* UIDevice + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice + Extension.swift"; sourceTree = "<group>"; };
 		32935BE21C7AE9CC00F60D05 /* MainAD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAD.swift; sourceTree = "<group>"; };
 		32935BE41C7AEA2800F60D05 /* SwiftDictModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDictModel.swift; sourceTree = "<group>"; };
@@ -719,7 +716,6 @@
 		960929701C4CDC84006BE59E /* HTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
 		960929721C4CDCFA006BE59E /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		960929741C4CDD68006BE59E /* something'.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "something'.swift"; sourceTree = "<group>"; };
-		960ED1A31C5A11B30042ED9D /* UIView+JS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+JS.swift"; sourceTree = "<group>"; };
 		960FC0F21C14943900F0580D /* GoodDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodDetail.swift; sourceTree = "<group>"; };
 		960FC0FC1C1560E100F0580D /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		960FC0FF1C15D12800F0580D /* EVAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EVAViewController.swift; path = "评论/EVAViewController.swift"; sourceTree = "<group>"; };
@@ -759,6 +755,8 @@
 		96E82A011C15AF6500247660 /* EVAView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVAView.swift; sourceTree = "<group>"; };
 		96E82A071C17043900247660 /* ViewPagerIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPagerIndicator.swift; sourceTree = "<group>"; };
 		96E82A091C17053500247660 /* MyStoryBoard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyStoryBoard.storyboard; sourceTree = "<group>"; };
+		96FF9C451C8DA06000C1071F /* GiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftViewController.swift; sourceTree = "<group>"; };
+		96FF9C471C8DA0A900C1071F /* JSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -921,6 +919,7 @@
 			isa = PBXGroup;
 			children = (
 				04CBC5AB1C8C14950027D9AF /* GiftModel.swift */,
+				96FF9C451C8DA06000C1071F /* GiftViewController.swift */,
 			);
 			path = Gift;
 			sourceTree = "<group>";
@@ -1070,7 +1069,6 @@
 				320953C41C85D63B00FD136F /* MineTableHeadView.swift */,
 				320953C61C85D81700FD136F /* HRHTableView.swift */,
 				320953C81C86A00400FD136F /* MineHeadView.swift */,
-				320953CA1C885F5800FD136F /* CouponViewController.swift */,
 				320953CC1C885FDD00FD136F /* CouponCell.swift */,
 				320953D21C88622D00FD136F /* BindingCouponView.swift */,
 				320953D41C88627D00FD136F /* CoupinRuleViewController.swift */,
@@ -1141,8 +1139,7 @@
 				04CF8E9B1C144FDB00512979 /* UIView+wnxView.swift */,
 				04CF8E9C1C144FDB00512979 /* UMSocial_Sdk_4.2.3 */,
 				04CF8EB71C144FDB00512979 /* UMSocial_Sdk_Extra_Frameworks */,
-				960ED1A31C5A11B30042ED9D /* UIView+JS.swift */,
-				325A7CBA1C5B9E3D00B24144 /* ViewController+JS.swift */,
+				96FF9C471C8DA0A900C1071F /* JSExtension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -2136,12 +2133,10 @@
 				32935BE31C7AE9CC00F60D05 /* MainAD.swift in Sources */,
 				04CF8ED41C144FDB00512979 /* MJRefreshAutoGifFooter.m in Sources */,
 				04CF8DDC1C144FB400512979 /* PayViewController.swift in Sources */,
-				325A7CBB1C5B9E3D00B24144 /* ViewController+JS.swift in Sources */,
 				96C83E881C1975CA0075A204 /* JSONND.swift in Sources */,
 				320953D31C88622D00FD136F /* BindingCouponView.swift in Sources */,
 				3254C5571C678CE100D16906 /* ResignViewController.swift in Sources */,
 				04CBC5AF1C8C14950027D9AF /* JSButton.swift in Sources */,
-				960ED1A41C5A11B30042ED9D /* UIView+JS.swift in Sources */,
 				96BCBC2B1C570E350028CA42 /* CollectionModel.swift in Sources */,
 				32935BEB1C7AEB4C00F60D05 /* GuideViewController.swift in Sources */,
 				048B04C31C5AFD9D00245246 /* ButtonTableViewCell.swift in Sources */,
@@ -2173,6 +2168,7 @@
 				04CF8D601C144DAE00512979 /* Demo.xcdatamodeld in Sources */,
 				9626475C1C58EA77003CC7EE /* MBProgressHUD.m in Sources */,
 				960FC0FD1C1560E100F0580D /* ContentView.swift in Sources */,
+				96FF9C481C8DA0A900C1071F /* JSExtension.swift in Sources */,
 				04CF8EF51C144FDB00512979 /* ConstraintDescription.swift in Sources */,
 				04CF8EFA1C144FDB00512979 /* EdgeInsets.swift in Sources */,
 				96E82A081C17043900247660 /* ViewPagerIndicator.swift in Sources */,
@@ -2211,10 +2207,10 @@
 				04CF8F0D1C144FDB00512979 /* UIButton+AFNetworking.m in Sources */,
 				320953C11C85C71B00FD136F /* UpImageDownTextButton.swift in Sources */,
 				96C83E8A1C1975CA0075A204 /* Pitaya.swift in Sources */,
-				320953CB1C885F5800FD136F /* CouponViewController.swift in Sources */,
 				04CF8F001C144FDB00512979 /* String+wnxString.swift in Sources */,
 				32935BED1C7AEBD700F60D05 /* GuideCell.swift in Sources */,
 				96C83E8B1C1975CA0075A204 /* PitayaManager+NSURLSessionDelegate.swift in Sources */,
+				96FF9C461C8DA06000C1071F /* GiftViewController.swift in Sources */,
 				9626475A1C58EA77003CC7EE /* MBProgressHUD+MJ.m in Sources */,
 				047A5F3F1C145424004FA20F /* GoodSizeTableCell.swift in Sources */,
 				04CF8F111C144FDB00512979 /* UIWebView+AFNetworking.m in Sources */,

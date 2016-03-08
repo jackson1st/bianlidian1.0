@@ -26,7 +26,7 @@ class JSButton: UIView {
         btn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         btn.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Highlighted)
         btn.clipsToBounds = true
-        btn.addTarget(self, action: "buttonCliked", forControlEvents: .TouchUpInside)
+        btn.addTarget(self, action: "buttonClicked", forControlEvents: .TouchUpInside)
         btn.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(self)
             make.left.equalTo(self)

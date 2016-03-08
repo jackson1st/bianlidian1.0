@@ -10,11 +10,9 @@ import UIKit
 
 class CouponViewController: BaseViewController {
     
-    private var bindingCouponView: BindingCouponView?
     private var couponTableView: HRHTableView?
     
     private var useCoupons: [Coupon] = [Coupon]()
-    private var unUseCoupons: [Coupon] = [Coupon]()
     
     
     // MARK: life cycle

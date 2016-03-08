@@ -38,7 +38,7 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
     
     //礼券Model
     var giftModels = [GiftModel]()
-    
+    var giftVC:GiftViewController?
     
     override func viewDidLoad() {
         
@@ -133,10 +133,19 @@ extension MainViewController{
     
     func initGiftModel(){
         self.ButtonGift.button.setTitle("券", forState: .Normal)
+        ButtonGift.buttonAction = {
+            ()->() in
+            if(self.giftVC == nil){
+                self.giftVC = GiftViewController()
+                self.giftVC?.mode = 0
+                self.giftVC?.gifts = self.giftModels
+            }
+            self.presentViewController(self.giftVC!, animated: true, completion: nil)
+        }
         GiftModel.getAllGiftList { (result, list) -> Void in
             if(result == 0){
                 self.giftModels = list!
-                self.ButtonGift.edge = "\(list!.count)"
+                self.ButtonGift.edge = String(list!.filter({$0.status == 0}).count)
             }
         }
     }

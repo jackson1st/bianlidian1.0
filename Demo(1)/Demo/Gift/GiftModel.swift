@@ -14,11 +14,12 @@ class GiftModel: NSObject {
     var type:String!//礼券的类别
     var shopName:String?//商店名称
     var shopNo:String?//商店编号
-    var amt:Double!//礼券面额
-    var minMoney:Double!//礼券最少使用金额
+    var amt:Int!//礼券面额
+    var minMoney:Int!//礼券最少使用金额
     var start:String!//开始时间
     var end:String!//结束时间
-    var state:Int?//使用状态 0、未领取 1、可使用  2、已使用 3 已过期
+    var status:Int!//使用状态 0、未领取 1、可使用  2、已使用 3 已过期
+    var stampNo:String!//礼券编号
     
     static var formatter:NSDateFormatter = {
         let format = NSDateFormatter()
@@ -34,7 +35,7 @@ class GiftModel: NSObject {
     }
     
     
-    convenience init(name:String,no:String,type:String,shopName:String? = nil,shopNo:String? = nil,amt:Double,minMoney:Double,start:String,end:String,state:Int?){
+    convenience init(name:String,no:String,type:String,shopName:String? = nil,shopNo:String? = nil,amt:Int,minMoney:Int,start:String,end:String,status:Int!,stampNo:String!){
         self.init()
         self.name = name
         self.no = no
@@ -45,7 +46,8 @@ class GiftModel: NSObject {
         self.minMoney = minMoney
         self.start = start
         self.end = end
-        self.state = state
+        self.status = status
+        self.stampNo = stampNo
     }
     
     convenience init(dict:[String:AnyObject]){
@@ -55,11 +57,12 @@ class GiftModel: NSObject {
         self.shopName = dict["shopName"] as? String
         self.shopNo = dict["shopNo"] as? String
         self.type = dict["stampTypeNo"] as! String
-        self.amt = dict["stampAmt"] as! Double
-        self.minMoney = dict["minOrderAmt"] as! Double
+        self.amt = dict["stampAmt"] as! Int
+        self.minMoney = dict["minOrderAmt"] as! Int
         self.start = dict["startValidDate_String"] as! String
         self.end = dict["endValidDate_String"] as! String
-        self.state = dict["status"] as? Int
+        self.status = Int((dict["status"] as! String))
+        self.stampNo = dict["stampNo"] as! String
     }
     
     /**
@@ -72,7 +75,8 @@ class GiftModel: NSObject {
      0 正常成功 1 未登录 2 其他
      */
     class func getAllGiftList(callback:(result:Int,list:[GiftModel]?) -> Void){
-        HTTPManager.POST(.StampList, params:["custNo":"","shopNo":""]).responseJSON({ (json) -> Void in
+        let userNo = UserAccountTool.getUserCustNo()
+        HTTPManager.POST(.StampList, params:["custNo":userNo == nil ? "":userNo!,"shopNo":""]).responseJSON({ (json) -> Void in
             if(json["message"] as! String == "success"){
                 let array = json["stamps"] as! NSArray
                 var objects = [GiftModel]()
@@ -88,12 +92,12 @@ class GiftModel: NSObject {
         }
     }
     
-    class func getUserGiftsListWithShopNo(shopNo:String,callback:(result:Int,list:[GiftModel]?) -> Void) {
+    class func getUserGiftsListWithShopNo(shopNo:String?,callback:(result:Int,list:[GiftModel]?) -> Void) {
         let userNo = UserAccountTool.getUserCustNo()
         if(userNo == nil){
             callback(result: 1,list:nil)
         }
-        HTTPManager.POST(.StampList, params: ["custNo":userNo!,"shopNo":shopNo]).responseJSON({ (json) -> Void in
+        HTTPManager.POST(.StampList, params: ["custNo":userNo!,"shopNo":shopNo == nil ? "" : shopNo!]).responseJSON({ (json) -> Void in
             if(json["message"] as! String == "success"){
                 let array = json["stamps"] as! NSArray
                 var objects = [GiftModel]()
@@ -111,7 +115,7 @@ class GiftModel: NSObject {
     
 //    class func usedGift(
     
-    class func getGift(stampNo:String,callback:(result:String) -> Void){
+    func getGift(stampNo:String,callback:(result:String) -> Void){
         let userNo = UserAccountTool.getUserCustNo()!
         HTTPManager.POST(.GetStamp, params: ["custNo":userNo,"stampNo":stampNo]).responseJSON({ (json) -> Void in
             callback(result: json["message"] as! String)
