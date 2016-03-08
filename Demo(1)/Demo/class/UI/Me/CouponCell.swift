@@ -126,15 +126,16 @@ class CouponCell: UITableViewCell,Reusable {
         upImageView?.frame = CGRectMake(CGRectGetMinX((backImageView?.frame)!), CGRectGetMinY((backImageView?.frame)!), CGRectGetWidth((backImageView?.frame)!), 3)
 
         flagImageView?.frame = CGRectMake(CGRectGetMinX((backImageView?.frame)!) + 10 , CGRectGetMaxY((backImageView?.frame)!) - 45, 10, 14)
-        priceLabel?.frame = CGRectMake(CGRectGetMinX((flagImageView?.frame)!) + 13, CGRectGetMaxY((flagImageView?.frame)!) - 40, 70, 40)
-        priceLabel?.center.y = (backImageView?.center.y)! + 5
+        priceLabel?.frame = CGRectMake(CGRectGetMinX((flagImageView?.frame)!) + 13, CGRectGetMaxY((flagImageView?.frame)!) - 40, 100, 40)
+        priceLabel?.center.y = (backImageView?.center.y)!
+        flagImageView?.center.y = (backImageView?.center.y)! + 5
         
         dashImageView?.frame = CGRectMake(CGRectGetMaxX((priceLabel?.frame)!) + 10, 25, 15, CGRectGetMaxY((backImageView?.frame)!) - 40)
         unUseImageView?.frame = CGRectMake(CGRectGetMaxX((backImageView?.frame)!) - 75, 10, 68, 68)
         getButton?.frame = CGRectMake(CGRectGetMaxX((backImageView?.frame)!) - 75, 10, 68, 68)
         
         titleLabel?.sizeToFit()
-        titleLabel?.frame = CGRectMake(CGRectGetMaxX((dashImageView?.frame)!) + 10, 20, titleLabel!.width, titleLabel!.height)
+        titleLabel?.frame = CGRectMake(CGRectGetMaxX((dashImageView?.frame)!) + 10, CGRectGetMinY((dashImageView?.frame)!), titleLabel!.width, titleLabel!.height)
         
         descLabel?.sizeToFit()
         descLabel?.frame = CGRectMake(CGRectGetMinX((titleLabel?.frame)!), CGRectGetMaxY(titleLabel!.frame) +   5, (descLabel?.width)!, (descLabel?.height)!)
@@ -169,7 +170,7 @@ class CouponCell: UITableViewCell,Reusable {
                 break
             }
             
-            let price = String(coupon.amt)
+            let price = String(format: "%.1lf", Double(coupon.amt))
             let AttributedStr = NSMutableAttributedString(string: price)
             
             AttributedStr.setAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(23)], range: NSMakeRange(AttributedStr.length - 1, 1))
@@ -206,13 +207,22 @@ class CouponCell: UITableViewCell,Reusable {
         let imageName4 = imageArray[statu]
         unUseImageView?.image = UIImage(named: imageName4)
         getButton?.setTitle("领取", forState: UIControlState.Normal)
-        getButton?.titleLabel?.font = UIFont.boldSystemFontOfSize(17)
+        getButton?.titleLabel?.font = UIFont.boldSystemFontOfSize(25)
         getButton?.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         getButton?.addTarget(self, action: "getCouponAction", forControlEvents: UIControlEvents.TouchUpInside)
     }
     
-    private func getCouponAction(){
-
+    func getCouponAction(){
+        coupon.getGift(coupon.stampNo) { (result) -> Void in
+            if "success" == result {
+                MBProgressHUD.showSuccess("领取成功")
+                self.coupon.status = 1
+                self.setCouponColor(false, statu: 1)
+            }
+            else {
+                MBProgressHUD.showError("领取失败,请重试~~")
+            }
+        }
     }
     
 }

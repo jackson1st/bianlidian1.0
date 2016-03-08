@@ -145,7 +145,7 @@ extension MainViewController{
         GiftModel.getAllGiftList { (result, list) -> Void in
             if(result == 0){
                 self.giftModels = list!
-                self.ButtonGift.edge = "\(list!.count)"
+                self.ButtonGift.edge = String(list!.filter({$0.status == 0}).count)
             }
         }
     }
