@@ -23,6 +23,11 @@ extension UIViewController{
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func pushViewController(VC:UIViewController, animated: Bool, completion: (()->Void)?){
+        let VC2 = UINavigationController(rootViewController: VC)
+        self.presentViewController(VC2, animated: animated, completion: completion)
+    }
+    
     func registerNetObserve(y: CGFloat){
         self.view.addNetWorkErrorView(y)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "netWorkOk", name: "netWorkOk", object: nil)

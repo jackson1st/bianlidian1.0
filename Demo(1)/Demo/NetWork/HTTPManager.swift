@@ -25,10 +25,6 @@ public class HTTPManager {
         }
         
         
-//        mbp = MBProgressHUD.showMessage("")
-        
-//        HUDCount++
-        
         let manager = HTTPManager()
         if(params != nil){
         manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue, parameters: params, encoding: .JSON)
