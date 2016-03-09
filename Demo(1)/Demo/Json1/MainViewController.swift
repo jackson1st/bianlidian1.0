@@ -136,24 +136,21 @@ extension MainViewController{
     
     func initGiftModel(){
         self.ButtonGift.button.setTitle("券", forState: .Normal)
+        weak var tmpSelf = self
         ButtonGift.buttonAction = {
             ()->() in
-            if(self.giftVC == nil){
-                self.giftVC = GiftViewController()
-                self.giftVC?.mode = 0
-<<<<<<< HEAD
-                self.giftVC?.gifts = self.giftModels
+            if(tmpSelf!.giftVC == nil){
+                tmpSelf!.giftVC = GiftViewController()
+                tmpSelf!.giftVC?.mode = 0
+                tmpSelf!.giftVC?.gifts = tmpSelf!.giftModels
             }
-            self.pushViewController(self.giftVC!, animated: true, completion: nil)
+            tmpSelf!.pushViewController(self.giftVC!, animated: true, completion: nil)
         }
         GiftModel.getAllGiftList { (result, list) -> Void in
             if(result == 0){
-                self.giftModels = list!
-                self.ButtonGift.edge = "\(list!.count)"
-=======
->>>>>>> origin/master
+                tmpSelf!.giftModels = list!
+                tmpSelf!.ButtonGift.edge = "\(list!.filter({$0.status == 0}).count)"
             }
-            self.pushViewController(self.giftVC!, animated: true, completion: nil)
         }
 }
     
