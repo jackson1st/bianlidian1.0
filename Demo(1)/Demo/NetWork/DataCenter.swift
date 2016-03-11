@@ -55,6 +55,9 @@ class DataCenter {
                     (couponCount: self.allCoupons.filter({ (GiftModel) -> Bool in
                         GiftModel.status == 4
                     }).count)
+                    self.user.coupon = self.allCoupons.filter({ (GiftModel) -> Bool in
+                        GiftModel.status == 4
+                    }).count
                 }
             }
             else {
@@ -63,6 +66,17 @@ class DataCenter {
         }
     }
     
-    
+    func updateIntegral(){
+        if UserAccountTool.userIsLogin() {
+            HTTPManager.POST(ContentType.IntGet, params: ["custNo":"\(UserAccountTool.getUserCustNo()!)"]).responseJSON({ (json) -> Void in
+                print(json)
+                if "success" == json["message"] as! String {
+                    self.user.integral = json["integral"] as! Int
+                }
+                }, error: { (error) -> Void in
+                    print(error?.localizedDescription)
+            })
+        }
+    }
     
 }

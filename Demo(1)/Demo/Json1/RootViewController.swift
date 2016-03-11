@@ -34,6 +34,9 @@ class RootViewController: UITabBarController,UITabBarControllerDelegate {
         delegate = self
         changeCarNum()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "changeCarNum", name: "CarNumChanged", object: nil)
+        if UserAccountTool.userIsLogin() {
+            updateAllData()
+        }
     }
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         
@@ -41,11 +44,16 @@ class RootViewController: UITabBarController,UITabBarControllerDelegate {
     }
     
     func changeCarNum(){
-        if(Model.defaultModel.shopCart.count == 0) {
-            self.tabBar.items![2].badgeValue = nil
+        if UserAccountTool.userIsLogin() {
+            if(Model.defaultModel.shopCart.count == 0) {
+                self.tabBar.items![2].badgeValue = nil
+            }
+            else {
+                self.tabBar.items![2].badgeValue = "\(Model.defaultModel.shopCart.count)"
+            }
         }
         else {
-            self.tabBar.items![2].badgeValue = "\(Model.defaultModel.shopCart.count)"
+            self.tabBar.items![2].badgeValue = nil
         }
     }
     
@@ -80,5 +88,18 @@ class RootViewController: UITabBarController,UITabBarControllerDelegate {
         
         return true
     }
+    
+    //进行数据的第一次总更新
+    func updateAllData(){
+        print("进行数据的第一次总更新")
+        
+        
+        DataCenter.shareDataCenter.updateAllCoupons("", callBack: nil)
+        CollectionModel.CollectionCenter.loadDataFromNet(1, count: 100, success: { (data) -> Void in
+            DataCenter.shareDataCenter.user.collect = data.count
+            }, callback: nil)
+        DataCenter.shareDataCenter.updateIntegral()
+    }
+    
     
 }

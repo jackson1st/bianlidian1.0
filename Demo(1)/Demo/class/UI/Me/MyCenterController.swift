@@ -10,6 +10,7 @@ import UIKit
 
 class MyCenterController: UITableViewController {
     
+    @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet var userName: UILabel!
     @IBOutlet var phoneNumber: UILabel!
     override func viewDidLoad() {
@@ -17,15 +18,17 @@ class MyCenterController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.title = "个人中心"
-        
+        iconImageView.layer.masksToBounds = true
+        iconImageView.layer.cornerRadius =
+            iconImageView.frame.width / 2
         // 添加iconImageView
         navigationController?.setNavigationBarHidden(false, animated: true)
-//        if let data = NSData(contentsOfFile: SD_UserIconData_Path) {
-//            iconView.iconButton.setImage(UIImage(data: data)!.imageClipOvalImage(), forState: .Normal)
-//        } else {
-//            iconView.iconButton.setImage(UIImage(named: "my"), forState: .Normal)
-//        }
-//        
+        if let data = NSData(contentsOfFile: SD_UserIconData_Path) {
+            iconImageView.image = UIImage(data: data)
+        } else {
+            iconImageView.image = UIImage(named: "v2_my_avatar")
+        }
+        
         userName.text = UserAccountTool.getUserName()
         
         phoneNumber.frame = CGRect(x: AppWidth - 213, y: 12, width: 180, height: 20)
@@ -33,12 +36,20 @@ class MyCenterController: UITableViewController {
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
+    }
+    
+    
     @IBAction func signOutAction(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "SignOut", object: self))
+
         let user = NSUserDefaults.standardUserDefaults()
         user.setObject(nil, forKey: SD_UserDefaults_Account)
         user.setObject(nil, forKey: SD_UserDefaults_Password)
         if user.synchronize() {
+            DataCenter.shareDataCenter.updateCanGetCoupons(nil)
+            NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "CarNumChanged", object: self))
             navigationController!.popViewControllerAnimated(true)
         }
         

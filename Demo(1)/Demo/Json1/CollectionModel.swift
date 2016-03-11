@@ -38,7 +38,7 @@ class CollectionModel: NSObject {
             //执行回调,待斟酌
             self.dict[model.itemNo] = self.Likes.count
             self.Likes.append(LikedModel(No: model.itemNo, price: model.itemSalePrice, name: model.itemName, url: model.imageTop[0], unitNo: nil, size: nil, pack: nil))
-            
+            DataCenter.shareDataCenter.user.collect = self.Likes.count
             if(success != nil){
                 success!()
             }
@@ -58,7 +58,7 @@ class CollectionModel: NSObject {
             
             self.Likes.removeAtIndex(index)
             self.dict[no] = nil
-            
+            DataCenter.shareDataCenter.user.collect = self.Likes.count
             if(success != nil){
                 success!()
             }

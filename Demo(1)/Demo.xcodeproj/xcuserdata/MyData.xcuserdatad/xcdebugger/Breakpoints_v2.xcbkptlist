@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/class/UI/Me/MeViewController.swift"
-            timestampString = "478697734.999999"
+            timestampString = "479395635.38153"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "buildUI()"
             landmarkType = "5">
          </BreakpointContent>

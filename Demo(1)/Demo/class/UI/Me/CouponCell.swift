@@ -192,6 +192,7 @@ class CouponCell: UITableViewCell,Reusable {
         descLabel?.textColor = titleLabel?.textColor
         priceLabel?.textColor = isUse ? useColor : unUseColor
         getButton?.hidden = true
+        unUseImageView?.hidden = false
         if 0 == statu {
             unUseImageView?.hidden = isUse
             getButton?.hidden = false
@@ -213,15 +214,22 @@ class CouponCell: UITableViewCell,Reusable {
     }
     
     func getCouponAction(){
-        coupon.getGift(coupon.stampNo) { (result) -> Void in
-            if "success" == result {
-                MBProgressHUD.showSuccess("领取成功")
-                self.coupon.status = 1
-                self.setCouponColor(false, statu: 1)
+        if UserAccountTool.userIsLogin() {
+            
+            coupon.getGift(coupon.stampNo) { (result) -> Void in
+                if "success" == result {
+                    MBProgressHUD.showSuccess("领取成功")
+                    self.coupon.status = 1
+                    DataCenter.shareDataCenter.updateAllCoupons("", callBack: nil)
+                }
+                else {
+                    MBProgressHUD.showError("领取失败,请重试~~")
+                }
             }
-            else {
-                MBProgressHUD.showError("领取失败,请重试~~")
-            }
+        }
+            
+        else {
+            
         }
     }
     

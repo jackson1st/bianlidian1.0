@@ -12,4 +12,10 @@ class User: NSObject {
     var collect: Int!
     var integral: Int!
     var coupon: Int!
+    override init() {
+        self.collect = 0
+        self.integral = 0
+        self.coupon = 0
+    }
+    
 }

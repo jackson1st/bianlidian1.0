@@ -13,8 +13,7 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
     
     private var loginLabel: UILabel!
     private var tableView: HRHTableView!
-    private var iconImageView: UIImageView!
-    private var headView: MineHeadView!
+    var headView: MineHeadView!
     private var headViewHeight: CGFloat = 120
     private var tableHeadView: MineTabeHeadView!
     // MARK: Flag
@@ -36,8 +35,6 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
     
     private lazy var iconActionSheet: UIActionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照", "从手机相册选择")
     
-    private var iconView: IconView?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.navigationController?.navigationBarHidden = true
@@ -47,87 +44,10 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
     }
     
     
-//    private func setTableView() {
-//        self.automaticallyAdjustsScrollViewInsets = false
-//        
-//        tableView = UITableView(frame: CGRectMake(0, 0, AppWidth, AppHeight), style: .Grouped)
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        tableView.rowHeight = 46
-//        view.addSubview(tableView)
-//        
-//        
-//        // 设置tableView的headerView
-//        let iconImageViewHeight: CGFloat = 280
-//        iconImageView = UIImageView(frame: CGRectMake(0, 0, AppWidth, iconImageViewHeight))
-//        iconImageView.image = UIImage(named: "mybk1")
-//        iconImageView.userInteractionEnabled = true
-//
-//    
-//        
-//        // 添加未登录的文字
-//        let loginLabelHeight: CGFloat = 40
-//        loginLabel = UILabel(frame: CGRectMake(0, iconImageViewHeight - loginLabelHeight, AppWidth, loginLabelHeight))
-//        loginLabel.textAlignment = .Center
-//        loginLabel.text = "立即登录"
-//        loginLabel.font = UIFont.systemFontOfSize(16)
-//        loginLabel.textColor = UIColor.whiteColor()
-//        iconImageView.addSubview(loginLabel)
-//
-//        
-//        
-//        // 添加iconImageView
-//        iconView = IconView(frame: CGRectMake(0, 0, 100, 100))
-//        iconView!.delegate = self
-//        iconView!.center = CGPointMake(iconImageView.width * 0.5, (iconImageViewHeight - loginLabelHeight) * 0.5 + 8)
-//        iconImageView.addSubview(iconView!)
-//        
-//        
-//        iconView?.snp_makeConstraints(closure: { (make) -> Void in
-//            make.center.equalTo(iconImageView)
-//            make.size.equalTo(100)
-//        })
-//        loginLabel.snp_makeConstraints { (make) -> Void in
-//            make.top.equalTo((iconView?.snp_bottom)!).offset(10)
-//            make.width.equalTo(AppWidth)
-//            make.height.equalTo(loginLabelHeight)
-//        }
-//        //添加tableHeaderView
-//        let headerView_v: ParallaxHeaderView = ParallaxHeaderView.parallaxHeaderViewWithSubView(iconImageView) as! ParallaxHeaderView
-//        
-//         tableView.tableHeaderView = headerView_v
-//    }
-//    
-//    func settingClick() {
-//        let settingVC = SettingViewController()
-//        navigationController?.pushViewController(settingVC, animated: true)
-//    }
-//    
-//    //MARK: 滑动操作
-//     func  scrollViewDidScroll(scrollView: UIScrollView) {
-//        if (scrollView == self.tableView){
-//            let header: ParallaxHeaderView = self.tableView.tableHeaderView as! ParallaxHeaderView
-//            header.layoutHeaderViewForScrollViewOffset(scrollView.contentOffset)
-//            self.tableView.tableHeaderView = header
-//        }
-//    }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         buildUI()
-        getData()
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        
-//        loginLabel.hidden = UserAccountTool.userIsLogin()
-//        if UserAccountTool.userIsLogin() {
-//            if let data = NSData(contentsOfFile: SD_UserIconData_Path) {
-//                iconView!.iconButton.setImage(UIImage(data: data)!.imageClipOvalImage(), forState: .Normal)
-//            } else {
-//                iconView!.iconButton.setImage(UIImage(named: "my"), forState: .Normal)
-//            }
-//        } else {
-//            iconView!.iconButton.setImage(UIImage(named: "my"), forState: .Normal)
-//        }
         
     }
     
@@ -179,16 +99,17 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
                 case .Coupon:
                     let couponVC = GiftViewController()
                     couponVC.mode = 2
+                    DataCenter.shareDataCenter.updateAllCoupons("", callBack: nil)
+                    couponVC.gifts = DataCenter.shareDataCenter.allCoupons
                     tmpSelf!.navigationController!.pushViewController(couponVC, animated: true)
                     break
                 case .Integral:
-    //                let message = MessageViewController()
-    //                tmpSelf!.navigationController?.pushViewController(message, animated: true)
+  
                     break
                 case .MyCenter:
-                    let myCenterVC = myStoryBoard.instantiateViewControllerWithIdentifier("MyCenterController")
-                    tmpSelf!.navigationController!.pushViewController(myCenterVC, animated: true)
-
+                    
+                    tmpSelf?.iconActionSheet.showInView(self.view)
+            
                     break
                 }
             }
@@ -199,25 +120,7 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
         }
         tableView.tableHeaderView = tableHeadView
     }
-    func getData(){
-        DataCenter.shareDataCenter.updateAllCoupons(nil) { (couponCount) -> Void in
-            DataCenter.shareDataCenter.user.coupon = couponCount
-        }
-    }
 }
-
-/// MARK: iconViewDelegate
-//extension MeViewController: IconViewDelegate {
-//    func iconView(iconView: IconView, didClick iconButton: UIButton) {
-//        // TODO 判断用户是否登录了
-//        if UserAccountTool.userIsLogin() {
-//            iconActionSheet.showInView(view)
-//        } else {
-//            let vc = LoginViewController()
-//            navigationController?.pushViewController(vc, animated: true)
-//        }
-//    }
-//}
 
 /// MARK: UIActionSheetDelegate
 extension MeViewController: UIActionSheetDelegate {
@@ -259,14 +162,15 @@ extension MeViewController: UIImagePickerControllerDelegate {
         // 对用户选着的图片进行质量压缩,上传服务器,本地持久化存储
         if let typeStr = info[UIImagePickerControllerMediaType] as? String {
             if typeStr == "public.image" {
+                
                 if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
                     var data: NSData?
-//                    let smallImage = UIImage.imageClipToNewImage(image, newSize: iconView!.iconButton.size)
-//                    if UIImagePNGRepresentation(smallImage) == nil {
-//                        data = UIImageJPEGRepresentation(smallImage, 0.8)
-//                    } else {
-//                        data = UIImagePNGRepresentation(smallImage)
-//                    }
+                    let smallImage = UIImage.imageClipToNewImage(image, newSize: CGSize.init(width: 120, height: 120))
+                    if UIImagePNGRepresentation(smallImage) == nil {
+                        data = UIImageJPEGRepresentation(smallImage, 0.8)
+                    } else {
+                        data = UIImagePNGRepresentation(smallImage)
+                    }
                     
                     if data != nil {
                         do {
@@ -353,15 +257,6 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         return cell
-//        if indexPath.section == 0 {
-//            cell!.imageView!.image = UIImage(named: mineIcons[indexPath.row] as! String)
-//            cell!.textLabel?.text = mineTitles[indexPath.row] as? String
-//        } else {
-//            cell!.imageView!.image = UIImage(named: "yaoyiyao")
-//            cell!.textLabel!.text = "摇一摇 每天都有小惊喜"
-//        }
-//        
-//        return cell!
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

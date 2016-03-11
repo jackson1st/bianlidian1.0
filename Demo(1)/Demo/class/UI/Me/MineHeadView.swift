@@ -52,7 +52,18 @@ class IconView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        iconImageView = UIImageView(image: UIImage(named: "v2_my_avatar"))
+        
+        
+        if UserAccountTool.userIsLogin() {
+            if let data = NSData(contentsOfFile: SD_UserIconData_Path) {
+                iconImageView = UIImageView(image: UIImage(data: data))
+            } else {
+                iconImageView = UIImageView(image: UIImage(named: "v2_my_avatar"))
+            }
+        } else {
+            iconImageView = UIImageView(image: UIImage(named: "v2_my_avatar"))
+        }
+        
         addSubview(iconImageView)
         
         phoneImage = UIImageView(image: UIImage(named: "icon_phone"))
@@ -82,7 +93,9 @@ class IconView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        iconImageView.frame = CGRectMake((width - iconImageView.size.width) * 0.5, 0, iconImageView.size.width, iconImageView.size.height)
+        iconImageView.frame = CGRectMake((width - 75) * 0.5, 0, 75, 75)
+        iconImageView.layer.masksToBounds = true
+        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         phoneImage.frame = CGRectMake(iconImageView.size.width + 60, 43, 14, 14)
         if UserAccountTool.userIsLogin() {
             phoneNum.frame = CGRectMake(iconImageView.size.width + 75, 35, width, 30)

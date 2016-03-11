@@ -129,13 +129,13 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         let psdMD5 = psdTextField.text
         login(account!, passWord: psdMD5!) { () -> Void in
             //登录成功后执行操作
-            CollectionModel.CollectionCenter.loadDataFromNet(0, count: 100, success: nil, callback: { () -> Void in
-                let collectNum = CollectionModel.CollectionCenter.Likes.count
-                UserAccountTool.setUserCollectNum(collectNum)
-            })
-            Model.defaultModel.loadDataForNetWork({ () -> Void in
-                self.navigationController?.popViewControllerAnimated(true)
-            })
+            DataCenter.shareDataCenter.updateIntegral()
+            CollectionModel.CollectionCenter.loadDataFromNet(1, count: 100, success: { (data) -> Void in
+                DataCenter.shareDataCenter.user.collect = data.count
+                }, callback: nil)
+            Model.defaultModel.loadDataForNetWork(nil)
+            DataCenter.shareDataCenter.updateAllCoupons("", callBack: nil)
+            self.navigationController?.popToRootViewControllerAnimated(true)
         }
     }
 
@@ -156,7 +156,6 @@ extension  LoginViewController {
         
         let parameters = ["username":userName,
             "password":passWord]
-        MBProgressHUD.showMessage("登录中....")
         HTTPManager.POST(ContentType.LoginMobile, params: parameters).responseJSON({ (json) -> Void in
             print(json)
             

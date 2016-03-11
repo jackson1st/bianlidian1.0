@@ -5,24 +5,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="x5B-go-Dou">
-            <objects>
-                <viewController id="DwE-6W-8Yf" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="YCf-I6-iMF"/>
-                        <viewControllerLayoutGuide type="bottom" id="qoo-a6-vbi"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="u95-c3-oLn">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="806-O5-Jvs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-378" y="-1136"/>
-        </scene>
         <!--My Center Controller-->
         <scene sceneID="hmD-ic-KZ5">
             <objects>
@@ -189,6 +171,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="iconImageView" destination="LgT-fE-Vyw" id="qEE-qK-NmP"/>
                         <outlet property="phoneNumber" destination="G0K-7U-8Ii" id="h28-kU-NB4"/>
                         <outlet property="userName" destination="swz-Xa-pZh" id="Fv9-iO-xv0"/>
                     </connections>

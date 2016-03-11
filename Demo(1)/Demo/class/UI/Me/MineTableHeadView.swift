@@ -131,7 +131,8 @@ class MineOrderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         if UserAccountTool.userIsLogin() {
-            btn = MineUpLabelDownText(frame: CGRectZero, title: "我的收藏", context: "\(UserAccountTool.getUserCollectNum()!)", unit: "件",color: UIColor.colorWithCustom(234 , g: 128, b: 16))
+            let count  = DataCenter.shareDataCenter.user.collect
+            btn = MineUpLabelDownText(frame: CGRectZero, title: "我的收藏", context: "\(count!)", unit: "件",color: UIColor.colorWithCustom(234 , g: 128, b: 16))
         }
         else {
             btn = MineUpImageDownText(frame: CGRectZero, title: "我的收藏", imageName: "icon_collect")
@@ -156,7 +157,8 @@ class MineCouponView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         if UserAccountTool.userIsLogin() {
-            btn = MineUpLabelDownText(frame: CGRectZero, title: "优惠券", context: "\(DataCenter.shareDataCenter.user.coupon!)", unit: "个",color: UIColor.colorWithCustom(235 , g: 79, b: 56))
+            let count  = DataCenter.shareDataCenter.user.coupon
+            btn = MineUpLabelDownText(frame: CGRectZero, title: "优惠券", context: "\(count!)", unit: "个",color: UIColor.colorWithCustom(235 , g: 79, b: 56))
         }
         else {
             btn = MineUpImageDownText(frame: CGRectZero, title: "优惠劵", imageName: "icon_money")
@@ -180,7 +182,8 @@ class MineMessageView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         if UserAccountTool.userIsLogin() {
-            btn = MineUpLabelDownText(frame: CGRectZero, title: "我的积分", context: "\(UserAccountTool.getUserIntegral()!)", unit: "分",color: UIColor.colorWithCustom(17, g: 205, b: 110))
+            let count = DataCenter.shareDataCenter.user.integral
+            btn = MineUpLabelDownText(frame: CGRectZero, title: "我的积分", context: "\(count!)", unit: "分",color: UIColor.colorWithCustom(17, g: 205, b: 110))
         }
         else {
             btn = MineUpImageDownText(frame: CGRectZero, title: "我的积分", imageName: "icon_integral")

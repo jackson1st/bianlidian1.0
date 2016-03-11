@@ -144,7 +144,7 @@ public enum ContentType : String {
     *  积分相关
     */
     //获取用户积分
-    case IntGet = "/BSMD/getUserIntegral.do"
+    case IntGet = "/BSMD/user/getIntegral.do"
     //更改用户积分
     case IntModify = "/BSMD/updateUserIntegral.do"
     
