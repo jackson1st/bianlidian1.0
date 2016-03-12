@@ -101,6 +101,7 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
                     couponVC.mode = 2
                     DataCenter.shareDataCenter.updateAllCoupons("", callBack: nil)
                     couponVC.gifts = DataCenter.shareDataCenter.allCoupons
+                    
                     tmpSelf!.navigationController!.pushViewController(couponVC, animated: true)
                     break
                 case .Integral:

@@ -444,7 +444,7 @@
 		047A5F351C145424004FA20F /* Sort.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sort.storyboard; sourceTree = "<group>"; };
 		047A5F361C145424004FA20F /* SortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
 		047A5F371C145424004FA20F /* TestSeague.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSeague.swift; sourceTree = "<group>"; };
-		047A5F741C170155004FA20F /* OrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
+		047A5F741C170155004FA20F /* OrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderModel.swift; path = ../UI/Me/OrderModel.swift; sourceTree = "<group>"; };
 		048B04C01C5AFD3600245246 /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
 		048B04C21C5AFD9D00245246 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		048B04CA1C5B56F100245246 /* makeUserNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = makeUserNameController.swift; sourceTree = "<group>"; };
@@ -1010,6 +1010,7 @@
 			children = (
 				04CF8F221C14502B00512979 /* D3Model.swift */,
 				32935BE21C7AE9CC00F60D05 /* MainAD.swift */,
+				047A5F741C170155004FA20F /* OrderModel.swift */,
 				320953CE1C8861AF00FD136F /* CouponModel.swift */,
 				320954061C8F233600FD136F /* User.swift */,
 			);
@@ -1049,7 +1050,6 @@
 			isa = PBXGroup;
 			children = (
 				96E82A091C17053500247660 /* MyStoryBoard.storyboard */,
-				047A5F741C170155004FA20F /* OrderModel.swift */,
 				04CF8D9B1C144FB400512979 /* AboutWeViewController.swift */,
 				04CF8D9C1C144FB400512979 /* AboutWeViewController.xib */,
 				04CF8D9D1C144FB400512979 /* IdeaViewController.swift */,

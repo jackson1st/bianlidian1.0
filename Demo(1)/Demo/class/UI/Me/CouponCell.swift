@@ -13,7 +13,7 @@ class CouponCell: UITableViewCell,Reusable {
     static private let cellIdentifier = "cuoponCell"
     
     
-    private let imageArray = ["","geted","avaliable","used","pasted"]
+    private let imageArray = ["","geted","used","pasted","avaliable"]
     let useColor = UIColor.redColor()
     let unUseColor = UIColor.colorWithCustom(158, g: 158, b: 158)
     
@@ -157,13 +157,13 @@ class CouponCell: UITableViewCell,Reusable {
                 setCouponColor(false,statu: 1)
                 break
             case 2:
-                setCouponColor(true,statu: 2)
+                setCouponColor(false,statu: 2)
                 break
             case 3:
                 setCouponColor(false,statu: 3)
                 break
             case 4:
-                setCouponColor(false,statu: 4)
+                setCouponColor(true,statu: 4)
                 break
             default:
                 setCouponColor(false,statu: 4)

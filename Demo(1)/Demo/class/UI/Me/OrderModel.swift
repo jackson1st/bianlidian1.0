@@ -11,6 +11,13 @@ import Foundation
 class OrderModel: NSObject {
     var dataCount: Int?
     var listorder: [orderInfo]!
+    
+    
+    
+    
+    
+    
+    
 }
 class orderInfo: NSObject {
     //订单编号

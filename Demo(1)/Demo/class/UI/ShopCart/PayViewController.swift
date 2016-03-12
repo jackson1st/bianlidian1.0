@@ -10,7 +10,6 @@ import UIKit
 
 class PayViewController: UIViewController {
     
-    
     // MARK: - 属性
     @IBOutlet var tableView: UITableView!
     var payModel: [JFGoodModel] = []
@@ -36,6 +35,7 @@ class PayViewController: UIViewController {
         imageView.image = UIImage(named: "彩带")
         tableView.footerViewForSection(0)?.backgroundView = imageView
         self.navigationItem.title = "确认订单"
+        getOrderInfomation()
     }
     
     override func viewWillAppear(animated: Bool){
@@ -93,7 +93,6 @@ extension PayViewController {
                 let isOk = UIAlertController(title: titleInfo, message: message, preferredStyle: UIAlertControllerStyle.Alert)
                 isOk.addAction(okPayFromAddressAction)
                 isOk.addAction(lookPayFromAddressAction)
-                self.removeShoppingCartGoods()
                 self.presentViewController(isOk, animated: true, completion: nil)
             }
             let payFromZhiFbaoAcction = UIAlertAction(title: payFromZhiFuBao, style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
@@ -139,6 +138,8 @@ extension PayViewController {
         dict.setObject(itemList, forKey: "itemList")
         return dict
     }
+    
+    
     func returnbranchInfo() -> NSMutableDictionary{
         let dict: NSMutableDictionary = NSMutableDictionary()
         let barcodes: NSMutableArray = NSMutableArray()
@@ -149,6 +150,8 @@ extension PayViewController {
         dict.setObject(payModel[0].custNo!, forKey: "custNo")
         return dict
     }
+    
+    
     func sentOrderInformation() -> Bool{
         let userDefault = NSUserDefaults()
         var userID: String?
@@ -164,17 +167,37 @@ extension PayViewController {
         }
         return true
     }
-    //删除已经提交订单的商品
-    func removeShoppingCartGoods(){
-        for var i = 0; i<Model.defaultModel.shopCart.count; i++ {
-            if(Model.defaultModel.shopCart[i].selected == true ) {
-                Model.defaultModel.removeAtIndex(i, success: { () -> Void in
-                    NSNotificationCenter.defaultCenter().postNotificationName("login", object: self)
-                })
+
+    func getOrderInfomation() {
+        //{"custNo":"用户编号","shopNo":"店铺编号","itemList":[{"barcode":"商品条码","num":"购买数量"},{"barcode":"100251","num":"3"}]}
+        //{"message":"success","id":"留着，后面会用到","getIntegral":"该订单可获得的积分数","orderPrice":{"totalPay":"订单总价","realPay":"实付款（订单总价-总抵消金额）","freePay":"总抵消金额（礼券抵消金额+积分抵消金额）","stampPrice":"礼券抵消金额","integralPrice":"积分抵消金额"}}
+        
+        let itemList: NSMutableArray = NSMutableArray()
+        
+        for item in payModel {
+            
+            let info: [String: AnyObject] = ["barcode": "\(item.barcode!)","num": "\(item.num)"]
+            itemList.addObject(info)
+            
+        }
+        
+        
+        let parm: [String:AnyObject] = ["custNo": "\(UserAccountTool.getUserCustNo()!)","shopNo":"\(shopNo)","itemList": itemList]
+        
+        HTTPManager.POST(ContentType.OrderSetItem, params: parm).responseJSON({ (json) -> Void in
+            
+            print(json)
+            if "success" == json["message"] as! String {
+    
             }
+            }) { (error) -> Void in
+                print(error?.localizedDescription)
         }
     }
-
+    
+    
+    
+    
 }
     // MARK: - tableview 的datasource 和 delegate
 

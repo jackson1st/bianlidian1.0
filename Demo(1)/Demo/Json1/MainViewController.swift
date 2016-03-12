@@ -63,6 +63,7 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
         super.viewDidLoad()
 //        let view = self.view.viewWithTag(120)
 //        self.view.bringSubviewToFront(view!)
+        ButtonLocation.sizeToFit()
     }
     
     deinit {

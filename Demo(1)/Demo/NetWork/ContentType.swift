@@ -92,6 +92,8 @@ public enum ContentType : String {
     case OrderCancel = "/BSMD/order/cancel.do"
     //删除订单
     case OrderDelete = "/BSMD/order/delete.do"
+    //订单预处理
+    case OrderSetItem = "/BSMD/order/settlement"
     
     /**
      *  退货相关

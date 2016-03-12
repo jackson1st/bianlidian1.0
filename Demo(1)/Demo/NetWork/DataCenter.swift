@@ -55,14 +55,14 @@ class DataCenter {
                     (couponCount: self.allCoupons.filter({ (GiftModel) -> Bool in
                         GiftModel.status == 4
                     }).count)
-                    self.user.coupon = self.allCoupons.filter({ (GiftModel) -> Bool in
-                        GiftModel.status == 4
-                    }).count
                 }
             }
             else {
                 self.allCoupons = []
             }
+            self.user.coupon = self.allCoupons.filter({ (GiftModel) -> Bool in
+                GiftModel.status == 4
+            }).count
         }
     }
     

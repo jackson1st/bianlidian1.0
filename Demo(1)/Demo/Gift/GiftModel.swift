@@ -100,6 +100,7 @@ class GiftModel: NSObject {
         else {
         HTTPManager.POST(.UserStamp, params: ["custNo":userNo!,"shopNo":shopNo == nil ? "" : shopNo!]).responseJSON({ (json) -> Void in
             if(json["message"] as! String == "success"){
+                print(json)
                 let array = json["stamps"] as! NSArray
                 var objects = [GiftModel]()
                 for x in array{
