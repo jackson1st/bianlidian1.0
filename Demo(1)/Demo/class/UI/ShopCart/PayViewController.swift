@@ -20,13 +20,12 @@ class PayViewController: UIViewController {
     var needPay: String!
     var discount: String!
     var shopNo: String!
+    private var id: String!
     @IBOutlet var sumPrice: UILabel!
     @IBOutlet var discountPrice: UILabel!
     // MARK: - view生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
-        sumPrice.text = needPay
-        discountPrice.text = discount
         tableView.delegate = self
         tableView.dataSource = self
         let frame = CGRectMake(0, 0, 0, -0.0001)
@@ -121,8 +120,7 @@ extension PayViewController {
         orderInfo.setObject(UserAccountTool.getUserCustNo()!, forKey: "custNo")
         orderInfo.setObject(self.sumprice, forKey: "totalAmt")
         orderInfo.setObject(self.disprice, forKey: "freeAmt")
-        orderInfo.setObject("202",forKey: "shopNo")
-        orderInfo.setObject("1", forKey: "addrNo")
+        orderInfo.setObject(self.shopNo,forKey: "shopNo")
         orderInfo.setObject(receiveAddress, forKey: "receiveAddress")
         //封装itemList
         let itemList: NSMutableArray = NSMutableArray()
@@ -186,9 +184,12 @@ extension PayViewController {
         
         HTTPManager.POST(ContentType.OrderSetItem, params: parm).responseJSON({ (json) -> Void in
             
-            print(json)
             if "success" == json["message"] as! String {
-    
+                if let orderPrice = json["orderPrice"] {
+                    self.sumPrice.text = "\(orderPrice["realPay"] as! Double)"
+                    self.discountPrice.text = "\((orderPrice["stampPrice"] as! Double) + (orderPrice["integralPrice"] as! Double))"
+                    self.id = json["id"] as! String
+                }
             }
             }) { (error) -> Void in
                 print(error?.localizedDescription)
@@ -283,6 +284,14 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
                 else {
                     cell?.detailTextLabel?.text = "点击添加备注"
                 }
+            }
+        }
+        else if 2 == indexPath.section {
+            if DataCenter.shareDataCenter.user.coupon > 0 {
+                cell?.detailTextLabel?.text = "有\(DataCenter.shareDataCenter.user.coupon)张优惠券可使用"
+            }
+            else {
+                cell?.detailTextLabel?.text = "暂无可用优惠券"
             }
         }
         else if indexPath.section == 3 {
