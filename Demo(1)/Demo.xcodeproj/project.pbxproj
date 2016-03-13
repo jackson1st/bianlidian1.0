@@ -199,6 +199,7 @@
 		320953D71C8862BD00FD136F /* LoadProgressAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953D61C8862BD00FD136F /* LoadProgressAnimationView.swift */; };
 		320953F91C8F17EE00FD136F /* DataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320953F81C8F17EE00FD136F /* DataCenter.swift */; };
 		320954071C8F233600FD136F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320954061C8F233600FD136F /* User.swift */; };
+		320954171C947C9900FD136F /* HRHDataPickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320954161C947C9900FD136F /* HRHDataPickView.swift */; };
 		3254C5571C678CE100D16906 /* ResignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3254C5551C678CE100D16906 /* ResignViewController.swift */; };
 		3254C5581C678CE100D16906 /* SentSecurityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3254C5561C678CE100D16906 /* SentSecurityCodeViewController.swift */; };
 		325A7CB91C5B9D3E00B24144 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 325A7CB81C5B9D3E00B24144 /* Reachability.m */; };
@@ -694,6 +695,7 @@
 		320953D61C8862BD00FD136F /* LoadProgressAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadProgressAnimationView.swift; sourceTree = "<group>"; };
 		320953F81C8F17EE00FD136F /* DataCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCenter.swift; sourceTree = "<group>"; };
 		320954061C8F233600FD136F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		320954161C947C9900FD136F /* HRHDataPickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRHDataPickView.swift; sourceTree = "<group>"; };
 		3254C5551C678CE100D16906 /* ResignViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResignViewController.swift; sourceTree = "<group>"; };
 		3254C5561C678CE100D16906 /* SentSecurityCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentSecurityCodeViewController.swift; sourceTree = "<group>"; };
 		325A7CB71C5B9D3E00B24144 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -932,6 +934,7 @@
 			isa = PBXGroup;
 			children = (
 				04CBC5AD1C8C14950027D9AF /* JSButton.swift */,
+				320954161C947C9900FD136F /* HRHDataPickView.swift */,
 			);
 			path = MyCustomUI;
 			sourceTree = "<group>";
@@ -2232,6 +2235,7 @@
 				96C83E861C1975CA0075A204 /* JSONND+ArrayLiteralConvertible.swift in Sources */,
 				048E22371C531BAE00E7096B /* UIImage+ImageEffects.m in Sources */,
 				04CF8F071C144FDB00512979 /* UIColor+wnxColor.swift in Sources */,
+				320954171C947C9900FD136F /* HRHDataPickView.swift in Sources */,
 				04CF8ECA1C144FDB00512979 /* AuxiliaryModels.swift in Sources */,
 				04CF8EC71C144FDB00512979 /* AFURLRequestSerialization.m in Sources */,
 				04CF8DDD1C144FB400512979 /* FileTool.swift in Sources */,

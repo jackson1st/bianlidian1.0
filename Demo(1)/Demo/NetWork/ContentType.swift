@@ -149,6 +149,8 @@ public enum ContentType : String {
     case IntGet = "/BSMD/user/getIntegral.do"
     //更改用户积分
     case IntModify = "/BSMD/updateUserIntegral.do"
+    //用户使用积分
+    case UseIntegral = "/BSMD/order/useIntegral"
     
     /**
     *  礼卷相关

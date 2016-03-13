@@ -367,23 +367,35 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="44" id="JGL-03-brJ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="integralCell" rowHeight="44" id="JGL-03-brJ">
                                         <rect key="frame" x="0.0" y="409.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JGL-03-brJ" id="Ojv-dm-Sh4">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHS-NG-BXK">
-                                                    <rect key="frame" x="308" y="6" width="51" height="31"/>
-                                                </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="可用xx积分抵XX元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KI7-ab-jag">
-                                                    <rect key="frame" x="15" y="11" width="142" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="30011" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可用xx积分抵XX元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KI7-ab-jag">
+                                                    <rect key="frame" x="15" y="10" width="182" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="GGH-Dn-CEj"/>
+                                                        <constraint firstAttribute="width" constant="182" id="P7M-XR-huF"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <switch opaque="NO" tag="30012" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHS-NG-BXK">
+                                                    <rect key="frame" x="307" y="6" width="51" height="31"/>
+                                                </switch>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="JHS-NG-BXK" secondAttribute="bottom" constant="-1.5" id="4um-CY-wLs"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="JHS-NG-BXK" secondAttribute="trailing" constant="11" id="MYB-0S-eNK"/>
+                                                <constraint firstItem="KI7-ab-jag" firstAttribute="leading" secondItem="Ojv-dm-Sh4" secondAttribute="leadingMargin" constant="7" id="T09-ek-1h1"/>
+                                                <constraint firstItem="JHS-NG-BXK" firstAttribute="top" secondItem="Ojv-dm-Sh4" secondAttribute="topMargin" constant="-2" id="Xem-N2-STd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="KI7-ab-jag" secondAttribute="bottom" constant="4.5" id="ZIP-Xm-g1O"/>
+                                                <constraint firstItem="KI7-ab-jag" firstAttribute="top" secondItem="Ojv-dm-Sh4" secondAttribute="topMargin" constant="2" id="qyJ-B1-xi0"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>

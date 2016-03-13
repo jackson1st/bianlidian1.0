@@ -124,7 +124,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2r-lb-iXV">
-                                        <rect key="frame" x="79" y="24" width="226" height="22"/>
+                                        <rect key="frame" x="79.5" y="24" width="225" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="福州市胜利小区抗战便利店" image="map_2">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -488,7 +488,7 @@
         <image name="back_1" width="44" height="44"/>
         <image name="collect_0" width="44" height="44"/>
         <image name="collect_2" width="44" height="44"/>
-        <image name="map_2" width="22" height="22"/>
+        <image name="map_2" width="21" height="21"/>
         <image name="search" width="16" height="16"/>
         <image name="v2_home" width="27" height="27"/>
         <image name="v2_home_r" width="27" height="27"/>

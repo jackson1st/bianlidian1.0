@@ -376,10 +376,6 @@ extension JFShoppingCartViewController {
         
         let payStotyBoard = UIStoryboard(name: "PayStoryboard", bundle: nil)
         let next = payStotyBoard.instantiateViewControllerWithIdentifier("payView") as! PayViewController
-        next.needPay = "总计 ¥\(self.payPrice)"
-        next.sumprice = "\(self.payPrice)"
-        next.disprice = "0"
-        next.discount = "已优惠 ¥0"
         next.shopNo = shopNoByName(shopName)
         for var i = 0; i<Model.defaultModel.shopCart.count; i++ {
             if(Model.defaultModel.shopCart[i].selected == true ) {

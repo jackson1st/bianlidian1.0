@@ -13,19 +13,25 @@ class PayViewController: UIViewController {
     // MARK: - 属性
     @IBOutlet var tableView: UITableView!
     var payModel: [JFGoodModel] = []
-    var sumprice: String!
-    var disprice: String!
-    var sendTime: String = "尽快送达"
+    var sendTime: String!
     var noteInfo: String?
-    var needPay: String!
-    var discount: String!
+    var stampInfo: String?
+    var intrgalInfo: String?
     var shopNo: String!
+    
+    private var dateArray: [String] = []
     private var id: String!
+    
+    
+    
+    
+    
     @IBOutlet var sumPrice: UILabel!
     @IBOutlet var discountPrice: UILabel!
     // MARK: - view生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
+        setInformation()
         tableView.delegate = self
         tableView.dataSource = self
         let frame = CGRectMake(0, 0, 0, -0.0001)
@@ -47,14 +53,47 @@ class PayViewController: UIViewController {
         
     }
     
+    func setInformation(){
+        
+        if DataCenter.shareDataCenter.user.coupon > 0 {
+            stampInfo = "有\(DataCenter.shareDataCenter.user.coupon)张优惠券可使用"
+        }
+        else {
+            stampInfo = "暂无可用优惠券"
+        }
+        sendTime = "尽快送达"
+        noteInfo = "请填写备注"
+        intrgalInfo = "可用\(DataCenter.shareDataCenter.user.integral)"
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let item: NSString = dateFormatter.stringFromDate(NSDate())
+        var min: Int = Int(item.substringWithRange(NSMakeRange(3, 2)))!
+        var hour: Int = Int(item.substringWithRange(NSMakeRange(0, 2)))!
+        dateArray.append("尽快送达")
+        while(hour < 24) {
+            if 30 > min {
+                dateArray.append("\(hour):30~\(hour + 1):00")
+                min = 30
+            }
+            else {
+                dateArray.append("\(hour + 1):00~\(hour + 1):30")
+                min = 0
+                hour = hour + 1
+            }
+        }
+    }
+    
+    
     deinit{
         
         let user = NSUserDefaults.standardUserDefaults()
         user.setObject(nil, forKey: SD_OrderInfo_Note)
 
     }
+    
+    
     // MARK: - 懒加载TabViewcellId
-    private lazy var mineTitles: NSMutableArray = NSMutableArray(array: ["AddressCell", "TimeCell", "RemarksCell", "BillCell", "CouponCell","ShopCell","NoAddressCell"])
+    private lazy var mineTitles: NSMutableArray = NSMutableArray(array: ["AddressCell", "TimeCell", "RemarksCell", "BillCell", "CouponCell","integralCell","ShopCell","NoAddressCell"])
 }
 
 // MARK: - 按钮响应事件 以及逻辑方法
@@ -84,7 +123,7 @@ extension PayViewController {
             
             let payFromAddressAction = UIAlertAction(title: payFromAddress, style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
                 print("使用了货到付款")
-                self.sentOrderInformation()
+
                 let titleInfo = "订单确认"
                 let message = "订单已经成功生成，商家正在准备配送，3小时后自动确认收货"
                 let user = NSUserDefaults.standardUserDefaults()
@@ -109,67 +148,65 @@ extension PayViewController {
  
     }
         
-    func modelChangeDict() -> NSMutableDictionary{
-        //地址信息封装成dictitionary
-        let address = UserAccountTool.getUserAddressInformation()!
-        let receiveAddress: NSMutableDictionary = NSMutableDictionary()
-        receiveAddress.setObject(address[2], forKey: "address")
-        receiveAddress.setObject(address[1], forKey: "tel")
-        //封装orderinfo
-        let orderInfo: NSMutableDictionary = NSMutableDictionary()
-        orderInfo.setObject(UserAccountTool.getUserCustNo()!, forKey: "custNo")
-        orderInfo.setObject(self.sumprice, forKey: "totalAmt")
-        orderInfo.setObject(self.disprice, forKey: "freeAmt")
-        orderInfo.setObject(self.shopNo,forKey: "shopNo")
-        orderInfo.setObject(receiveAddress, forKey: "receiveAddress")
-        //封装itemList
-        let itemList: NSMutableArray = NSMutableArray()
-        for var i=0; i<self.payModel.count; i++ {
-            //单个商品
-            let shop: NSMutableDictionary = NSMutableDictionary()
-            shop.setObject(self.payModel[i].barcode!, forKey: "barcode")
-            shop.setObject(self.payModel[i].num, forKey: "subQty")
-            itemList.addObject(shop)
-        }
-        let dict: NSMutableDictionary = NSMutableDictionary()
-        dict.setObject(orderInfo, forKey: "orderInfo")
-        dict.setObject(itemList, forKey: "itemList")
-        return dict
-    }
+//    func modelChangeDict() -> NSMutableDictionary{
+//        //地址信息封装成dictitionary
+//        let address = UserAccountTool.getUserAddressInformation()!
+//        let receiveAddress: NSMutableDictionary = NSMutableDictionary()
+//        receiveAddress.setObject(address[2], forKey: "address")
+//        receiveAddress.setObject(address[1], forKey: "tel")
+//        //封装orderinfo
+//        let orderInfo: NSMutableDictionary = NSMutableDictionary()
+//        orderInfo.setObject(UserAccountTool.getUserCustNo()!, forKey: "custNo")
+//        orderInfo.setObject(self.sumprice, forKey: "totalAmt")
+////        orderInfo.setObject(self.disprice, forKey: "freeAmt")
+//        orderInfo.setObject(self.shopNo,forKey: "shopNo")
+//        orderInfo.setObject(receiveAddress, forKey: "receiveAddress")
+//        //封装itemList
+//        let itemList: NSMutableArray = NSMutableArray()
+//        for var i=0; i<self.payModel.count; i++ {
+//            //单个商品
+//            let shop: NSMutableDictionary = NSMutableDictionary()
+//            shop.setObject(self.payModel[i].barcode!, forKey: "barcode")
+//            shop.setObject(self.payModel[i].num, forKey: "subQty")
+//            itemList.addObject(shop)
+//        }
+//        let dict: NSMutableDictionary = NSMutableDictionary()
+//        dict.setObject(orderInfo, forKey: "orderInfo")
+//        dict.setObject(itemList, forKey: "itemList")
+//        return dict
+//    }
     
     
-    func returnbranchInfo() -> NSMutableDictionary{
-        let dict: NSMutableDictionary = NSMutableDictionary()
-        let barcodes: NSMutableArray = NSMutableArray()
-        for var i=0; i<self.payModel.count; i++ {
-            barcodes.addObject(payModel[i].barcode!)
-        }
-        dict.setObject(barcodes, forKey: "barcodes")
-        dict.setObject(payModel[0].custNo!, forKey: "custNo")
-        return dict
-    }
+//    func returnbranchInfo() -> NSMutableDictionary{
+//        let dict: NSMutableDictionary = NSMutableDictionary()
+//        let barcodes: NSMutableArray = NSMutableArray()
+//        for var i=0; i<self.payModel.count; i++ {
+//            barcodes.addObject(payModel[i].barcode!)
+//        }
+//        dict.setObject(barcodes, forKey: "barcodes")
+//        dict.setObject(payModel[0].custNo!, forKey: "custNo")
+//        return dict
+//    }
     
     
-    func sentOrderInformation() -> Bool{
-        let userDefault = NSUserDefaults()
-        var userID: String?
-        if UserAccountTool.userIsLogin() {
-         userID = userDefault.objectForKey(SD_UserDefaults_Account) as? String
-        }
-        let parameters: [String : AnyObject] =  (modelChangeDict() as? [String : AnyObject])!
-        
-        HTTPManager.POST(ContentType.OrderAdd, params: parameters).responseJSON({ (json) -> Void in
-            
-            }) { (error) -> Void in
-                SVProgressHUD.showErrorWithStatus("数据加载失败，请检查网络连接", maskType: SVProgressHUDMaskType.Black)
-        }
-        return true
-    }
+//    func sentOrderInformation() -> Bool{
+//        let userDefault = NSUserDefaults()
+//        var userID: String?
+//        if UserAccountTool.userIsLogin() {
+//         userID = userDefault.objectForKey(SD_UserDefaults_Account) as? String
+//        }
+//        let parameters: [String : AnyObject] =  (modelChangeDict() as? [String : AnyObject])!
+//        
+//        HTTPManager.POST(ContentType.OrderAdd, params: parameters).responseJSON({ (json) -> Void in
+//            
+//            }) { (error) -> Void in
+//                SVProgressHUD.showErrorWithStatus("数据加载失败，请检查网络连接", maskType: SVProgressHUDMaskType.Black)
+//        }
+//        return true
+//    }
 
     func getOrderInfomation() {
-        //{"custNo":"用户编号","shopNo":"店铺编号","itemList":[{"barcode":"商品条码","num":"购买数量"},{"barcode":"100251","num":"3"}]}
-        //{"message":"success","id":"留着，后面会用到","getIntegral":"该订单可获得的积分数","orderPrice":{"totalPay":"订单总价","realPay":"实付款（订单总价-总抵消金额）","freePay":"总抵消金额（礼券抵消金额+积分抵消金额）","stampPrice":"礼券抵消金额","integralPrice":"积分抵消金额"}}
-        
+
         let itemList: NSMutableArray = NSMutableArray()
         
         for item in payModel {
@@ -194,9 +231,41 @@ extension PayViewController {
             }) { (error) -> Void in
                 print(error?.localizedDescription)
         }
+        
+//        HTTPManager.POST(ContentType.IntGet, params: ["custNo": "\(UserAccountTool.getUserCustNo()!)"]).responseJSON({ (json) -> Void in
+//            if "success" == json["message"] as! String {
+//                DataCenter.shareDataCenter.user.integral = json["integral"] as! Int
+//                
+//                HTTPManager.POST(ContentType.UseIntegral, params: ["integral": DataCenter.shareDataCenter.user.integral,"id": "\(self.id!)"]).responseJSON({ (json) -> Void in
+//                    print(json)
+//                    if "success" == json["message"] as! String{
+//                        if let orderPrice = json["orderPrice"] {
+//                           self.discount = orderPrice["integralPrice"] as! Double
+//                        }
+//                        self.tableView.reloadData()
+//                    }
+//                    }, error: { (error) -> Void in
+//                        print(error?.localizedDescription)
+//                })
+//                
+//                
+//            }
+//            else {
+//                MBProgressHUD.showError("\(json["message"] as! String)")
+//            }
+//            }) { (error) -> Void in
+//                print(error?.localizedDescription)
+//        }
+        
+        
+        
     }
     
-    
+    func useIntrgalAction(switchButton: UISwitch){
+        if true == switchButton.on {
+            
+        }
+    }
     
     
 }
@@ -211,7 +280,7 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
             return 3
         }
         else if(section == 2) {
-            return 1
+            return 2
         }
         else {
             return self.payModel.count
@@ -253,10 +322,10 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
         cellId = mineTitles[indexPath.section + indexPath.row] as! String
         }
         else if(indexPath.section == 2){
-        cellId = mineTitles[indexPath.section + 2] as! String
+        cellId = mineTitles[indexPath.section + 2 + indexPath.row] as! String
         }
         else {
-        cellId = mineTitles[5] as! String
+        cellId = mineTitles[6] as! String
         }
         var cell = tableView.dequeueReusableCellWithIdentifier(cellId)
         if cell == nil {
@@ -274,24 +343,24 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
         }
         else if indexPath.section == 1 {
             if indexPath.row == 0 {
-                cell?.detailTextLabel?.text = sendTime
+                cell?.detailTextLabel?.text = sendTime!
             }
             if indexPath.row == 1 {
-                if UserOrderInfo.isNote() {
-                cell?.detailTextLabel?.text = UserOrderInfo.orderInfoNote()
-                    
-                }
-                else {
-                    cell?.detailTextLabel?.text = "点击添加备注"
-                }
+                cell?.detailTextLabel?.text = noteInfo!
             }
         }
         else if 2 == indexPath.section {
-            if DataCenter.shareDataCenter.user.coupon > 0 {
-                cell?.detailTextLabel?.text = "有\(DataCenter.shareDataCenter.user.coupon)张优惠券可使用"
+            if 0 == indexPath.row {
+
+                cell?.detailTextLabel?.text = stampInfo!
+                
             }
             else {
-                cell?.detailTextLabel?.text = "暂无可用优惠券"
+                let intrgal = cell?.viewWithTag(30011) as? UILabel
+                let switchButton = cell?.viewWithTag(30012) as? UISwitch
+                intrgal?.text = intrgalInfo!
+                switchButton?.setOn(false, animated: true)
+                switchButton?.addTarget(self, action: "useIntrgalAction:", forControlEvents: UIControlEvents.EditingChanged)
             }
         }
         else if indexPath.section == 3 {
@@ -316,17 +385,15 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
         }
         if indexPath.section == 1 {
             if indexPath.row == 0 {
-              let  pickView = HRHDatePickerView.instanceDatePickerView()
-                pickView!.frame = CGRectMake(0, 0, AppWidth, AppHeight + 20);
-                pickView!.backgroundColor = UIColor.clearColor()
-                pickView!.delegate = self
-                var type = DateType.init(0)
-                pickView!.type = type
-                pickView.datePickerView?.datePickerMode = UIDatePickerMode.DateAndTime
-                pickView.datePickerView?.minuteInterval = 15
-                pickView.datePickerView?.minimumDate = NSDate()
-                pickView!.datePickerView?.setDate(NSDate(), animated: true)
-                self.view.addSubview(pickView!)
+              let  pickView = HRHDataPickView()
+              pickView.delegate = self
+              pickView.dataArray = self.dateArray
+              // ios 8.0 or later 新属性
+              pickView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+              pickView.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+              self.presentViewController(pickView, animated: false, completion: { () -> Void in
+                 pickView.view.backgroundColor = UIColor.colorWith(0, green: 0, blue: 0, alpha: 0.4)
+              })
             }
             if indexPath.row == 1 {
                 let vc = addstroy.instantiateViewControllerWithIdentifier("NoteView") as? NoteViewController
@@ -339,18 +406,9 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
     }
 }
 
-// MARK: - 自定义delegate
-extension PayViewController: HRHDatePickerViewDelegate {
-    func getSelectDate(date: String!, type: DateType) {
-        switch (type) {
-        case DateTypeOfStart :
-            sendTime = "\(date)"
-            self.tableView.reloadData()
-            break
-        default:
-            self.tableView.reloadData()
-            break
-        }
-        
+extension PayViewController: HRHDataPickViewDelegate {
+    func selectButtonClick(selectString: String) {
+        sendTime = selectString
+        tableView.reloadData()
     }
 }
