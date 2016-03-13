@@ -45,7 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // Required - 初始化
         
-        
         self.reach = Reachability.reachabilityForInternetConnection()
         
         // 状态栏设置成白色

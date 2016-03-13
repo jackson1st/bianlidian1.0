@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HRHDataPickViewDelegate: NSObjectProtocol{
-    func selectButtonClick(selectString: String)
+    func selectButtonClick(selectString: String,DataType: Int)
 }
 
 
@@ -70,21 +70,22 @@ class HRHDataPickView: UIViewController {
         dataView.layer.cornerRadius = 5
         dataView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(dataView)
-    }
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         
         dataView.frame = CGRectMake(widthDistance * 0.5, (AppHeight - heigh) * 0.5, AppWidth - widthDistance, heigh)
         label.frame = CGRectMake(0,0,dataView.frame.width,40)
         line1.frame = CGRectMake(0, label.frame.maxY, label.frame.width, 1)
         
         pickView.frame = CGRectMake(0, label.frame.maxY, label.frame.width, dataView.height - label.height - 40)
-        print(pickView.frame)
         
         cancelButton.frame = CGRectMake(0, dataView.frame.height - 40, dataView.width / 2, 40)
         selectButton.frame = CGRectMake(dataView.width / 2, dataView.frame.height - 40, dataView.width / 2, 40)
         line2.frame = CGRectMake(0, cancelButton.frame.minY, label.frame.width, 1)
         line3.frame = CGRectMake(cancelButton.frame.maxX, cancelButton.frame.minY, 1, cancelButton.frame.height)
+
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
     
 }
@@ -94,7 +95,7 @@ extension HRHDataPickView {
         self.dismissViewControllerAnimated(false, completion: nil)
     }
     func selectAction() {
-        delegate.selectButtonClick(dataArray[selectRow])
+        delegate.selectButtonClick(dataArray[selectRow],DataType: 1)
         self.dismissViewControllerAnimated(false, completion: nil)
     }
 }

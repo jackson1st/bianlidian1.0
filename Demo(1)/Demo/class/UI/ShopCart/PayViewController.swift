@@ -10,6 +10,8 @@ import UIKit
 
 class PayViewController: UIViewController {
     
+    
+    let addstroy = UIStoryboard(name: "PayStoryboard", bundle: nil)
     // MARK: - 属性
     @IBOutlet var tableView: UITableView!
     var payModel: [JFGoodModel] = []
@@ -19,12 +21,12 @@ class PayViewController: UIViewController {
     var intrgalInfo: String?
     var shopNo: String!
     
+    
     private var dateArray: [String] = []
     private var id: String!
     
     
-    
-    
+    private var noteViewController: NoteViewController!
     private var pickView: HRHDataPickView!
     @IBOutlet var sumPrice: UILabel!
     @IBOutlet var discountPrice: UILabel!
@@ -63,7 +65,7 @@ class PayViewController: UIViewController {
         }
         sendTime = "尽快送达"
         noteInfo = "请填写备注"
-        intrgalInfo = "可用\(DataCenter.shareDataCenter.user.integral)"
+        intrgalInfo = "可用\(DataCenter.shareDataCenter.user.integral)积分"
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         let item: NSString = dateFormatter.stringFromDate(NSDate())
@@ -84,9 +86,15 @@ class PayViewController: UIViewController {
         pickView = HRHDataPickView()
         pickView.delegate = self
         pickView.dataArray = self.dateArray
+        pickView.view.backgroundColor = UIColor.colorWith(0, green: 0, blue: 0, alpha: 0.4)
         // ios 8.0 or later 新属性
         pickView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         pickView.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        
+        
+        noteViewController = addstroy.instantiateViewControllerWithIdentifier("NoteView") as? NoteViewController
+        noteViewController?.noteString = noteInfo
+        noteViewController?.delegate = self
     }
     
     
@@ -229,40 +237,14 @@ extension PayViewController {
             
             if "success" == json["message"] as! String {
                 if let orderPrice = json["orderPrice"] {
-                    self.sumPrice.text = "\(orderPrice["realPay"] as! Double)"
-                    self.discountPrice.text = "\((orderPrice["stampPrice"] as! Double) + (orderPrice["integralPrice"] as! Double))"
+                    self.sumPrice.text = "总计:\(orderPrice["realPay"] as! Double)元"
+                    self.discountPrice.text = "已优惠:\((orderPrice["stampPrice"] as! Double) + (orderPrice["integralPrice"] as! Double))元"
                     self.id = json["id"] as! String
                 }
             }
             }) { (error) -> Void in
                 print(error?.localizedDescription)
         }
-        
-//        HTTPManager.POST(ContentType.IntGet, params: ["custNo": "\(UserAccountTool.getUserCustNo()!)"]).responseJSON({ (json) -> Void in
-//            if "success" == json["message"] as! String {
-//                DataCenter.shareDataCenter.user.integral = json["integral"] as! Int
-//                
-//                HTTPManager.POST(ContentType.UseIntegral, params: ["integral": DataCenter.shareDataCenter.user.integral,"id": "\(self.id!)"]).responseJSON({ (json) -> Void in
-//                    print(json)
-//                    if "success" == json["message"] as! String{
-//                        if let orderPrice = json["orderPrice"] {
-//                           self.discount = orderPrice["integralPrice"] as! Double
-//                        }
-//                        self.tableView.reloadData()
-//                    }
-//                    }, error: { (error) -> Void in
-//                        print(error?.localizedDescription)
-//                })
-//                
-//                
-//            }
-//            else {
-//                MBProgressHUD.showError("\(json["message"] as! String)")
-//            }
-//            }) { (error) -> Void in
-//                print(error?.localizedDescription)
-//        }
-        
         
         
     }
@@ -384,31 +366,42 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
     }
     
      func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let addstroy = UIStoryboard(name: "PayStoryboard", bundle: nil)
         if indexPath.section == 0 {
             let vc = addstroy.instantiateViewControllerWithIdentifier("AddVc") as! AddressController
             self.navigationController?.pushViewController(vc, animated: true)
         }
         if indexPath.section == 1 {
             if indexPath.row == 0 {
-              self.presentViewController(pickView, animated: true, completion: { () -> Void in
-                 self.pickView.view.backgroundColor = UIColor.colorWith(0, green: 0, blue: 0, alpha: 0.4)
-              })
+                self.presentViewController(pickView, animated: true, completion: nil)
             }
             if indexPath.row == 1 {
-                let vc = addstroy.instantiateViewControllerWithIdentifier("NoteView") as? NoteViewController
-                if UserOrderInfo.isNote() {
-                    vc?.noteString = UserOrderInfo.orderInfoNote()
-                }
-                self.navigationController?.pushViewController(vc!, animated: true)
+                self.navigationController?.pushViewController(noteViewController!, animated: true)
+            }
+        }
+        if indexPath.section == 2 {
+            if indexPath.row == 0 {
+                let vc = GiftViewController()
+                vc.mode = 1
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         }
     }
 }
 
 extension PayViewController: HRHDataPickViewDelegate {
-    func selectButtonClick(selectString: String) {
-        sendTime = selectString
+    func selectButtonClick(selectString: String,DataType: Int) {
+        
+        switch DataType {
+        case 1:
+            sendTime = selectString
+        case 2:
+            noteInfo = selectString
+        case 3:
+            stampInfo = selectString
+        default:
+            break
+        }
+
         tableView.reloadData()
     }
 }

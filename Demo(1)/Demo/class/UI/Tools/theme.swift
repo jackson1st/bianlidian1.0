@@ -19,7 +19,6 @@ public let SD_UserDefaults_CustNo = "SD_UserDefaults_CustNo"
 public let SD_UserDefaults_ImageUrl = "SD_UserDefaults_ImageUrl"
 public let SD_UserDefaults_Integral = "SD_UserDefaults_Integral"
 public let SD_UserDefaults_UserName = "SD_UserDefaults_UserName"
-public let SD_UserDefaults_Collect = "SD_UserDefaults_Collect"
 //存储用户地址信息
 public let SD_UserDefaults_Name = "SD_UserDefaults_Name"
 public let SD_UserDefaults_Telephone = "SD_UserDefaults_Telephone"

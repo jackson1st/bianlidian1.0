@@ -106,38 +106,6 @@ class UserAccountTool: NSObject {
         information.append(address!)
         return information
     }
-    class func getUserCollectNum() -> Int?{
-        
-        if !userIsLogin() {
-            return nil
-        }
-        
-        let user = NSUserDefaults.standardUserDefaults()
-        let collectNum = user.objectForKey(SD_UserDefaults_Collect) as? Int
-        return collectNum
-    }
-    class func setUserCollectNum(collect: Int){
-        NSUserDefaults.standardUserDefaults().setObject(collect, forKey: SD_UserDefaults_Collect)
-    }
 
-}
-
-class UserOrderInfo: NSObject {
-    class func isNote() -> Bool{
-        let info = NSUserDefaults.standardUserDefaults()
-        let note = info.objectForKey(SD_OrderInfo_Note)
-        if note != nil {
-            return true
-        }
-        return false
-    }
-    class func orderInfoNote() -> String? {
-        if !isNote() {
-            return nil
-        }
-        let info = NSUserDefaults.standardUserDefaults()
-        let note = info.objectForKey(SD_OrderInfo_Note) as? String
-        return note
-    }
 }
 

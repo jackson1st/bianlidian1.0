@@ -13,15 +13,18 @@ class NoteViewController: UIViewController {
     @IBOutlet weak var placeHolderLabel: UILabel!
     @IBOutlet weak var numLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
+    
+    var delegate: HRHDataPickViewDelegate!
     var noteString: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.delegate = self
+        textView.returnKeyType = UIReturnKeyType.Done
+        placeHolderLabel.hidden = !textView.text.isEmpty
         if noteString != nil {
             textView.text = noteString
         }
     }
-
 }
 
 
@@ -30,19 +33,14 @@ extension NoteViewController: UITextViewDelegate{
         if(range.location >= 50){
             return false
         }
-        else {
-            if(range.location == 0) {
-                placeHolderLabel.hidden = false
-            }
-            else {
-                placeHolderLabel.hidden = true
-            }
-             numLabel.text = "\(range.location + 1)/50"
-            return true
-        }
+        return true
+    }
+    func textViewDidChange(textView: UITextView) {
+        placeHolderLabel.hidden = !textView.text.isEmpty
+        numLabel.text = "\(textView.text.characters.count)/50"
     }
     @IBAction func addNoteButtonAction(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setObject(textView.text, forKey: SD_OrderInfo_Note)
+        delegate.selectButtonClick(textView.text, DataType: 2)
         self.navigationController?.popViewControllerAnimated(true)
     }
 }

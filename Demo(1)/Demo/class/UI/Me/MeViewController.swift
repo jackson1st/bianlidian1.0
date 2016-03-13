@@ -99,10 +99,9 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
                 case .Coupon:
                     let couponVC = GiftViewController()
                     couponVC.mode = 2
-                    DataCenter.shareDataCenter.updateAllCoupons("", callBack: nil)
-                    couponVC.gifts = DataCenter.shareDataCenter.allCoupons
-                    
-                    tmpSelf!.navigationController!.pushViewController(couponVC, animated: true)
+                    DataCenter.shareDataCenter.updateCanGetCoupons({ () -> Void in
+                        tmpSelf!.navigationController!.pushViewController(couponVC, animated: true)
+                    })
                     break
                 case .Integral:
   

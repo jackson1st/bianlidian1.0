@@ -31,14 +31,12 @@ class DataCenter {
     var canGetCoupons: [GiftModel] = [GiftModel]()
     var allCoupons: [GiftModel] = [GiftModel]()
     
-    func updateCanGetCoupons(callBack:((couponCount: Int) -> Void)?){
+    func updateCanGetCoupons(callback: (() -> Void)?){
         GiftModel.getAllGiftList { (result, list) -> Void in
             if 0 == result {
                 self.canGetCoupons = list!
-                if callBack != nil {
-                    (couponCount: self.canGetCoupons.filter({ (GiftModel) -> Bool in
-                        GiftModel.status == 0
-                    }).count)
+                if callback != nil {
+                    callback!()
                 }
             }
             else {
