@@ -27,7 +27,7 @@ class EVAViewController: UITableViewController {
             if(arry?.count != 0){
                 for var x in arry!{
                     var xx = x as! NSDictionary
-                    self.comments.append(Comment(content: xx["comment"] as? String, date: xx["commentDate"] as? String, userName: xx["custNo"] as? String))
+                    self.comments.append(Comment(content: xx["comment"] as? String, date: xx["date"] as? String, userName: xx["custNo"] as? String))
                 }
             }
             self.tableView.reloadData()

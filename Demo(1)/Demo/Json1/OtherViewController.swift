@@ -33,13 +33,14 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     var address: String!
     var itemNo:String!{
         didSet{
-            HTTPManager.POST(ContentType.ItemDetail, params: ["itemno":itemNo,"address":address!]).responseJSON({ (json) -> Void in
+            let hud = MBProgressHUD.showMessage("加载中", toView: self.view)
+            HTTPManager.POST(ContentType.ItemDetail, params: ["itemno":itemNo,"address":address!]).responseJSON({ [weak self] json -> Void  in
                 let dict = json["detail"] as! [String: AnyObject]
                 let model = GoodDetail()
                 var arry = json["comment"] as? NSArray
                 
                 model.comments = [Comment]()
-                for var x in arry!{
+                for  x in arry!{
                     var xx = x as! [String: AnyObject]
                     model.comments?.append(Comment(content: xx["comment"] as? String, date: xx["commentDate"] as? String, userName: xx["custNo"] as? String))
                 }
@@ -51,22 +52,22 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
                 model.itemSalePrice = dict["itemSalePrice"] as! String
                 arry = json["stocks"] as? NSArray
                 model.itemStocks = [ItemStock]()
-                for var x in arry!{
+                for  x in arry!{
                     var xx = x as! [String: AnyObject]
                     model.itemStocks.append(ItemStock(name: xx["shopName"] as? String, qty: xx["stockQty"] as? Int))
                 }
                 
-                arry = dict["itemUnits"] as! NSArray
+                arry = dict["itemUnits"] as? NSArray
                 model.itemUnits = [ItemUnit]()
-                for var x in arry!{
+                for  x in arry!{
                     var xx = x as! [String: AnyObject]
                    model.itemUnits.append(ItemUnit(salePrice: xx["itemSalePrice"] as? String , sizeName: xx["itemSize"] as? String))
                 }
                 
                 model.imageDetail = json["imageDetail"] as! [String]
                 model.imageTop = json["imageTop"] as! [String]
-                self.item = model
-                }) { (error) -> Void in
+                self!.item = model
+                },hud:hud) { (error) -> Void in
                     print("发生了错误: " + (error?.localizedDescription)!)
             }
         }
@@ -133,9 +134,9 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         self.navigationController?.navigationBarHidden = true
         if(theme.isFirstLoad == true && UserAccountTool.userIsLogin()){
             Model.defaultModel.loadDataForNetWork(nil)
-            CollectionModel.CollectionCenter.loadDataFromNet(1, count: 10, success: nil, callback: { () -> Void in
+            CollectionModel.CollectionCenter.loadDataFromNet(1, count: 10, success: nil, callback: { [weak self] in
                 theme.isFirstLoad = false
-                self.viewDidLoad()
+                self!.viewDidLoad()
             })
             
         }else{
@@ -280,7 +281,7 @@ extension OtherViewController{
             JFmodel.itemDistPrice = item?.itemSalePrice
             JFmodel.totalPrice = 100
             JFmodel.shopNameList = [Shop]()
-            for var x in (item?.itemStocks)!{
+            for  x in (item?.itemStocks)!{
                 print(x.shopName)
                 JFmodel.shopNameList.append(Shop(shopName:x.shopName!))
             }
@@ -362,7 +363,8 @@ extension OtherViewController{
     func initViewAddNum(){
         viewAddNum = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
         viewAddNum.backgroundColor = UIColor.whiteColor()
-        var label1 = UILabel()
+        let
+        label1 = UILabel()
         label1.textAlignment = .Center
         label1.text = "数量"
         viewAddNum.addSubview(label1)
@@ -371,7 +373,7 @@ extension OtherViewController{
             make.left.equalTo(viewAddNum)
             make.centerY.equalTo(viewAddNum)
         }
-        var btn1 = UIButton()
+        let btn1 = UIButton()
         btn1.setTitle("-", forState: .Normal)
         btn1.setTitleColor(UIColor.blackColor() , forState: .Normal)
         btn1.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Highlighted)
@@ -384,7 +386,7 @@ extension OtherViewController{
         btn1.snp_makeConstraints { (make) -> Void in
             make.width.equalTo(20)
             make.height.equalTo(20)
-            make.left.equalTo(label1.snp_right)
+            make.left.equalTo(label1.snp_right).offset(5)
             make.centerY.equalTo(viewAddNum)
         }
         
@@ -401,7 +403,7 @@ extension OtherViewController{
             make.centerY.equalTo(viewAddNum)
         }
         
-        var btn2 = UIButton()
+        let btn2 = UIButton()
         
         btn2.setTitle("+", forState: .Normal)
         btn2.setTitleColor(UIColor.blackColor() , forState: .Normal)
@@ -506,7 +508,7 @@ extension OtherViewController{
         ViewTitle.addTarget(self, action: "addDetail", forControlEvents: .TouchUpInside)
         contentViewForEVAView.addSubview(ViewTitle)
         var height: CGFloat = 35
-        for var x in (item?.comments)!{
+        for  x in (item?.comments)!{
             let view1 = EVAView(frame: CGRect(x: 0, y: height + 1, width: self.view.frame.width, height: 70),date: x.date, content: x.content, user: x.userName)
             view1.layoutIfNeeded()
             contentViewForEVAView.addSubview(view1)
@@ -517,21 +519,21 @@ extension OtherViewController{
             make.height.equalTo(height)
         }
         
-        let buttonAddDetail = UIButton(type: .Custom)
-//        buttonAddDetail.addTopLine(0.3, offsetLeft: 0, offsetRight: 0)
-        buttonAddDetail.addBottomLine(0.3, offsetLeft: 0, offsetRight: 0)
-        buttonAddDetail.backgroundColor = UIColor.whiteColor()
-        buttonAddDetail.setTitle("查看商品详情", forState: .Normal)
-        buttonAddDetail.setTitleColor(UIColor.blackColor() , forState: .Normal)
-        buttonAddDetail.addTarget(self, action: "addMoreEVA", forControlEvents: .TouchUpInside)
-        firstScrollView.addSubview(buttonAddDetail)
-        buttonAddDetail.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(contentViewForEVAView.snp_bottom).offset(10)
-            make.left.equalTo(contentViewForEVAView.snp_left).offset(0)
-            make.width.equalTo(self.view.frame.width)
-        }
-        firstScrollView.contentSize.height += height + 200
-        print(firstScrollView.contentSize)
+//        let buttonAddDetail = UIButton(type: .Custom)
+////        buttonAddDetail.addTopLine(0.3, offsetLeft: 0, offsetRight: 0)
+//        buttonAddDetail.addBottomLine(0.3, offsetLeft: 0, offsetRight: 0)
+//        buttonAddDetail.backgroundColor = UIColor.whiteColor()
+//        buttonAddDetail.setTitle("查看商品详情", forState: .Normal)
+//        buttonAddDetail.setTitleColor(UIColor.blackColor() , forState: .Normal)
+//        buttonAddDetail.addTarget(self, action: "addMoreEVA", forControlEvents: .TouchUpInside)
+//        firstScrollView.addSubview(buttonAddDetail)
+//        buttonAddDetail.snp_makeConstraints { (make) -> Void in
+//            make.top.equalTo(contentViewForEVAView.snp_bottom).offset(10)
+//            make.left.equalTo(contentViewForEVAView.snp_left).offset(0)
+//            make.width.equalTo(self.view.frame.width)
+//        }
+//        firstScrollView.contentSize.height +=     height + 200
+//        print(firstScrollView.contentSize)
         // EVAVC?.view.frame.origin = CGPoint(x: 0, y: (sizeVC?.tableView.frame.origin.y)!  + (sizeVC?.tableViewHeight)! + 10)
     }
     
@@ -592,9 +594,9 @@ extension OtherViewController{
         needLoadSecondView = false
         var counts:CGFloat = 0
         let width = self.view.frame.width
-        for var x in (item?.imageDetail)!{
+        for  x in (item?.imageDetail)!{
             let imgView = UIImageView(frame: CGRect(x: 0 , y: (width + 10) * counts , width: width, height: width))
-            imgView.setImageWithURL(NSURL(string: x))
+            imgView.sd_setImageWithURL(NSURL(string: x))
             imgView.clipsToBounds = true
             counts++
             secondScrollView.contentSize.height += width + 10
@@ -606,7 +608,7 @@ extension OtherViewController{
     
     func initThirdView(){
         needloadThirdView = false
-        var vc = EVAViewController()
+        let vc = EVAViewController()
         vc.itemId = item?.itemNo
         self.addChildViewController(vc)
         vc.tableView.frame = CGRect(x: self.view.width * 2, y: 0, width: self.view.width, height: self.view.height - 49 - 59)
@@ -634,7 +636,7 @@ extension OtherViewController: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         viewDidApper = true
-        var cell = tableView.dequeueReusableCellWithIdentifier("GoodSizeCell") as! GoodSizeTableCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("GoodSizeCell") as! GoodSizeTableCell
         var buttons = [UIButton]()
         for(var i = 1 ; i < data[indexPath.row].count ; i++ ){
             let button = UIButton()

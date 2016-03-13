@@ -11,38 +11,33 @@ import Alamofire
 public class HTTPManager {
     static let HTTPURL = "http://139.129.45.31:8080"
     static let HTTPURL2 = "http://192.168.113.14:8080"
-    static let HTTPURL3 = "http://192.168.199.134:8080"
     var request: Request!
     static var mbp:MBProgressHUD?
     
-    static var HUDCount = 0
-    public static func POST(contentType: ContentType,params: [String: AnyObject]?) -> HTTPManager {
-        if(HUDCount == 0){
-           HTTPManager.mbp = MBProgressHUD.showMessage("")
-            HUDCount = 1
-        }else{
-            HUDCount++
+    static var HUDCount = 0{
+        didSet{
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = HTTPManager.HUDCount>0
         }
-        
+    }
+    
+    class func POST(contentType: ContentType,params: [String: AnyObject]?) -> HTTPManager {
+        HTTPManager.HUDCount++
         
         let manager = HTTPManager()
         if(params != nil){
-        manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue, parameters: params, encoding: .JSON)
+            manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue, parameters: params, encoding: .JSON)
         }else{
             manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue)
         }
         return manager
         
-//        Alamofire.upload(.POST, HTTPURL + contentType.rawValue, headers: params as! [String: String], data: NSData(contentsOfURL: NSURL(string: SD_UserIconData_Path)!)!).responseJSON { (response) -> Void in
-//            print(response)
-//        }
     }
     
-    public static func UPload(contentType: ContentType,params: [String: String]?,multipartFormData: (MultipartFormData)->Void,encodingMemoryThreshold: (Manager.MultipartFormDataEncodingResult -> Void)?){
+    public class func UPload(contentType: ContentType,params: [String: String]?,multipartFormData: (MultipartFormData)->Void,encodingMemoryThreshold: (Manager.MultipartFormDataEncodingResult -> Void)?){
         Alamofire.upload(.POST, HTTPURL + contentType.rawValue, headers: params, multipartFormData: multipartFormData,encodingCompletion: encodingMemoryThreshold)
     }
     
-    public func responseJSON(success: (json:[String: AnyObject]) -> Void, error: (error: NSError?) -> Void ){
+    public func responseJSON(success: (json:[String: AnyObject]) -> Void, hud:MBProgressHUD? = nil, error: (error: NSError?) -> Void){
         request.responseJSON { (response) -> Void in
             if(response.result.isSuccess){
                 success(json:(response.result.value)! as! [String : AnyObject])
@@ -50,18 +45,9 @@ public class HTTPManager {
             }else{
                 error(error: response.result.error)
             }
-            
-            print("我是httpManagerCount\(HTTPManager.HUDCount)")
-//            HTTPManager.mbp?.hide(true)
-//            HTTPManager.mbp?.hidden = true
-//            print("MBProgressHUD是不是隐藏了呢?\(HTTPManager.mbp?.hidden)")
-            if(HTTPManager.HUDCount == 1){
-                
-                HTTPManager.mbp?.hide(true)
-//                HTTPManager.mbp?.hide(true)
-                HTTPManager.HUDCount = 0
-            }else{
-                HTTPManager.HUDCount--
+            HTTPManager.HUDCount--
+            if let hud = hud{
+                hud.hidden = true
             }
         }
     }
