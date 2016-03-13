@@ -220,6 +220,7 @@ class CouponCell: UITableViewCell,Reusable {
                 if "success" == result {
                     MBProgressHUD.showSuccess("领取成功")
                     self.coupon.status = 1
+                    self.setCouponColor(false, statu: 1)
                     DataCenter.shareDataCenter.updateAllCoupons("", callBack: nil)
                 }
                 else {

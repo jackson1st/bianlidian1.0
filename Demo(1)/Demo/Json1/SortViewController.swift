@@ -16,7 +16,7 @@ class SortViewController: UIViewController{
     var smallCalsses = [smallClass]()
     var address: String!
     var userDefault = NSUserDefaults()
-    
+    var lastCell:UITableViewCell?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerNetObserve(64)
@@ -35,6 +35,7 @@ class SortViewController: UIViewController{
     deinit{
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
+
     
     //响应搜索按钮的方法
     func pushSearchViewController(){
@@ -42,9 +43,6 @@ class SortViewController: UIViewController{
         self.navigationController?.pushViewController(searchVC, animated: true)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -70,22 +68,24 @@ extension SortViewController{
     }
     
     func initData(){
+        weak var tmpSelf = self
         
         HTTPManager.POST(ContentType.ItemBigClass, params: nil).responseJSON({ (json) -> Void in
             let bigclass = json["bigclass"] as? [NSDictionary]
             var tg = true
-            for var x in bigclass!{
-                self.bigClass.append(x["name"] as! String)
+            for  x in bigclass!{
+                tmpSelf!.bigClass.append(x["name"] as! String)
                 if tg {
                     let properties = x["property"] as? [NSDictionary]
-                    for var y in properties!{
-                        self.smallCalsses.append(smallClass(name: y["propertyName"] as? String, url: y["url"] as? String,id: y["propertyId"] as? String))
+                    for  y in properties!{
+                        tmpSelf!.smallCalsses.append(smallClass(name: y["propertyName"] as? String, url: y["url"] as? String,id: y["propertyId"] as? String))
                     }
                     tg = false
                 }
             }
-            self.tableViewLeft.reloadData()
-            self.collectionViewRight.reloadData()
+            tmpSelf!.tableViewLeft.reloadData()
+            tmpSelf!.collectionViewRight.reloadData()
+            tmpSelf!.tableView(tmpSelf!.tableViewLeft, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
         }
@@ -146,6 +146,7 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         var cell = tableViewLeft.dequeueReusableCellWithIdentifier("cellLeft")
         if cell == nil{
             cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
@@ -153,12 +154,7 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
         }
         cell?.textLabel?.text = bigClass[indexPath.row]
         cell?.textLabel?.textAlignment = .Center
-        let view1 = UIView()
-        view1.backgroundColor = UIColor.colorWithCustom(239, g: 239, b: 239)
-        let view2 = UIView()
-        view2.backgroundColor = UIColor.whiteColor()
-        cell?.backgroundView = view1
-        cell?.selectedBackgroundView = view2
+        cell?.backgroundColor = UIColor.colorWithCustom(239, g: 239, b: 239)
         return cell!
     }
     
@@ -167,8 +163,14 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableViewLeft.cellForRowAtIndexPath(indexPath)
+        if(cell?.backgroundColor == UIColor.whiteColor()){
+            return
+        }
         smallCalsses.removeAll()
-        
+        lastCell?.backgroundColor = UIColor.colorWithCustom(239, g: 239, b: 239)
+        cell?.backgroundColor = UIColor.whiteColor()
+        lastCell = cell
         weak var tempSelf = self
         HTTPManager.POST(ContentType.ItemSmallClass, params: ["name": bigClass[indexPath.row]]).responseJSON({ (json) -> Void in
             let properties = json["property"] as! [NSDictionary]

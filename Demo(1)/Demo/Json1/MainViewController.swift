@@ -107,6 +107,7 @@ extension MainViewController{
 // MARK: - 临时解决点击搜索栏后，搜索栏会下移一个搜索栏高的距离
         webView?.scrollView.contentOffset.y = -40
         super.viewWillAppear(animated)
+        self.ButtonGift.edge = String(DataCenter.shareDataCenter.canGetCoupons.count)
         
     }
     
@@ -135,20 +136,22 @@ extension MainViewController{
     
     func initGiftModel(){
         self.ButtonGift.button.setTitle("券", forState: .Normal)
+        weak var tmpSelf = self
         ButtonGift.buttonAction = {
             ()->() in
-            if(self.giftVC == nil){
-                self.giftVC = GiftViewController()
-                self.giftVC?.mode = 0
-                self.giftVC?.gifts = self.giftModels
+            if(tmpSelf!.giftVC == nil){
+                tmpSelf!.giftVC = GiftViewController()
+                tmpSelf!.giftVC?.mode = 0
+                tmpSelf!.giftVC?.gifts = tmpSelf!.giftModels
             }
-            self.pushViewController(self.giftVC!, animated: true, completion: nil)
+            tmpSelf!.pushViewController(self.giftVC!, animated: true, completion: nil)
         }
        DataCenter.shareDataCenter.updateCanGetCoupons { (couponCount) -> Void in
             self.giftModels = DataCenter.shareDataCenter.canGetCoupons
+            print("我是优惠券数量\(couponCount)")
             self.ButtonGift.edge = String(couponCount)
         }
-}
+    }
     
     func initViewSearch(){
         

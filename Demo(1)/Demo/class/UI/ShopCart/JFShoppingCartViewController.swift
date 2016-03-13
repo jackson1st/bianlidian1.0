@@ -382,8 +382,13 @@ extension JFShoppingCartViewController {
                 next.payModel.append(Model.defaultModel.shopCart[i])
             }
         }
-        self.navigationController?.pushViewController(next, animated: true)
         
+        if next.payModel.count > 0 {
+            self.navigationController?.pushViewController(next, animated: true)
+        }
+        else {
+            SVProgressHUD.showInfoWithStatus("商品不能为空")
+        }
     }
     /**
      重新计算商品数量

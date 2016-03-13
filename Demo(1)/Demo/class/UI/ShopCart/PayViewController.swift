@@ -25,7 +25,7 @@ class PayViewController: UIViewController {
     
     
     
-    
+    private var pickView: HRHDataPickView!
     @IBOutlet var sumPrice: UILabel!
     @IBOutlet var discountPrice: UILabel!
     // MARK: - view生命周期
@@ -81,6 +81,12 @@ class PayViewController: UIViewController {
                 hour = hour + 1
             }
         }
+        pickView = HRHDataPickView()
+        pickView.delegate = self
+        pickView.dataArray = self.dateArray
+        // ios 8.0 or later 新属性
+        pickView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        pickView.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
     }
     
     
@@ -385,14 +391,8 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
         }
         if indexPath.section == 1 {
             if indexPath.row == 0 {
-              let  pickView = HRHDataPickView()
-              pickView.delegate = self
-              pickView.dataArray = self.dateArray
-              // ios 8.0 or later 新属性
-              pickView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-              pickView.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-              self.presentViewController(pickView, animated: false, completion: { () -> Void in
-                 pickView.view.backgroundColor = UIColor.colorWith(0, green: 0, blue: 0, alpha: 0.4)
+              self.presentViewController(pickView, animated: true, completion: { () -> Void in
+                 self.pickView.view.backgroundColor = UIColor.colorWith(0, green: 0, blue: 0, alpha: 0.4)
               })
             }
             if indexPath.row == 1 {

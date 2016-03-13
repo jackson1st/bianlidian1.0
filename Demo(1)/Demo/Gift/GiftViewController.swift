@@ -43,6 +43,7 @@ class GiftViewController: UITableViewController {
         }
         tableView.reloadData()
     }
+    
     //标示页面，0：主页调用，1：订单调用，2：个人中心调用
     
     var selectedCallback:((GiftModel)->Void)?
@@ -52,6 +53,7 @@ class GiftViewController: UITableViewController {
         tableView.registerReusableCell(CouponCell.self)
         tableView.backgroundColor =  UIColor.colorWithCustom(242, g: 242, b: 242)
         self.tableView.separatorStyle = .None
+        prepareData()
     }
     
 
