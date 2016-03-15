@@ -87,6 +87,22 @@ class PayViewController: UIViewController {
         noteViewController?.delegate = self
     }
     
+    func judgeCanUseStamp(){
+        for item in self.canUseCoupon {
+            if Double(item.minMoney) > self.totalPrice {
+                item.status = 6
+            }
+        }
+        let count = self.canUseCoupon.filter({ (GiftModel) -> Bool in
+            GiftModel.status == 4
+        })
+        if  count.count > 0 {
+            self.stampInfo = "有\(count.count)张优惠券可使用"
+        }
+        else {
+            self.stampInfo = "暂无可用优惠券"
+        }
+    }
     
     deinit{
         
@@ -198,6 +214,8 @@ extension PayViewController {
                     self.sumPrice.text = "总计:\(orderPrice["realPay"] as! Double)元"
                     self.discountPrice.text = "已优惠:\((orderPrice["stampPrice"] as! Double) + (orderPrice["integralPrice"] as! Double))元"
                     self.id = json["id"] as! String
+                    self.judgeCanUseStamp()
+                    self.tableView.reloadData()
                 }
             }
             }) { (error) -> Void in
@@ -379,11 +397,6 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
             if indexPath.row == 0 {
                 let vc = GiftViewController()
                 vc.mode = 1
-                for item in self.canUseCoupon {
-                    if Double(item.minMoney) > self.totalPrice {
-                        item.status = 6
-                    }
-                }
                 vc.gifts = self.canUseCoupon
                 vc.delegate = self
                 vc.id = self.id
@@ -431,12 +444,7 @@ extension PayViewController: HRHDataPickViewDelegate {
                     self.discountPrice.text = "已优惠:\((orderPrice["stampPrice"] as! Double) + (orderPrice["integralPrice"] as! Double))元"
                     if "-1" == stamp {
                         self.canUseCoupon[Index!].status = 4
-                        if self.canUseCoupon.count > 0 {
-                            self.stampInfo = "有\(self.canUseCoupon.count)张优惠券可使用"
-                        }
-                        else {
-                            self.stampInfo = "暂无可用优惠券"
-                        }
+                        self.judgeCanUseStamp()
                     }
                     else {
                         self.canUseCoupon[Index!].status = 5

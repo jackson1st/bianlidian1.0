@@ -115,6 +115,9 @@ extension MainViewController{
     
     override func viewWillDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+        self.ButtonGift.edge = String((DataCenter.shareDataCenter.canGetCoupons.filter({ (GiftModel) -> Bool in
+            GiftModel.status == 0
+        }).count))
     }
     
     
@@ -190,12 +193,13 @@ extension MainViewController{
         webView!.navigationDelegate = self
         
         self.address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
+        let hud = MBProgressHUD.showMessage("加载中", toView: webView!)
         
-        HTTPManager.POST(ContentType.WebData, params: ["address":self.address!,"page":"home","type":"Android"]).responseJSON({ (json) -> Void in
-            self.index = json["index"] as? String
-            self.content = json["txt"] as? NSDictionary
-            self.webView?.loadRequest(NSURLRequest(URL: NSURL(string: self.index!)!))
-            }) { (error) -> Void in
+        HTTPManager.POST(ContentType.WebData, params: ["address":self.address!,"page":"home","type":"Android"]).responseJSON({  [weak self] json -> Void in
+            self!.index = json["index"] as? String
+            self!.content = json["txt"] as? NSDictionary
+            self!.webView?.loadRequest(NSURLRequest(URL: NSURL(string: self!.index!)!))
+            }, hud: hud) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
         }
         

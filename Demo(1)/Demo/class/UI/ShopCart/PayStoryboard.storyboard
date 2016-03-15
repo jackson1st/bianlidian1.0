@@ -223,8 +223,8 @@
                                             <action selector="okSelect:" destination="PIi-xO-WtK" eventType="touchUpInside" id="VMr-x6-ypW"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="已优惠" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aC0-iy-3Yn">
-                                        <rect key="frame" x="103" y="13" width="100" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已优惠" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aC0-iy-3Yn">
+                                        <rect key="frame" x="114" y="13" width="100" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="7Hx-ow-hsd"/>
                                             <constraint firstAttribute="width" constant="100" id="WDg-88-3gU"/>
@@ -236,7 +236,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="aC0-iy-3Yn" firstAttribute="leading" secondItem="aQE-cX-hJb" secondAttribute="trailing" constant="-19" id="FPK-wM-iWZ"/>
+                                    <constraint firstItem="aC0-iy-3Yn" firstAttribute="leading" secondItem="aQE-cX-hJb" secondAttribute="trailing" constant="-2" id="FPK-wM-iWZ"/>
                                     <constraint firstItem="aQE-cX-hJb" firstAttribute="leading" secondItem="H87-Uo-QlZ" secondAttribute="leading" constant="16" id="JuI-uX-2w9"/>
                                     <constraint firstItem="jph-eG-eOY" firstAttribute="top" secondItem="H87-Uo-QlZ" secondAttribute="top" constant="6" id="ODI-1E-IWb"/>
                                     <constraint firstAttribute="bottom" secondItem="aC0-iy-3Yn" secondAttribute="bottom" constant="10" id="aBp-wI-0l8"/>
@@ -245,7 +245,7 @@
                                     <constraint firstAttribute="trailing" secondItem="jph-eG-eOY" secondAttribute="trailing" constant="14" id="jTT-4T-cw1"/>
                                     <constraint firstItem="aQE-cX-hJb" firstAttribute="top" secondItem="H87-Uo-QlZ" secondAttribute="top" constant="12" id="u2B-4Z-Fbk"/>
                                     <constraint firstItem="aC0-iy-3Yn" firstAttribute="top" secondItem="H87-Uo-QlZ" secondAttribute="top" constant="13" id="wlv-yH-tpW"/>
-                                    <constraint firstItem="aC0-iy-3Yn" firstAttribute="leading" secondItem="aQE-cX-hJb" secondAttribute="trailing" constant="-19" id="xMv-kT-oAC"/>
+                                    <constraint firstItem="aC0-iy-3Yn" firstAttribute="leading" secondItem="aQE-cX-hJb" secondAttribute="trailing" constant="-2" id="xMv-kT-oAC"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmH-1C-62N">

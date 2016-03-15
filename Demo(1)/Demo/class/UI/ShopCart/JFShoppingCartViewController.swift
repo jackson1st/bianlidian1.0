@@ -571,6 +571,8 @@ extension JFShoppingCartViewController: JFShoppingCartCellDelegate {
                 // 减
                 Model.defaultModel.updataItemNum(indexPath.row - 1 , shopNo: shopNoByName(shopName), dis: -1, success: { () -> Void in
                     countLabel.text = "\(model.num)"
+                    // 重新计算商品数量
+                    self.reCalculateGoodCount()
                     }, callback: { () -> Void in
                         self.stopRefreshView()
                 })
@@ -580,6 +582,8 @@ extension JFShoppingCartViewController: JFShoppingCartCellDelegate {
                 // 加
                 Model.defaultModel.updataItemNum(indexPath.row - 1 , shopNo: shopNoByName(shopName), dis: 1, success: { () -> Void in
                     countLabel.text = "\(model.num)"
+                    // 重新计算商品数量
+                    self.reCalculateGoodCount()
                     }, callback: { () -> Void in
                         self.stopRefreshView()
                 })
@@ -587,8 +591,6 @@ extension JFShoppingCartViewController: JFShoppingCartCellDelegate {
             
         }
         
-        // 重新计算商品数量
-        reCalculateGoodCount()
     }
     
     /**
