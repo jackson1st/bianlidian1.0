@@ -20,6 +20,7 @@ class GiftModel: NSObject {
     var end:String!//结束时间
     var status:Int!//使用状态 0、未领取 1、可使用  2、已使用 3 已过期
     var stampNo:String!//礼券编号
+    var stampFlowNo: Int?//流水号
     
     static var formatter:NSDateFormatter = {
         let format = NSDateFormatter()
@@ -35,7 +36,7 @@ class GiftModel: NSObject {
     }
     
     
-    convenience init(name:String,no:String,type:String,shopName:String? = nil,shopNo:String? = nil,amt:Int,minMoney:Int,start:String,end:String,status:Int!,stampNo:String!){
+    convenience init(name:String,no:String,type:String,shopName:String? = nil,shopNo:String? = nil,amt:Int,minMoney:Int,start:String,end:String,status:Int!,stampNo:String!,stampFlowNo: Int){
         self.init()
         self.name = name
         self.no = no
@@ -48,6 +49,7 @@ class GiftModel: NSObject {
         self.end = end
         self.status = status
         self.stampNo = stampNo
+        self.stampFlowNo = stampFlowNo
     }
     
     convenience init(dict:[String:AnyObject]){
@@ -100,11 +102,12 @@ class GiftModel: NSObject {
         else {
         HTTPManager.POST(.UserStamp, params: ["custNo":userNo!,"shopNo":shopNo == nil ? "" : shopNo!]).responseJSON({ (json) -> Void in
             if(json["message"] as! String == "success"){
-                print(json)
                 let array = json["stamps"] as! NSArray
                 var objects = [GiftModel]()
                 for x in array{
-                    objects.append(GiftModel(dict: x as! [String:AnyObject]))
+                    let item = GiftModel(dict: x as! [String:AnyObject])
+                    item.stampFlowNo = x["stampFlowNo"] as? Int
+                    objects.append(item)
                 }
                 callback(result: 0, list: objects)
             }else{

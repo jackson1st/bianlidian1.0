@@ -21,10 +21,11 @@ class PayViewController: UIViewController {
     var intrgalInfo: String?
     var shopNo: String!
     
-    
+    private var totalPrice: Double!
+    private var switchIsFirst: Bool = true
     private var dateArray: [String] = []
     private var id: String!
-    
+    var canUseCoupon:[GiftModel]!
     
     private var noteViewController: NoteViewController!
     private var pickView: HRHDataPickView!
@@ -48,23 +49,12 @@ class PayViewController: UIViewController {
     override func viewWillAppear(animated: Bool){
 
         super.viewWillAppear(animated)
-        DataCenter.shareDataCenter.updateAllCoupons(shopNo) { (couponCount) -> Void in
-            
-        }
         tableView.reloadData()
-        
     }
     
     func setInformation(){
-        
-        if DataCenter.shareDataCenter.user.coupon > 0 {
-            stampInfo = "有\(DataCenter.shareDataCenter.user.coupon)张优惠券可使用"
-        }
-        else {
-            stampInfo = "暂无可用优惠券"
-        }
         sendTime = "尽快送达"
-        noteInfo = "请填写备注"
+        noteInfo = ""
         intrgalInfo = "可用\(DataCenter.shareDataCenter.user.integral)积分"
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -137,15 +127,36 @@ extension PayViewController {
             
             let payFromAddressAction = UIAlertAction(title: payFromAddress, style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
                 print("使用了货到付款")
-
-                let titleInfo = "订单确认"
-                let message = "订单已经成功生成，商家正在准备配送，3小时后自动确认收货"
-                let user = NSUserDefaults.standardUserDefaults()
-                user.setObject(nil, forKey: SD_OrderInfo_Note)
-                let isOk = UIAlertController(title: titleInfo, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                isOk.addAction(okPayFromAddressAction)
-                isOk.addAction(lookPayFromAddressAction)
-                self.presentViewController(isOk, animated: true, completion: nil)
+                
+                let addre: NSMutableDictionary = NSMutableDictionary()
+                addre.setObject("\(NSUserDefaults().stringForKey("firstLocation")!)", forKey: "city")
+                addre.setObject("\(NSUserDefaults().stringForKey("secondLocation")!)", forKey: "county")
+                addre.setObject("\(NSUserDefaults().stringForKey("thirdLocation")!)", forKey: "area")
+                let ad = UserAccountTool.getUserAddressInformation()
+                let ad2 = ad![2].componentsSeparatedByString(" ")
+                addre.setObject(ad![0], forKey: "name")
+                addre.setObject(ad![1], forKey: "tel")
+                addre.setObject(ad2[1], forKey: "address")
+                
+                let params: [String: AnyObject] = ["custNo":"\(UserAccountTool.getUserCustNo()!)","id":self.id,"addrNo":"new","invoiceFlag":"1","arriveTime":"\(self.sendTime)","payWay":"1","memo":"\(self.noteInfo!)","newUserAddr": addre]
+                
+                HTTPManager.POST(ContentType.OrderAdd, params: params).responseJSON({ (json) -> Void in
+                    print(json)
+                    if "success" == json["message"] as! String {
+                        let titleInfo = "订单确认"
+                        let message = "订单已经成功生成，商家正在准备配送，3小时后自动确认收货"
+                        let isOk = UIAlertController(title: titleInfo, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                        isOk.addAction(okPayFromAddressAction)
+                        isOk.addAction(lookPayFromAddressAction)
+                        self.presentViewController(isOk, animated: true, completion: nil)
+                    }
+                    else {
+                        MBProgressHUD.showError(json["message"] as! String)
+                    }
+                    }, error: { (error) -> Void in
+                        print(error?.localizedDescription)
+                })
+                
             }
             let payFromZhiFbaoAcction = UIAlertAction(title: payFromZhiFuBao, style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
                 print("使用了支付宝付款")
@@ -157,67 +168,12 @@ extension PayViewController {
             
         }
         else {
-            SVProgressHUD.showInfoWithStatus("请填写地址信息")
+            MBProgressHUD.showError("请填写地址信息")
         }
  
     }
         
-//    func modelChangeDict() -> NSMutableDictionary{
-//        //地址信息封装成dictitionary
-//        let address = UserAccountTool.getUserAddressInformation()!
-//        let receiveAddress: NSMutableDictionary = NSMutableDictionary()
-//        receiveAddress.setObject(address[2], forKey: "address")
-//        receiveAddress.setObject(address[1], forKey: "tel")
-//        //封装orderinfo
-//        let orderInfo: NSMutableDictionary = NSMutableDictionary()
-//        orderInfo.setObject(UserAccountTool.getUserCustNo()!, forKey: "custNo")
-//        orderInfo.setObject(self.sumprice, forKey: "totalAmt")
-////        orderInfo.setObject(self.disprice, forKey: "freeAmt")
-//        orderInfo.setObject(self.shopNo,forKey: "shopNo")
-//        orderInfo.setObject(receiveAddress, forKey: "receiveAddress")
-//        //封装itemList
-//        let itemList: NSMutableArray = NSMutableArray()
-//        for var i=0; i<self.payModel.count; i++ {
-//            //单个商品
-//            let shop: NSMutableDictionary = NSMutableDictionary()
-//            shop.setObject(self.payModel[i].barcode!, forKey: "barcode")
-//            shop.setObject(self.payModel[i].num, forKey: "subQty")
-//            itemList.addObject(shop)
-//        }
-//        let dict: NSMutableDictionary = NSMutableDictionary()
-//        dict.setObject(orderInfo, forKey: "orderInfo")
-//        dict.setObject(itemList, forKey: "itemList")
-//        return dict
-//    }
-    
-    
-//    func returnbranchInfo() -> NSMutableDictionary{
-//        let dict: NSMutableDictionary = NSMutableDictionary()
-//        let barcodes: NSMutableArray = NSMutableArray()
-//        for var i=0; i<self.payModel.count; i++ {
-//            barcodes.addObject(payModel[i].barcode!)
-//        }
-//        dict.setObject(barcodes, forKey: "barcodes")
-//        dict.setObject(payModel[0].custNo!, forKey: "custNo")
-//        return dict
-//    }
-    
-    
-//    func sentOrderInformation() -> Bool{
-//        let userDefault = NSUserDefaults()
-//        var userID: String?
-//        if UserAccountTool.userIsLogin() {
-//         userID = userDefault.objectForKey(SD_UserDefaults_Account) as? String
-//        }
-//        let parameters: [String : AnyObject] =  (modelChangeDict() as? [String : AnyObject])!
-//        
-//        HTTPManager.POST(ContentType.OrderAdd, params: parameters).responseJSON({ (json) -> Void in
-//            
-//            }) { (error) -> Void in
-//                SVProgressHUD.showErrorWithStatus("数据加载失败，请检查网络连接", maskType: SVProgressHUDMaskType.Black)
-//        }
-//        return true
-//    }
+
 
     func getOrderInfomation() {
 
@@ -236,7 +192,9 @@ extension PayViewController {
         HTTPManager.POST(ContentType.OrderSetItem, params: parm).responseJSON({ (json) -> Void in
             
             if "success" == json["message"] as! String {
+                print(json)
                 if let orderPrice = json["orderPrice"] {
+                    self.totalPrice = orderPrice["totalPay"] as! Double
                     self.sumPrice.text = "总计:\(orderPrice["realPay"] as! Double)元"
                     self.discountPrice.text = "已优惠:\((orderPrice["stampPrice"] as! Double) + (orderPrice["integralPrice"] as! Double))元"
                     self.id = json["id"] as! String
@@ -250,8 +208,39 @@ extension PayViewController {
     }
     
     func useIntrgalAction(switchButton: UISwitch){
+        
         if true == switchButton.on {
-            
+        HTTPManager.POST(ContentType.UseIntegral, params: ["id" : self.id,"integral": "-1"]).responseJSON({ (json) -> Void in
+             print(json)
+            if "success" == json["message"] as! String {
+                if let orderPrice = json["orderPrice"] {
+                    
+                        self.sumPrice.text = "总计:\(orderPrice["realPay"] as! Double)元"
+                        self.discountPrice.text = "已优惠:\((orderPrice["stampPrice"] as! Double) + (orderPrice["integralPrice"] as! Double))元"
+                }
+            }
+            else {
+                MBProgressHUD.showError(json["message"] as! String)
+            }
+            }, error: { (error) -> Void in
+                print(error?.localizedDescription)
+        })
+        }
+        else {
+            HTTPManager.POST(ContentType.UseIntegral, params: ["id" : self.id,"integral": "0"]).responseJSON({ (json) -> Void in
+                print(json)
+                if "success" == json["message"] as! String {
+                    if let orderPrice = json["orderPrice"] {
+                            self.sumPrice.text = "总计:\(orderPrice["realPay"] as! Double)元"
+                            self.discountPrice.text = "已优惠:\((orderPrice["stampPrice"] as! Double) + (orderPrice["integralPrice"] as! Double))元"
+                    }
+                }
+                else {
+                    MBProgressHUD.showError(json["message"] as! String)
+                }
+                }, error: { (error) -> Void in
+                    print(error?.localizedDescription)
+            })
         }
     }
     
@@ -334,7 +323,12 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
                 cell?.detailTextLabel?.text = sendTime!
             }
             if indexPath.row == 1 {
-                cell?.detailTextLabel?.text = noteInfo!
+                if noteInfo != "" {
+                    cell?.detailTextLabel?.text = noteInfo!
+                }
+                else {
+                    cell?.detailTextLabel?.text = "请填写订单备注"
+                }
             }
         }
         else if 2 == indexPath.section {
@@ -347,8 +341,11 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
                 let intrgal = cell?.viewWithTag(30011) as? UILabel
                 let switchButton = cell?.viewWithTag(30012) as? UISwitch
                 intrgal?.text = intrgalInfo!
-                switchButton?.setOn(false, animated: true)
-                switchButton?.addTarget(self, action: "useIntrgalAction:", forControlEvents: UIControlEvents.EditingChanged)
+                if self.switchIsFirst {
+                    switchButton?.setOn(false, animated: true)
+                    switchIsFirst = false
+                }
+                switchButton?.addTarget(self, action: "useIntrgalAction:", forControlEvents: UIControlEvents.ValueChanged)
             }
         }
         else if indexPath.section == 3 {
@@ -382,6 +379,15 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
             if indexPath.row == 0 {
                 let vc = GiftViewController()
                 vc.mode = 1
+                for item in self.canUseCoupon {
+                    if Double(item.minMoney) > self.totalPrice {
+                        item.status = 6
+                    }
+                }
+                vc.gifts = self.canUseCoupon
+                vc.delegate = self
+                vc.id = self.id
+                
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -397,11 +403,53 @@ extension PayViewController: HRHDataPickViewDelegate {
         case 2:
             noteInfo = selectString
         case 3:
-            stampInfo = selectString
+            selectStamp(selectString)
         default:
             break
         }
 
         tableView.reloadData()
+    }
+    
+    func selectStamp(info: String){
+        let infoArray: [String]  = info.componentsSeparatedByString(" ")
+        var stamp = infoArray[0]
+        let Index = Int(infoArray[1])
+        if "change" == infoArray[3] {
+            for item in self.canUseCoupon {
+                item.status = 4
+            }
+        }
+        if "cancel" == infoArray[2] {
+            stamp = "-1"
+        }
+        HTTPManager.POST(ContentType.UseStamp, params: ["stampFlowNo":"\(stamp)","id":self.id]).responseJSON({ (json) -> Void in
+            print(json)
+            if "success" == json["message"] as! String {
+                if let orderPrice = json["orderPrice"] {
+                    self.sumPrice.text = "总计:\(orderPrice["realPay"] as! Double)元"
+                    self.discountPrice.text = "已优惠:\((orderPrice["stampPrice"] as! Double) + (orderPrice["integralPrice"] as! Double))元"
+                    if "-1" == stamp {
+                        self.canUseCoupon[Index!].status = 4
+                        if self.canUseCoupon.count > 0 {
+                            self.stampInfo = "有\(self.canUseCoupon.count)张优惠券可使用"
+                        }
+                        else {
+                            self.stampInfo = "暂无可用优惠券"
+                        }
+                    }
+                    else {
+                        self.canUseCoupon[Index!].status = 5
+                        self.stampInfo = "已优惠:\((orderPrice["stampPrice"] as! Double))元"
+                    }
+                    self.tableView.reloadData()
+                }
+            }
+            else {
+                MBProgressHUD.showError(json["message"] as! String)
+            }
+            }, error: { (error) -> Void in
+                print(error)
+        })
     }
 }

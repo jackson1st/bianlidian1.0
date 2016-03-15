@@ -66,10 +66,12 @@ extension AddressController {
             return
         }
         
-        NSUserDefaults.standardUserDefaults().setObject(name.text, forKey: SD_UserDefaults_Name)
-        NSUserDefaults.standardUserDefaults().setObject(tele.text, forKey: SD_UserDefaults_Telephone)
-        NSUserDefaults.standardUserDefaults().setObject("\(piaddress.text!) \(address.text!)", forKey: SD_UserDefaults_Address)
-        
-        self.navigationController?.popViewControllerAnimated(true)
+        let user = NSUserDefaults.standardUserDefaults()
+        user.setObject(name.text, forKey: SD_UserDefaults_Name)
+        user.setObject(tele.text, forKey: SD_UserDefaults_Telephone)
+        user.setObject("\(piaddress.text!) \(address.text!)", forKey: SD_UserDefaults_Address)
+        if user.synchronize() {
+             self.navigationController?.popViewControllerAnimated(true)
+        }
     }
 }

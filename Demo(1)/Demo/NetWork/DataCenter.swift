@@ -45,14 +45,19 @@ class DataCenter {
         }
     }
     
-    func updateAllCoupons(shopNo: String?,callBack:((couponCount: Int) -> Void)?){
+    func updateAllCoupons(shopNo: String?,callBack:((couponList: [GiftModel]) -> Void)?){
         GiftModel.getUserGiftsListWithShopNo(shopNo) { (result, list) -> Void in
             if 0 == result {
-                self.allCoupons = list!
-                if callBack != nil {
-                    (couponCount: self.allCoupons.filter({ (GiftModel) -> Bool in
-                        GiftModel.status == 4
-                    }).count)
+                
+                if shopNo == "" {
+                    self.allCoupons = list!
+                }
+                
+                else {
+                    
+                    if callBack != nil {
+                        callBack!(couponList: list!)
+                    }
                 }
             }
             else {

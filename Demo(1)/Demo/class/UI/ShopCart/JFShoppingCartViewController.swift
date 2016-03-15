@@ -384,7 +384,17 @@ extension JFShoppingCartViewController {
         }
         
         if next.payModel.count > 0 {
-            self.navigationController?.pushViewController(next, animated: true)
+            DataCenter.shareDataCenter.updateIntegral()
+            DataCenter.shareDataCenter.updateAllCoupons(shopNoByName(shopName)) { (couponList) -> Void in
+                next.canUseCoupon = couponList
+                if next.canUseCoupon.count > 0 {
+                    next.stampInfo = "有\(next.canUseCoupon.count)张优惠券可使用"
+                }
+                else {
+                    next.stampInfo = "暂无可用优惠券"
+                }
+                self.navigationController?.pushViewController(next, animated: true)
+            }
         }
         else {
             SVProgressHUD.showInfoWithStatus("商品不能为空")

@@ -27,15 +27,16 @@ class GiftViewController: UITableViewController {
             
         }
     }
+    var id: String?
+    
+    
     
     func prepareData() {
         switch mode {
         case 0:
             gifts = DataCenter.shareDataCenter.canGetCoupons
         case 1:
-            gifts = DataCenter.shareDataCenter.allCoupons.filter({ (GiftModel) -> Bool in
-                GiftModel.status == 4
-            })
+            break
         case 2:
             gifts = DataCenter.shareDataCenter.allCoupons
         default:
@@ -46,8 +47,7 @@ class GiftViewController: UITableViewController {
     
     //标示页面，0：主页调用，1：订单调用，2：个人中心调用
     
-    var selectedCallback:((GiftModel)->Void)?
-    
+    var delegate: HRHDataPickViewDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerReusableCell(CouponCell.self)
@@ -82,8 +82,45 @@ class GiftViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if(mode == 1){
-            selectedCallback!(gifts[indexPath.row])
+        if(mode == 1 && gifts[indexPath.row].status == 4){
+            let item = gifts.filter({ (GiftModel) -> Bool in
+                GiftModel.status == 5
+            })
+            
+            if item.count > 0 {
+                if gifts[indexPath.row].status == 4 {
+                    HTTPManager.POST(ContentType.UseStamp, params: ["stampFlowNo":"-1","id":self.id!]).responseJSON({ (json) -> Void in
+                        if "success" == json["message"] as! String{
+                            self.gifts[indexPath.row].status = 5
+                            self.delegate?.selectButtonClick("\(self.gifts[indexPath.row].stampFlowNo!) \(indexPath.row) use change", DataType: 3)
+                            tableView.reloadData()
+                            self.navigationController?.popViewControllerAnimated(true)
+                        }
+                        }, error: { (error) -> Void in
+                            print(error?.localizedDescription)
+                    })
+                }
+                else {
+                    gifts[indexPath.row].status = 4
+                    delegate?.selectButtonClick("\(gifts[indexPath.row].stampFlowNo!) \(indexPath.row) cancel unchange", DataType: 3)
+                    tableView.reloadData()
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+            }
+            else {
+                if gifts[indexPath.row].status != 5 {
+                    gifts[indexPath.row].status = 5
+                    delegate?.selectButtonClick("\(gifts[indexPath.row].stampFlowNo!) \(indexPath.row) use unchange", DataType: 3)
+                    tableView.reloadData()
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+                else {
+                    gifts[indexPath.row].status = 4
+                    delegate?.selectButtonClick("\(gifts[indexPath.row].stampFlowNo!) \(indexPath.row) cancel unchange", DataType: 3)
+                    tableView.reloadData()
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 
 class NoteViewController: UIViewController {
 
+    @IBOutlet weak var selectButton: UIButton!
     @IBOutlet weak var placeHolderLabel: UILabel!
     @IBOutlet weak var numLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
@@ -24,6 +25,9 @@ class NoteViewController: UIViewController {
         if noteString != nil {
             textView.text = noteString
         }
+        self.title = "填写备注"
+        selectButton.layer.masksToBounds = true
+        selectButton.layer.cornerRadius = 8
     }
 }
 

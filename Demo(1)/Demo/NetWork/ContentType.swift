@@ -85,7 +85,7 @@ public enum ContentType : String {
     //查询订单详情
     case OrderDetail = "/BSMD/order/select/info.do"
     //添加订单
-    case OrderAdd = "/BSMD/order/insert.do"
+    case OrderAdd = "/BSMD/order/submit"
     //更新订单
     case OrderUpdate = "/BSMD/order/update.do"
     //取消订单
@@ -159,6 +159,7 @@ public enum ContentType : String {
     case StampList = "/BSMD/getStamps.do"
     case UserStamp = "/BSMD/user/getStamps.do"
     case GetStamp = "/BSMD/user/addStamp.do"
+    case UseStamp = "/BSMD/order/useStamp"
     //
     
     /**
