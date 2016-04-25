@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="mYs-1m-l8K" customClass="upImageCell" customModule="星星便利店" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mYs-1m-l8K" id="eF0-VT-Ife">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="首页图片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ppO-Hp-Ndf">
+                        <rect key="frame" x="227" y="8" width="68" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="ppO-Hp-Ndf" secondAttribute="height" multiplier="68:21" id="wzO-il-iBw"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="详情图片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7t0-KD-Rtq">
+                        <rect key="frame" x="227" y="37" width="68" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="7t0-KD-Rtq" secondAttribute="height" multiplier="68:21" id="tjZ-GH-9Kl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这里是商品名称" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLt-oL-Qyt">
+                        <rect key="frame" x="8" y="8" width="181" height="49.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="MLt-oL-Qyt" secondAttribute="height" multiplier="17:3" constant="-99.5" id="fTQ-2l-DSO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="7t0-KD-Rtq" secondAttribute="bottom" constant="3.5" id="205-vj-94m"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="7t0-KD-Rtq" secondAttribute="trailing" constant="17" id="FML-Bt-HNb"/>
+                    <constraint firstItem="ppO-Hp-Ndf" firstAttribute="top" secondItem="eF0-VT-Ife" secondAttribute="topMargin" id="H7k-vr-CUk"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ppO-Hp-Ndf" secondAttribute="trailing" constant="17" id="P5r-uS-5Lb"/>
+                    <constraint firstItem="MLt-oL-Qyt" firstAttribute="top" secondItem="eF0-VT-Ife" secondAttribute="topMargin" id="anT-Qn-mwC"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="MLt-oL-Qyt" secondAttribute="bottom" constant="4" id="fB8-qL-G2I"/>
+                    <constraint firstItem="MLt-oL-Qyt" firstAttribute="leading" secondItem="eF0-VT-Ife" secondAttribute="leadingMargin" id="pfA-Jh-NN0"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="GoodsName" destination="MLt-oL-Qyt" id="NzU-B7-4Cc"/>
+                <outlet property="HomeCount" destination="ppO-Hp-Ndf" id="gnB-2k-nWE"/>
+                <outlet property="OtherCount" destination="7t0-KD-Rtq" id="Y5i-Hn-RiY"/>
+            </connections>
+            <point key="canvasLocation" x="296" y="165"/>
+        </tableViewCell>
+    </objects>
+</document>

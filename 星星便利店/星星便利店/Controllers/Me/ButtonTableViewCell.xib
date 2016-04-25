@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="40" id="zhj-tN-sYW" customClass="ButtonTableViewCell" customModule="星星便利店" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zhj-tN-sYW" id="emK-ft-4jc">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="39.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" tag="40002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfZ-kG-BzX">
+                        <rect key="frame" x="483" y="7" width="100" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="AfG-Wf-PR8"/>
+                            <constraint firstAttribute="height" constant="25" id="Sh0-cU-uPu"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="付款">
+                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="40003" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpq-t7-6j8">
+                        <rect key="frame" x="19" y="11.5" width="33" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="JfZ-kG-BzX" firstAttribute="centerY" secondItem="emK-ft-4jc" secondAttribute="centerY" id="PoA-FC-bsM"/>
+                    <constraint firstItem="Fpq-t7-6j8" firstAttribute="centerY" secondItem="emK-ft-4jc" secondAttribute="centerY" id="hdP-yC-FKs"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="JfZ-kG-BzX" secondAttribute="trailing" constant="9" id="vdO-Tb-gYb"/>
+                    <constraint firstItem="Fpq-t7-6j8" firstAttribute="leading" secondItem="emK-ft-4jc" secondAttribute="leadingMargin" constant="11" id="y8L-hU-56Q"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="buyButton" destination="JfZ-kG-BzX" id="7bY-XQ-Gpu"/>
+                <outlet property="statuLabel" destination="Fpq-t7-6j8" id="bey-LQ-f3f"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

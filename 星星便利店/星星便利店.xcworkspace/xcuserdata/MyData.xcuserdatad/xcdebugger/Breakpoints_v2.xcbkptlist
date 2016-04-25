@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;/Controllers/Home/HomeSortCell.swift"
+            timestampString = "482227514.330549"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "viewisClick1()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;/Controllers/Home/OtherViewController.swift"
+            timestampString = "482152951.49578"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
+            landmarkName = "initDetailView()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;/Controllers/Home/OtherViewController.swift"
+            timestampString = "480858802.889589"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "OtherViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;/Controllers/Home/OtherViewController.swift"
+            timestampString = "480852363.9451"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "OtherViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;.OtherViewController.firstScrollView.getter : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UIScrollView&gt;"
+                  moduleName = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/MyData/Documents/iOS%20%E7%9B%B8%E5%85%B3/%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81/newBianLiDian/%E6%98%9F%E6%98%9F%E4%BE%BF%E5%88%A9%E5%BA%97/%E6%98%9F%E6%98%9F%E4%BE%BF%E5%88%A9%E5%BA%97/Controllers/Home/OtherViewController.swift"
+                  timestampString = "480852192.060504"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;.OtherViewController.firstScrollView.setter : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UIScrollView&gt;"
+                  moduleName = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/MyData/Documents/iOS%20%E7%9B%B8%E5%85%B3/%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81/newBianLiDian/%E6%98%9F%E6%98%9F%E4%BE%BF%E5%88%A9%E5%BA%97/%E6%98%9F%E6%98%9F%E4%BE%BF%E5%88%A9%E5%BA%97/Controllers/Home/OtherViewController.swift"
+                  timestampString = "480852192.060717"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;.OtherViewController.firstScrollView.materializeForSet : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UIScrollView&gt;"
+                  moduleName = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/MyData/Documents/iOS%20%E7%9B%B8%E5%85%B3/%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81/newBianLiDian/%E6%98%9F%E6%98%9F%E4%BE%BF%E5%88%A9%E5%BA%97/%E6%98%9F%E6%98%9F%E4%BE%BF%E5%88%A9%E5%BA%97/Controllers/Home/OtherViewController.swift"
+                  timestampString = "480852192.060827"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;.OtherViewController.init (&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;.OtherViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; &#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;.OtherViewController"
+                  moduleName = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/MyData/Documents/iOS%20%E7%9B%B8%E5%85%B3/%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81/newBianLiDian/%E6%98%9F%E6%98%9F%E4%BE%BF%E5%88%A9%E5%BA%97/%E6%98%9F%E6%98%9F%E4%BE%BF%E5%88%A9%E5%BA%97/Controllers/Home/OtherViewController.swift"
+                  timestampString = "480852192.060944"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "368">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;.OtherViewController.init (&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;.OtherViewController.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;.OtherViewController&gt;"
+                  moduleName = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/MyData/Documents/iOS%20%E7%9B%B8%E5%85%B3/%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81/newBianLiDian/%E6%98%9F%E6%98%9F%E4%BE%BF%E5%88%A9%E5%BA%97/%E6%98%9F%E6%98%9F%E4%BE%BF%E5%88%A9%E5%BA%97/Controllers/Home/OtherViewController.swift"
+                  timestampString = "480852192.061053"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "294">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x661f;&#x661f;&#x4fbf;&#x5229;&#x5e97;/Controllers/Manager/UpImageModel.swift"
+            timestampString = "483186321.599407"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "init(dict:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
