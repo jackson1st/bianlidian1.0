@@ -34,8 +34,8 @@ class ManageOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         if isAfter {
             addressLabel.hidden = true
-            NameLabel.text = "申请用户:"+after.username
-            PhoneLabel.text = "申请类型:" + (after.applyType == "0" ? "退货" : "换货")
+            NameLabel.text =  "申请类型:" + (after.applyType == "0" ? "退货" : "换货")
+            PhoneLabel.text = "申请用户:"+after.username
             orderStatu.text = "订单编号:" + after.applyNo
             orderTime.text = "申请时间:" + "\(after.applyTimeString)"
             orderNo.text = "待审核"

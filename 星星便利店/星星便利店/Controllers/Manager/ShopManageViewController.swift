@@ -165,13 +165,16 @@ extension ShopManageViewController {
                         tmpself?.afterModel = after
                     }
                     else {
-                        if self.pageIndex < json["pageSize"] as! Int{
+                        if self.pageIndex <= json["pageSize"] as! Int{
                         
                             if let array = json["list"] as? NSArray {
                                 for x in array {
                                     tmpself?.afterModel.append(afterApplyModel(dict: x as! [String : AnyObject]))
                                 }
                             }
+                        }
+                        else {
+                            SVProgressTool.showErrorSVProgress("没有更多了")
                         }
                     }
 
@@ -201,12 +204,15 @@ extension ShopManageViewController {
                     tmpself?.orderModel = orderModelArray
                 }
                 else {
-                    if self.pageIndex < json["pageSize"] as! Int{
+                    if self.pageIndex <= json["pageSize"] as! Int{
                         if let array = json["orderList"] as? NSArray {
                             for x in array {
                                 tmpself?.orderModel.append(orderMageeModel(dict: x as! [String:AnyObject]))
                             }
                         }
+                    }
+                    else {
+                        SVProgressTool.showErrorSVProgress("没有更多了")
                     }
                 }
                 tmpself?.tableView.reloadData()

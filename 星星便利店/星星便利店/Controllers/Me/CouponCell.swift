@@ -148,7 +148,7 @@ class CouponCell: UITableViewCell,Reusable {
         
         dateLabel?.sizeToFit()
         dateLabel?.frame = CGRectMake(CGRectGetMinX((descLabel?.frame)!), CGRectGetMaxY(memoryLabel!.frame) + 5, dateLabel!.width, dateLabel!.height)
-        if (coupon.status == 5) {
+        if (coupon != nil && coupon.status == 5) {
             unUseImageView?.frame = CGRectMake(CGRectGetMaxX((backImageView?.frame)!) - 45, 20, 28, 28)
         }
         
