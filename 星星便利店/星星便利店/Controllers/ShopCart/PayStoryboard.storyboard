@@ -633,7 +633,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="map_2-1" width="28" height="28"/>
+        <image name="map_2-1" width="44" height="44"/>
         <image name="彩条" width="286" height="5"/>
     </resources>
 </document>

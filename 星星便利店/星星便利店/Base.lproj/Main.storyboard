@@ -339,7 +339,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cFh-0g-fhQ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cFh-0g-fhQ">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -368,10 +368,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="4Hq-D7-RVE" firstAttribute="top" secondItem="cFh-0g-fhQ" secondAttribute="bottom" id="TXv-pW-XIf"/>
-                            <constraint firstItem="cFh-0g-fhQ" firstAttribute="leading" secondItem="2ly-hn-FrF" secondAttribute="leadingMargin" constant="-20" id="fLS-If-OfK"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="cFh-0g-fhQ" secondAttribute="trailing" constant="-20" id="ftm-5k-MIb"/>
-                            <constraint firstItem="cFh-0g-fhQ" firstAttribute="top" secondItem="2ly-hn-FrF" secondAttribute="topMargin" id="qGE-Iz-IaP"/>
+                            <constraint firstItem="4Hq-D7-RVE" firstAttribute="top" secondItem="cFh-0g-fhQ" secondAttribute="bottom" constant="49" id="2Va-rZ-Yg5"/>
+                            <constraint firstItem="cFh-0g-fhQ" firstAttribute="top" secondItem="2ly-hn-FrF" secondAttribute="topMargin" id="OD1-uN-Pi3"/>
+                            <constraint firstItem="cFh-0g-fhQ" firstAttribute="leading" secondItem="2ly-hn-FrF" secondAttribute="leadingMargin" constant="-20" id="hXd-8M-xz8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cFh-0g-fhQ" secondAttribute="trailing" constant="-20" id="ie6-d0-XEn"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="Nxf-3I-7rS"/>

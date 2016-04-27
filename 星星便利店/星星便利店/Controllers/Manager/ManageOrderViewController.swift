@@ -195,6 +195,7 @@ class ManageOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     func setNo(){
         if isAfter {
             HTTPManager.POST(ContentType.AfterCheck, params: ["applyNo":after.applyNo,"cheakResult":"unPass"]).responseJSON({ (json) in
+                print(json)
                     if "success" == json["message"] as! String {
                         SVProgressHUD.showSuccessWithStatus("更新成功")
                         self.navigationController?.popViewControllerAnimated(true)
@@ -211,7 +212,7 @@ class ManageOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             switch orderInfo.orderStatu {
             case "1":
                 HTTPManager.POST(ContentType.AuditOrder, params: ["orderNo":orderInfo.orderNo,"result":"4"]).responseJSON({ (json) in
-                    if "更新成功" == json["message"] as! String {
+                    if "OK" == json["message"] as! String {
                         SVProgressHUD.showSuccessWithStatus("更新成功")
                         self.navigationController?.popViewControllerAnimated(true)
                     }
@@ -259,7 +260,7 @@ class ManageOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             case "2":
             HTTPManager.POST(ContentType.SureReceived, params: ["orderNo":orderInfo.orderNo]).responseJSON({ (json) in
                     print(json)
-                    if "更新成功" == json["message"] as! String {
+                    if "OK" == json["message"] as! String {
                         SVProgressHUD.showSuccessWithStatus("更新成功")
                         self.navigationController?.popViewControllerAnimated(true)
                     }

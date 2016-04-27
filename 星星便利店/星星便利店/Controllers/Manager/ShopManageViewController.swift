@@ -149,7 +149,6 @@ extension ShopManageViewController {
         else {
              tmpself?.pageIndex = (tmpself?.pageIndex)! + 1
         }
-        print(tmpself?.pageIndex)
         if orderType.rawValue == "4" {
             let param:[String:AnyObject] = ["No":UserAccountTool.getUserCustNo()!,"pageIndex":"\(self.pageIndex)","pageCount":"10","applyType":"-1","appFlag":"-1"]
             HTTPManager.POST(ContentType.AfterShop, params: param).responseJSON({ (json) in
@@ -165,7 +164,7 @@ extension ShopManageViewController {
                         tmpself?.afterModel = after
                     }
                     else {
-                        if self.pageIndex <= json["pageSize"] as! Int{
+                        if self.pageIndex <= json["Page"]!["pageSize"] as! Int{
                         
                             if let array = json["list"] as? NSArray {
                                 for x in array {

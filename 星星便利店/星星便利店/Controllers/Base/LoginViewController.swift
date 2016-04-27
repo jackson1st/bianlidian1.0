@@ -167,11 +167,12 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
 extension  LoginViewController {
      func login(userName: String,passWord: String, success: (() -> Void)?) {
         
+        
         let parameters = ["username":userName,
-            "password":passWord]
+            "password":"\(CFURLCreateStringByAddingPercentEscapes(nil, passWord, nil, "!*'();:@&=+$,/?%#[]\" ", kCFStringEncodingASCII)!)"]
+        print(parameters)
         SVProgressHUD.showWithStatus("加载中", maskType: SVProgressHUDMaskType.Clear)
         HTTPManager.POST(ContentType.LoginMobile, params: parameters).responseJSON({ (json) -> Void in
-            print(json)
             let infomation = json as? NSDictionary
             if(infomation!["status"] as? String == "success") {
                 

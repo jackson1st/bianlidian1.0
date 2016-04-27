@@ -36,7 +36,7 @@ public class Manager {
     public static let sharedInstance: Manager = {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         configuration.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders
-        configuration.timeoutIntervalForRequest = 5
+        configuration.timeoutIntervalForRequest = 10
         return Manager(configuration: configuration)
     }()
 

@@ -232,7 +232,7 @@ class JFShoppingCartViewController: BaseViewController{
         buyButton.frame = CGRect(x: AppWidth - 100, y: 9, width: 88, height: 30)
         buyButton.layer.cornerRadius = 15
         buyButton.layer.masksToBounds = true
-        buyButton.addTarget(self, action: "payButtonAction", forControlEvents: UIControlEvents.TouchUpInside)
+        buyButton.addTarget(self, action: #selector(JFShoppingCartViewController.payButtonAction), forControlEvents: UIControlEvents.TouchUpInside)
         return buyButton
     }()
     
@@ -247,7 +247,7 @@ class JFShoppingCartViewController: BaseViewController{
     lazy var loginButton: UIButton = {
         let loginButton = UIButton(frame: CGRect(x: (AppWidth - 240)/2 + 27, y: 322, width: 85, height: 32))
         loginButton.setBackgroundImage(UIImage(named: "购物车登录"), forState: UIControlState.Normal)
-        loginButton.addTarget(self, action: "enterLoginView", forControlEvents: UIControlEvents.TouchUpInside)
+        loginButton.addTarget(self, action: #selector(JFShoppingCartViewController.enterLoginView), forControlEvents: UIControlEvents.TouchUpInside)
         return loginButton
     }()
     
@@ -255,7 +255,7 @@ class JFShoppingCartViewController: BaseViewController{
     lazy var resignButton: UIButton = {
         let resignButton = UIButton(frame: CGRect(x: (AppWidth - 240)/2 + 122, y: 322, width: 85, height: 32 ))
         resignButton.setBackgroundImage(UIImage(named: "购物车注册"), forState: UIControlState.Normal)
-        resignButton.addTarget(self, action: "enterResignView", forControlEvents: UIControlEvents.TouchUpInside)
+        resignButton.addTarget(self, action: #selector(JFShoppingCartViewController.enterResignView), forControlEvents: UIControlEvents.TouchUpInside)
         return resignButton
     }()
     
@@ -263,7 +263,7 @@ class JFShoppingCartViewController: BaseViewController{
     lazy var goShoppingButton: UIButton = {
         let goShoppingButton: UIButton = UIButton(frame: CGRect(x: (AppWidth - 240)/2 + 34, y: 322, width: 168, height: 30))
         goShoppingButton.setBackgroundImage(UIImage(named: "去逛逛"), forState: UIControlState.Normal)
-        goShoppingButton.addTarget(self, action: "didTappedBackButton", forControlEvents: UIControlEvents.TouchUpInside)
+        goShoppingButton.addTarget(self, action: #selector(JFShoppingCartViewController.didTappedBackButton), forControlEvents: UIControlEvents.TouchUpInside)
         return goShoppingButton
     }()
 }
@@ -291,7 +291,7 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
             cell = tableView.dequeueReusableCellWithIdentifier("selectBrunchCell")
             cell?.selectionStyle = UITableViewCellSelectionStyle.None
             let selectBruchButton = cell?.viewWithTag(100) as? UIButton
-            selectBruchButton?.addTarget(self, action: "selectAlert", forControlEvents: UIControlEvents.TouchUpInside)
+            selectBruchButton?.addTarget(self, action: #selector(JFShoppingCartViewController.selectAlert), forControlEvents: UIControlEvents.TouchUpInside)
             selectBruchButton?.setTitle("当前店铺:\(shopName)", forState: UIControlState.Normal)
         }
         else {
@@ -423,6 +423,16 @@ extension JFShoppingCartViewController {
             }
         }
         
+        // 判断是否需要全选
+        
+        for model in Model.defaultModel.shopCart {
+            if model.selected != true && model.canChange == true{
+                // 只要有一个不等于就不全选
+                self.selectButton.selected = false
+                break
+            }
+        }
+        
         let applyMoney = Double(price)
         // 赋值价格
         let attributeText = NSMutableAttributedString(string: "总价：\(applyMoney.roundedToTwoDecimals())")
@@ -468,11 +478,11 @@ extension JFShoppingCartViewController {
         // self.Model.defaultModel.shopCart = self.staticGoodModels
         canSelectShop.removeAll()
         //获得所有店名
-        for var i = 0; i<Model.defaultModel.shopCart.count; i++ {
+        for i in 0 ..< Model.defaultModel.shopCart.count {
             guard Model.defaultModel.shopCart[i].shopNameList != nil else {
                 continue
             }
-            for var j = 0; j<Model.defaultModel.shopCart[i].shopNameList.count; j++ {
+            for j in 0 ..< Model.defaultModel.shopCart[i].shopNameList.count {
                 if !canSelectShop.contains(Model.defaultModel.shopCart[i].shopNameList[j].shopName!) {
                     canSelectShop.append(Model.defaultModel.shopCart[i].shopNameList[j].shopName!)
                 }
@@ -507,13 +517,13 @@ extension JFShoppingCartViewController {
     
     // 根据店铺名判断商品是否可送
     func canChange(selectShopName: String){
-        for var i=0 ; i<Model.defaultModel.shopCart.count ; i++ {
+        for i in 0  ..< Model.defaultModel.shopCart.count  {
             guard Model.defaultModel.shopCart[i].shopNameList != nil else {
                 Model.defaultModel.shopCart[i].canChange == false
                 Model.defaultModel.shopCart[i].selected = false
                 continue
             }
-            for var j=0 ; j<Model.defaultModel.shopCart[i].shopNameList!.count ; j++ {
+            for j in 0  ..< Model.defaultModel.shopCart[i].shopNameList!.count  {
                 if (Model.defaultModel.shopCart[i].shopNameList[j].shopName == selectShopName ){
                     Model.defaultModel.shopCart[i].canChange = true
                     break;
@@ -533,7 +543,7 @@ extension JFShoppingCartViewController {
     func selectAlert(){
         let select = UIActionSheet(title: "选择店铺", delegate: self, cancelButtonTitle: "返回", destructiveButtonTitle: nil)
         
-        for var i = 0;i < canSelectShop.count;i++ {
+        for i in 0 ..< canSelectShop.count {
             select.addButtonWithTitle(canSelectShop[i])
         }
         select.showInView(self.view)

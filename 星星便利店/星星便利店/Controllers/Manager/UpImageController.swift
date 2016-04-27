@@ -35,10 +35,11 @@ class UpImageController: UIViewController,UINavigationControllerDelegate {
         
         nameLabel.text = data.itemName
         initSmallImageUI()
-        initImageUI()
+        initImageUI(nil)
     }
     
     func initSmallImageUI(){
+        title = "上传图片"
         var imageCount: NSInteger = 0
         if data.url != nil {
              imageCount = 1
@@ -70,8 +71,8 @@ class UpImageController: UIViewController,UINavigationControllerDelegate {
         
     }
     
-    func initImageUI(){
-        let imageCount: NSInteger = data.topUrl.count
+    func initImageUI(upData:NSData?){
+        var imageCount: NSInteger = data.topUrl.count
         for i in 0 ..< imageCount {
             let pictureImageView = UIImageView(frame: CGRectMake(10+CGFloat(i%4)*(10+pictureHW), 286 + 10 + CGFloat(i/4)*(pictureHW + 10), pictureHW, pictureHW))
             pictureImageView.sd_setImageWithURL(NSURL(string: data.topUrl[i]), placeholderImage: UIImage(named: "v2_placeholder_square"))
@@ -90,6 +91,14 @@ class UpImageController: UIViewController,UINavigationControllerDelegate {
             
             view.addSubview(pictureImageView)
         }
+        if upData != nil {
+            let pictureImageView = UIImageView(frame: CGRectMake(10+CGFloat(imageCount%4)*(10+pictureHW), 286 + 10 + CGFloat(imageCount/4)*(pictureHW + 10), pictureHW, pictureHW))
+            pictureImageView.image = UIImage(data: upData!)
+            view.addSubview(pictureImageView)
+            imageCount += 1
+        }
+        
+        
         if (imageCount < MaxImageCount) {
             let addPictureButton = UIButton(frame: CGRectMake(10 + CGFloat(imageCount%4)*(pictureHW+10), 286 + 10 + CGFloat(imageCount/4)*(pictureHW+10), pictureHW, pictureHW))
             addPictureButton.setBackgroundImage(UIImage(named: "addPictures"), forState:UIControlState.Normal)
@@ -142,6 +151,7 @@ extension UpImageController: UIImagePickerControllerDelegate {
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         // 对用户选着的图片进行质量压缩,上传服务器,本地持久化存储
+        
         if let typeStr = info[UIImagePickerControllerMediaType] as? String {
             if typeStr == "public.image" {
                 
@@ -156,7 +166,7 @@ extension UpImageController: UIImagePickerControllerDelegate {
                     
                     if data != nil {
                         
-                        
+                        SVProgressHUD.showWithStatus("上传中")
                         HTTPManager.UPload(ContentType.ImageUpdate, params: ["itemNo" : self.data.itemNo,"imageClass":"\(imageClass)"], multipartFormData: { (MultipartFormData) -> Void in
                             MultipartFormData.appendBodyPart(data: data!, name: "head", fileName: "head.jpg", mimeType: "image/jpg")
                             }, encodingMemoryThreshold: { (MultipartFormDataEncodingResult) -> Void in
@@ -164,7 +174,9 @@ extension UpImageController: UIImagePickerControllerDelegate {
                                 case .Success(let upload, _, _):upload.responseJSON(completionHandler: { (response) -> Void in
                                     if response.result.isSuccess {
                                         SVProgressHUD.showSuccessWithStatus("图片上传成功", maskType: SVProgressHUDMaskType.Black)
+                                        self.initImageUI(data)
                                     }
+                                    
                                     else {
                                         SVProgressHUD.showErrorWithStatus("图片上传失败", maskType: SVProgressHUDMaskType.Black)
                                     }

@@ -43,6 +43,7 @@ public class HTTPManager {
         
         
         Alamofire.upload(.POST, HTTPURL + contentType.rawValue, headers: params, multipartFormData: multipartFormData,encodingCompletion: encodingMemoryThreshold)
+    
         
     }
     

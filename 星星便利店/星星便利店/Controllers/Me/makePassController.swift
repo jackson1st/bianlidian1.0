@@ -26,7 +26,7 @@ extension makePassController {
     @IBAction func makePassAction(sender: AnyObject) {
         
         
-        let param: [String : AnyObject] = ["tel" :  isForget == true ?  Accout! : UserAccountTool.getUserAccount()!, "password" : DES3Util.encrypt(newPassField.text!)]
+        let param: [String : AnyObject] = ["tel" :  isForget == true ?  Accout! : UserAccountTool.getUserAccount()!, "password" : "\(CFURLCreateStringByAddingPercentEscapes(nil, DES3Util.encrypt(newPassField.text!), nil, "!*'();:@&=+$,/?%#[]\" ", kCFStringEncodingASCII)!)"]
         HTTPManager.POST(ContentType.ValidateAndSend, params: param).responseJSON({ (json) -> Void in
            
             let info = json as? NSDictionary

@@ -188,7 +188,7 @@ extension SentSecurityCodeViewController : MZTimerLabelDelegate{
         
         
         let parameters = ["username":userName,
-            "password":passWord]
+            "password":"\(CFURLCreateStringByAddingPercentEscapes(nil, passWord, nil, "!*'();:@&=+$,/?%#[]\" ", kCFStringEncodingASCII)!)"]
         let hud = MBProgressHUD.showMessage(nil, toView: self.view)
         HTTPManager.POST(ContentType.LoginMobile, params: parameters).responseJSON({ (json) -> Void in
             

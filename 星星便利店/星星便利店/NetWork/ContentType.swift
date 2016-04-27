@@ -111,7 +111,7 @@ public enum ContentType : String {
      //退货业务
     case RefundApply = "/BSMD/afterSale/apply"
     case AfterShop = "/BSMD/afterSale/select/shop"
-    case AfterCheck = "BSMD/afterSale/check"
+    case AfterCheck = "/BSMD/backAfterSale/check"
     
     /**
      *  注册相关
@@ -188,5 +188,5 @@ public enum ContentType : String {
     case AuditOrder = "/BSMD/Administrator/auditOrder.do"
     case SureReceived = "/BSMD/Administrator/sureReceived.do"
     case MobileItem = "/BSMD/item/mobileItem.do"
-    case ImageUpdate = "/BSMD/image/submit.do"
+    case ImageUpdate = "/BSMD/image/ios/submit.do"
 }

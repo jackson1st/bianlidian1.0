@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import MJRefresh
 
 class UpImageViewController: UIViewController {
     
-    private var pageIndex = 2
+    private var pageIndex = 1
     private var data: [UpImageModel] = []
     private var searchType = ["itemname","itemno","barcode"]
     
@@ -39,6 +40,16 @@ class UpImageViewController: UIViewController {
         searchTableView.dataSource = self
         searchTableView.registerNib(UINib(nibName: "upImageCell", bundle: nil), forCellReuseIdentifier: "cell")
         searchTableView.rowHeight = 70
+        let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(UpImageViewController.keyboardHide))
+        tapGestureRecognizer.cancelsTouchesInView = false
+        searchTableView.addGestureRecognizer(tapGestureRecognizer)
+        searchTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { 
+            self.loadData(true)
+        })
+        searchTableView.mj_footer = MJRefreshBackFooter(refreshingBlock: { 
+            self.loadData(false)
+        })
+        
         return searchTableView
         
     }()
@@ -53,9 +64,6 @@ class UpImageViewController: UIViewController {
         
         title = "图片管理"
         
-        let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(UpImageViewController.keyboardHide))
-        tapGestureRecognizer.cancelsTouchesInView = false
-//        self.view.addGestureRecognizer(tapGestureRecognizer)
         
         view.addSubview(search)
         view.addSubview(searchSegment)
@@ -70,6 +78,58 @@ class UpImageViewController: UIViewController {
         search.resignFirstResponder()
     }
     
+    func loadData(isRefresh:Bool){
+        
+        if isRefresh == true {
+            let mbp = MBProgressHUD(view: view)
+            let param = ["pageindex":"\(pageIndex)","pagecount":"10","\(searchType[searchSegment.selectedSegmentIndex])":search.text!]
+            HTTPManager.POST(ContentType.MobileItem, params: param).responseJSON({ (json) in
+                
+                var model:[UpImageModel] = []
+                
+                let array = json["itemList"]!["list"] as! NSArray
+                
+                
+                for x in array {
+                    
+                    model.append(UpImageModel(dict: x as! NSDictionary))
+                    
+                }
+                self.pageIndex = 1
+                self.data = model
+                self.searchTableView.reloadData()
+                self.search.resignFirstResponder()
+                
+            }, hud: mbp) { (error) in
+                SVProgressTool.showErrorSVProgress("发生错误了")
+            }
+        }
+        else {
+            self.pageIndex += 1
+            let mbp = MBProgressHUD(view: view)
+            let param = ["pageindex":"\(pageIndex)","pagecount":"10","\(searchType[searchSegment.selectedSegmentIndex])":search.text!]
+            HTTPManager.POST(ContentType.MobileItem, params: param).responseJSON({ (json) in
+                
+                let array = json["itemList"]!["list"] as! NSArray
+                
+                
+                for x in array {
+                    
+                    self.data.append(UpImageModel(dict: x as! NSDictionary))
+                    
+                }
+    
+                self.searchTableView.reloadData()
+                self.search.resignFirstResponder()
+                
+            }, hud: mbp) { (error) in
+                SVProgressTool.showErrorSVProgress("发生错误了")
+            }
+        }
+        
+    }
+    
+    
 }
 
 extension UpImageViewController: UISearchBarDelegate{
@@ -79,32 +139,8 @@ extension UpImageViewController: UISearchBarDelegate{
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-         dPrint("我搜索了\(search.text)")
-        let mbp = MBProgressHUD(forView: self.view)
-        let param = ["pageindex":"\(pageIndex)","pagecount":"10","\(searchType[searchSegment.selectedSegmentIndex])":search.text!]
-        HTTPManager.POST(ContentType.MobileItem, params: param).responseJSON({ (json) in
-            
-            print(json)
-            
-            var model:[UpImageModel] = []
-            
-            let array = json["itemList"]!["list"] as! NSArray
-            
+         loadData(true)
         
-            for x in array {
-                
-                model.append(UpImageModel(dict: x as! NSDictionary))
-                
-            }
-            
-            self.data = model
-            self.searchTableView.reloadData()
-            self.search.resignFirstResponder()
-            
-        }, hud: mbp) { (error) in
-            SVProgressTool.showErrorSVProgress("发生错误了")
-        }
-
     }
     
 }
