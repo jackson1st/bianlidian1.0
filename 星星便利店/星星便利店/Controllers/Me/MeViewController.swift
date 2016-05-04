@@ -232,8 +232,10 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
         } else if 1 == section{
             return 1
         }
-        else {
+        else if UserAccountTool.getUserRole() == "2"{
             return 2
+        }else {
+            return 1
         }
     }
     

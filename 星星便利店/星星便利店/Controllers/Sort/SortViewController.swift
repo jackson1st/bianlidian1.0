@@ -24,13 +24,12 @@ class SortViewController: UIViewController{
         navigationController!.navigationBar.barTintColor = UIColor.colorWith(242, green: 50, blue: 65, alpha: 1)
         let appAddress = UserAccountTool.getAppAddressInfo()
         address = "\(appAddress![0])-\(appAddress![1])-\(appAddress![2])"
-        print(address)
         initAll()
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if bigClass.count == 0 {
-            restartData()
+            restartData(nil)
         }
     }
     
@@ -56,10 +55,10 @@ class SortViewController: UIViewController{
         super.didReceiveMemoryWarning()
     }
     
-    func restartData() {
+    func restartData(index:NSIndexPath?) {
         registerNetObserve(4)
         SVProgressHUD.showWithStatus("加载中啊..", maskType: SVProgressHUDMaskType.Clear)
-        initData()
+        initData(index)
     }
 }
 //MARK:-一些初始化
@@ -80,7 +79,7 @@ extension SortViewController{
         navigationItem.titleView = searchBar
     }
     
-    func initData(){
+    func initData(index:NSIndexPath?){
         weak var tmpSelf = self
         HTTPManager.POST(ContentType.ItemBigClass, params: nil).responseJSON({ (json) -> Void in
             tmpSelf?.bigClass.removeAll()
@@ -98,7 +97,12 @@ extension SortViewController{
             }
             tmpSelf!.tableViewLeft.reloadData()
             tmpSelf!.collectionViewRight.reloadData()
-            tmpSelf!.tableView(tmpSelf!.tableViewLeft, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+            if index != nil{
+                tmpSelf!.tableView(tmpSelf!.tableViewLeft, didSelectRowAtIndexPath: index!)
+            }
+            else {
+                tmpSelf!.tableView(tmpSelf!.tableViewLeft, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+            }
             SVProgressHUD.dismiss()
             }) { (error) -> Void in
                 SVProgressTool.showErrorSVProgress("发生了错误")
@@ -177,6 +181,12 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        updateSmallCell(indexPath)
+    
+    }
+    
+    func updateSmallCell(indexPath: NSIndexPath){
         let cell = tableViewLeft.cellForRowAtIndexPath(indexPath)
         if(cell?.backgroundColor == UIColor.whiteColor()){
             return
@@ -193,13 +203,12 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
                 self.smallCalsses.append(smallClass(dict: y as! [String:AnyObject]))
             }
             tempSelf!.collectionViewRight.reloadData()
-            tempSelf!.tableViewLeft.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .Middle)
+            self.tableViewLeft.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.None)
             SVProgressHUD.dismiss()
-            }) { (error) -> Void in
-                print("发生了错误: " + (error?.localizedDescription)!)
-                SVProgressTool.showErrorSVProgress("出错了")
+        }) { (error) -> Void in
+            print("发生了错误: " + (error?.localizedDescription)!)
+            SVProgressTool.showErrorSVProgress("出错了")
         }
-    
     }
     
 }

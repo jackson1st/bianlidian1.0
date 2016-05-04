@@ -933,7 +933,7 @@
 				TargetAttributes = {
 					324E4DBF1C9C3A0C00E7BBDD = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = KCE7SZBDA8;
+						DevelopmentTeam = 6ED5499Y54;
 					};
 					324E4DD31C9C3A0C00E7BBDD = {
 						CreatedOnToolsVersion = 7.2;
@@ -1402,11 +1402,14 @@
 			baseConfigurationReference = 6FACE9F450C086E16C5F481A /* Pods-星星便利店.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "星星便利店/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hrh.-----";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.yxh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "星星便利店-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "星星便利店-Bridging-Header.h";
 			};
@@ -1417,11 +1420,14 @@
 			baseConfigurationReference = D20BCFA893BD7F0F7AC0E0DE /* Pods-星星便利店.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "星星便利店/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hrh.-----";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.yxh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "星星便利店-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "星星便利店-Bridging-Header.h";
 			};

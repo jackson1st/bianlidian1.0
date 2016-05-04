@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 class RootTabBarController: UITabBarController,UITabBarControllerDelegate {
     private var fristLoadMainTabBarController: Bool = true
     
@@ -92,7 +93,6 @@ class RootTabBarController: UITabBarController,UITabBarControllerDelegate {
     
     //进行数据的第一次总更新
     func updateAllData(){
-        print("进行数据的第一次总更新")
         
         
         DataCenter.shareDataCenter.updateAllCoupons("", callBack: nil)
@@ -100,5 +100,19 @@ class RootTabBarController: UITabBarController,UITabBarControllerDelegate {
             DataCenter.shareDataCenter.user.collect = data.count
             }, callback: nil)
         DataCenter.shareDataCenter.updateIntegral()
+        
+    }
+    
+    func setSelectIndex(intoRow:Int){
+
+
+        let vc1 = self.childViewControllers[1] as! BaseNavigationController
+        let vc = vc1.viewControllers[0] as! SortViewController
+        selectedIndex = 1
+        let first = NSIndexPath.init(forItem: intoRow, inSection: 0)
+        
+        vc.tableViewLeft.selectRowAtIndexPath(first, animated: false, scrollPosition: UITableViewScrollPosition.None)
+        vc.updateSmallCell(first)
+        
     }
 }

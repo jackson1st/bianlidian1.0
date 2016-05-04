@@ -34,40 +34,40 @@ class UpImageController: UIViewController,UINavigationControllerDelegate {
     override func viewDidLoad() {
         
         nameLabel.text = data.itemName
-        initSmallImageUI()
+        initSmallImageUI(nil)
         initImageUI(nil)
     }
     
-    func initSmallImageUI(){
+    func initSmallImageUI(upData:NSData?){
         title = "上传图片"
         var imageCount: NSInteger = 0
-        if data.url != nil {
-             imageCount = 1
-        }
-        for i in 0 ..< imageCount {
-            let pictureImageView = UIImageView(frame: CGRectMake(10+CGFloat(i%4)*(10+pictureHW), 140 + 10 + CGFloat(i/4)*(pictureHW + 10), pictureHW, pictureHW))
-            pictureImageView.sd_setImageWithURL(NSURL(string: data.url!), placeholderImage: UIImage(named: "v2_placeholder_square"))
-//            //用作放大图片
-//            let tap = UITapGestureRecognizer.init(target: self, action: Selector("tapImageView:"))
-//            pictureImageView.addGestureRecognizer(tap)
-//            //添加删除按钮
-//            let dele = UIButton(type: UIButtonType.Custom)
-//            dele.frame = CGRectMake(pictureHW - deleImageWH + 5, -10, deleImageWH, deleImageWH)
-//            dele.setImage(UIImage(named: "deletePhoto"), forState: UIControlState.Normal)
-//            dele.addTarget(self, action: Selector("delePic:"), forControlEvents: UIControlEvents.TouchUpInside)
-//            pictureImageView.addSubview(dele)
-            
-            pictureImageView.tag = Int(imageTag) + i
-            pictureImageView.userInteractionEnabled = true
-
-            view.addSubview(pictureImageView)
-        }
-        if (imageCount < MaxSmallImageCount) {
+//        for i in 0 ..< imageCount {
+//            let pictureImageView = UIImageView(frame: CGRectMake(10+CGFloat(i%4)*(10+pictureHW), 140 + 10 + CGFloat(i/4)*(pictureHW + 10), pictureHW, pictureHW))
+//            pictureImageView.sd_setImageWithURL(NSURL(string: data.url!), placeholderImage: UIImage(named: "v2_placeholder_square"))
+////            //用作放大图片
+////            let tap = UITapGestureRecognizer.init(target: self, action: Selector("tapImageView:"))
+////            pictureImageView.addGestureRecognizer(tap)
+////            //添加删除按钮
+////            let dele = UIButton(type: UIButtonType.Custom)
+////            dele.frame = CGRectMake(pictureHW - deleImageWH + 5, -10, deleImageWH, deleImageWH)
+////            dele.setImage(UIImage(named: "deletePhoto"), forState: UIControlState.Normal)
+////            dele.addTarget(self, action: Selector("delePic:"), forControlEvents: UIControlEvents.TouchUpInside)
+////            pictureImageView.addSubview(dele)
+//            
+//            pictureImageView.tag = Int(imageTag) + i
+//            pictureImageView.userInteractionEnabled = true
+//
+//            view.addSubview(pictureImageView)
+//        }
+//        if (imageCount < MaxSmallImageCount) {
             let addPictureButton = UIButton(frame: CGRectMake(10 + CGFloat(imageCount%4)*(pictureHW+10), 140 + 10 + CGFloat(imageCount/4)*(pictureHW+10), pictureHW, pictureHW))
-            addPictureButton.setBackgroundImage(UIImage(named: "addPictures"), forState:UIControlState.Normal)
-            addPictureButton.addTarget(self, action: #selector(UpImageController.addPicture), forControlEvents: UIControlEvents.TouchUpInside)
-            view.addSubview(addPictureButton)
+            addPictureButton.sd_setImageWithURL(NSURL(string: data.url!), forState: UIControlState.Normal, placeholderImage: UIImage(named: "addPictures"))
+            addPictureButton.addTarget(self, action: #selector(UpImageController.addPicture1), forControlEvents: UIControlEvents.TouchUpInside)
+        if upData != nil {
+            addPictureButton.setImage(UIImage(data: upData!), forState: UIControlState.Normal)
         }
+            view.addSubview(addPictureButton)
+//        }
         
     }
     
@@ -102,13 +102,18 @@ class UpImageController: UIViewController,UINavigationControllerDelegate {
         if (imageCount < MaxImageCount) {
             let addPictureButton = UIButton(frame: CGRectMake(10 + CGFloat(imageCount%4)*(pictureHW+10), 286 + 10 + CGFloat(imageCount/4)*(pictureHW+10), pictureHW, pictureHW))
             addPictureButton.setBackgroundImage(UIImage(named: "addPictures"), forState:UIControlState.Normal)
-            addPictureButton.addTarget(self, action: #selector(UpImageController.addPicture), forControlEvents: UIControlEvents.TouchUpInside)
+            addPictureButton.addTarget(self, action: #selector(UpImageController.addPicture2), forControlEvents: UIControlEvents.TouchUpInside)
             view.addSubview(addPictureButton)
         }
     }
     
-    func addPicture(){
+    func addPicture1(){
+       self.imageClass = 1
        iconActionSheet.showInView(self.view)
+    }
+    func addPicture2(){
+        self.imageClass = 2
+        iconActionSheet.showInView(self.view)
     }
 }
 /// MARK: UIActionSheetDelegate
@@ -134,7 +139,6 @@ extension UpImageController: UIImagePickerControllerDelegate {
     private func openCamera() {
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             pickVC.sourceType = .Camera
-            imageClass = 1
             self.presentViewController(pickVC, animated: true, completion: nil)
         } else {
             SVProgressHUD.showErrorWithStatus("模拟器没有摄像头,请链接真机调试", maskType: SVProgressHUDMaskType.Black)
@@ -145,7 +149,6 @@ extension UpImageController: UIImagePickerControllerDelegate {
     private func openUserPhotoLibrary() {
         pickVC.sourceType = .PhotoLibrary
         pickVC.allowsEditing = true
-        imageClass = 2
         presentViewController(pickVC, animated: true, completion: nil)
     }
     
@@ -174,7 +177,12 @@ extension UpImageController: UIImagePickerControllerDelegate {
                                 case .Success(let upload, _, _):upload.responseJSON(completionHandler: { (response) -> Void in
                                     if response.result.isSuccess {
                                         SVProgressHUD.showSuccessWithStatus("图片上传成功", maskType: SVProgressHUDMaskType.Black)
-                                        self.initImageUI(data)
+                                        if self.imageClass == 1 {
+                                            self.initSmallImageUI(data)
+                                        }
+                                        else {
+                                            self.initImageUI(data)
+                                        }
                                     }
                                     
                                     else {

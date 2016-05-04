@@ -76,12 +76,11 @@ class shopView: UIView {
             if discountPriceView != nil {
                 discountPriceView!.removeFromSuperview()
             }
-            var marketPrice: String?
             if goods?.discountPrice != nil {
-                let markePrice = Double(goods!.itemSalePrice)! + Double(goods!.discountPrice!)!
-                marketPrice = "\(markePrice)"
+                discountPriceView = DiscountPriceView(price: "\(goods!.discountPrice!)", marketPrice: "\(goods!.itemSalePrice!)")
+            } else {
+                discountPriceView = DiscountPriceView(price: "\(goods!.itemSalePrice!)", marketPrice: nil)
             }
-            discountPriceView = DiscountPriceView(price: "\(goods!.itemSalePrice!)", marketPrice: marketPrice)
             addSubview(discountPriceView!)
             buyLabel.text = "😍\(goods!.itemBynum1)"
         }

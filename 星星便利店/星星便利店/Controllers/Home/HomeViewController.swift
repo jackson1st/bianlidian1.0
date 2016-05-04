@@ -35,12 +35,6 @@ class HomeViewController: SelectedAdressViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
-        weak var tmpSelf = self
-        tmpSelf?.giftButton.edge = String((DataCenter.shareDataCenter.canGetCoupons.filter({ (GiftModel) -> Bool in
-            GiftModel.status == 0
-        }).count))
-        buildCollectionView()
-        initGiftModel()
     }
     
     
@@ -60,6 +54,11 @@ class HomeViewController: SelectedAdressViewController {
                 GiftModel.status == 0
             }).count))
         }
+        
+        let tabBarController = UIApplication.sharedApplication().keyWindow?.rootViewController as! RootTabBarController
+        let vc1 = tabBarController.childViewControllers[1] as! BaseNavigationController
+        let vc = vc1.viewControllers[0] as! SortViewController
+        vc.restartData(nil)
     }
     private func buildCollectionView() {
         let layout = UICollectionViewFlowLayout()
@@ -88,7 +87,7 @@ class HomeViewController: SelectedAdressViewController {
     func headRefresh() {
         headData = nil
         freshHot = nil
-        
+        initGiftModel()
         weak var tmpSelf = self
         loadDataFromNet()
         tmpSelf?.collectionView.mj_header.endRefreshing()
@@ -336,9 +335,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if indexPath.section == 0 {
             itemNo = freshHot?.itemlist[indexPath.row].itemNo
             self.performSegueWithIdentifier("showHome", sender: nil)
-        } else {
+        } else if indexPath.section == 1{
             itemNo = hotData?.itemlist[indexPath.row].itemNo
             self.performSegueWithIdentifier("showHome", sender: nil)
+        }
+        else {
+            let tabBarController = UIApplication.sharedApplication().keyWindow?.rootViewController as! RootTabBarController
+            tabBarController.setSelectIndex(indexPath.row)
         }
     }
     

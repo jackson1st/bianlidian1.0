@@ -20,9 +20,13 @@ extension String {
         var offset = newStr.length - 1
         while offset > 0 {
             s = newStr.substringWithRange(NSMakeRange(offset, 1))
-            if s.isEqualToString("0") || s.isEqualToString(".") {
-                offset--
-            } else {
+            if s.isEqualToString("0") {
+                offset -= 1
+            } else if s.isEqualToString("."){
+                offset -= 1
+                break
+            }
+            else {
                 break
             }
         }

@@ -45,9 +45,11 @@ class UpImageViewController: UIViewController {
         searchTableView.addGestureRecognizer(tapGestureRecognizer)
         searchTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { 
             self.loadData(true)
+            searchTableView.mj_header.endRefreshing()
         })
         searchTableView.mj_footer = MJRefreshBackFooter(refreshingBlock: { 
             self.loadData(false)
+            searchTableView.mj_footer.endRefreshing()
         })
         
         return searchTableView
